@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 
@@ -32,8 +32,17 @@ const PurchaseForm = React.lazy(() =>
   import("./purchaseform/pages/PurchaseForm")
 );
 
+const PrivateRoute = ({ element, path }) => {
+  const isAuthenticated = localStorage.getItem("accessToken") !== null;
+
+  if (isAuthenticated) {
+    return element;
+  } else {
+    return <Navigate to="/login" />;
+  }
+};
+
 function App() {
-  const accessToken = localStorage.getItem("accessToken");
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -46,28 +55,24 @@ function App() {
               <Route path="/main" exact element={<Main />} />
               <Route
                 path="/main/rating"
-                element={accessToken ? <Rating /> : <Navigate to="/login" />}
+                element={<PrivateRoute element={<Rating />} />}
               />
               <Route
                 path="/main/goods/*"
-                element={
-                  accessToken ? <Goodsroute /> : <Navigate to="/login" />
-                }
+                element={<PrivateRoute element={<Goodsroute />} />}
               />
 
               <Route
                 path="/admin/*"
-                element={accessToken ? <Admin /> : <Navigate to="/login" />}
+                element={<PrivateRoute element={<Admin />} />}
               />
               <Route
                 path="/mypage"
-                element={accessToken ? <Mypage /> : <Navigate to="/login" />}
+                element={<PrivateRoute element={<Mypage />} />}
               />
               <Route
                 path="/main/ratingsystem"
-                element={
-                  accessToken ? <Ratingsystem /> : <Navigate to="/login" />
-                }
+                element={<PrivateRoute element={<Ratingsystem />} />}
               />
               <Route path="/loading" element={<Loading />} />
               <Route
@@ -81,7 +86,10 @@ function App() {
               <Route path="/process" element={<Process />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" exact element={<Signup />} />
-              <Route path="/purchaseform" element={<PurchaseForm />} />
+              <Route
+                path="/purchaseform"
+                element={<PrivateRoute element={<PurchaseForm />} />}
+              />
             </Routes>
           </Suspense>
         </main>
