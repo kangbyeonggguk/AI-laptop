@@ -1,0 +1,435 @@
+.purchase-container {
+    position: relative;
+    text-align: center;
+    font-family: "Pretendard-Regular";
+}
+
+.rectangle {
+    width: 100%;
+    height: 21.75rem;
+}
+
+.purchase-overlay {
+    position: absolute;
+    top: 10rem;
+    left: 32%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.text-section {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-right: 1.4375rem;
+}
+
+.text-section2 {
+    font-size: 1rem;
+    margin-top: 0.625rem;
+    margin-left: 6.875rem;
+    margin-bottom: 3rem;
+    width: 28rem;
+    text-align: left;
+    font-weight: 400;
+}
+
+.text-section3 {
+    display: none;
+}
+
+.go_ratingsystem {
+    text-decoration: none;
+    color: #759CFF;
+    background-color: white;
+    padding: 0.625rem 2.21875rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin-right: 10.9375rem;
+    width: 10rem;
+    height: 2.5rem;
+    border-radius: 0.25rem;
+    border: 0.03125rem solid #759CFF;
+
+}
+
+.main_text {
+    margin-top: 3.1875rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.main_text2 {
+    color: #808080;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.purchase-form {
+    margin-top: 4.625rem;
+}
+
+.purchase-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 45rem;
+}
+
+.purchase-input {
+    width: 43rem;
+    height: 2.875rem;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid #4F80FF;
+    padding-left: 1.875rem;
+    font-family: "Pretendard-Regular";
+    margin-bottom: 2.1875rem;
+    margin-top: 0.25rem;
+}
+
+.purchase-input::placeholder {
+    color: #B3B3B3
+}
+
+.img-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 0.03125rem;
+    grid-row-gap: 0.3125rem;
+    justify-content: center;
+    align-items: center;
+    max-width: 0.8125rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+    gap: 0.625rem;
+}
+
+.img_box {
+    width: 22.1875rem;
+    height: 13.125rem;
+    background-color: #F0F4FF;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid #759CFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.instruction-image {
+    width: 8.75rem;
+    height: 8.75rem;
+    margin-bottom: 0.9375rem;
+}
+
+.button-img {
+    width: 1.875rem;
+    height: 1.875rem;
+    position: absolute;
+    margin-left: 18.125rem;
+    margin-bottom: 8.75rem;
+    cursor: pointer;
+}
+
+.modal-head {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Pretendard-Regular";
+}
+
+.title-text {
+    font-weight: 700;
+    margin-top: 0.4375rem;
+}
+
+.close-btn {
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.6875rem;
+    cursor: pointer;
+}
+
+.uploaded-file {
+    color: #4F80FF;
+    font-family: "Pretendard-Regular";
+    font-weight: 700;
+}
+
+.file-icon {
+    width: 1.875rem;
+    height: 1.875rem;
+    vertical-align: middle;
+}
+
+.drop-content {
+    text-align: center;
+}
+
+.here-drag {
+    color: #B3B3B3;
+    margin-top: 5.5625rem;
+    font-weight: 700;
+}
+
+.select-btn {
+    width: 8.75rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    gap: 0.625rem;
+    font-size: 0.75rem;
+    border: 0 solid;
+    font-family: "Pretendard-Regular"
+}
+
+.modal-btns {
+    margin-left: 24.0625rem;
+    margin-bottom: 0.6875rem;
+    margin-top: 1.4375rem;
+}
+
+.cancel-btn {
+    width: 10rem;
+    height: 2.5rem;
+    background-color: #F3F3F3;
+    border-radius: 0.25rem;
+    border: solid #F3F3F3;
+    margin-right: 0.5rem;
+    color: #CCCCCC;
+    font-size: 0.875rem;
+    font-family: "Pretendard-Regular";
+    cursor: pointer;
+}
+
+.upload-btn {
+    width: 10rem;
+    height: 2.5rem;
+    background-color: #F3F3F3;
+    border-radius: 0.25rem;
+    border: 0 solid #F3F3F3;
+    color: #CCCCCC;
+    font-size: 0.875rem;
+    font-family: "Pretendard-Regular";
+}
+
+.cancel-btn.uploaded {
+    background-color: #FAFBFF;
+    color: #759CFF;
+    border: 0.03125rem solid #759CFF;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.upload-btn.uploaded {
+    background-color: #4F80FF;
+    color: #fff;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.bottom-btn {
+    margin-top: 2.15625rem;
+    margin-left: 24.8125rem;
+    display: flex;
+    justify-content: center;
+}
+
+.reset_btn {
+    width: 10rem;
+    height: 2.5rem;
+    margin-right: 0.5rem;
+    border-radius: 0.25rem;
+    border: 0.03125rem solid #759CFF;
+    background-color: #FAFBFF;
+    color: #759CFF;
+    font-family: "Pretendard-Regular";
+    cursor: pointer;
+}
+
+.rank_btn {
+    width: 10rem;
+    height: 2.5rem;
+    border-radius: 0.25rem;
+    border: 0.03125rem solid;
+    background-color: #4F80FF;
+    color: #FAFBFF;
+    font-family: "Pretendard-Regular";
+    cursor: pointer;
+
+}
+
+.ins-image {
+    display: none;
+}
+
+.drop-zone {
+    width: 41.9375rem;
+    height: 15.25rem;
+    border: 0.125rem dashed #CCCCCC;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+    margin: auto;
+    position: relative;
+    margin-top: 0.875rem;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5),
+}
+
+@media (max-width: 768px) {
+
+    .rectangle {
+        width: 100%;
+        height: 8.125rem;
+    }
+
+    .text-section {
+        font-size: 1.25rem;
+        margin-top: -6.875rem;
+        margin-right: 3.4375rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .text-section2 {
+        display: none;
+    }
+
+    .text-section3 {
+        display: block;
+        font-size: 0.75rem;
+    }
+
+    .go_ratingsystem {
+        position: absolute;
+        font-size: 0.75rem;
+        width: 4.75rem;
+        height: 1.0625rem;
+        margin-top: -2.25rem;
+        margin-left: 8.4375rem;
+        padding: 0.46875rem 1.25rem 0.46875rem 1.25rem;
+        border-radius: 0.5rem;
+    }
+
+    .main_text {
+        margin-top: 1.5rem;
+        font-size: 1rem;
+    }
+
+    .main_text2 {
+        font-size: 0.75rem;
+    }
+
+    .purchase-form {
+        margin-top: 1.5rem;
+        margin-bottom: 10.25rem;
+    }
+
+    .purchase-label {
+        margin-left: 0.6875rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .purchase-input {
+        width: 21rem;
+        width: calc(100% - 3.4375rem);
+        margin-bottom: 0.5rem;
+    }
+
+    .bottom-btn {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        justify-content: center;
+        margin-top: 10.625rem;
+    }
+
+    .reset_btn {
+        width: 11.280625rem;
+        height: 2.5rem;
+        margin-right: 0.0625rem;
+    }
+
+    .next-button {
+        width: 11.280625rem;
+        height: 2.5rem;
+        border-radius: 0.25rem;
+        border: 0.03125rem solid;
+        background-color: #4F80FF;
+        color: #FAFBFF;
+        font-family: "Pretendard-Regular";
+    }
+
+    .purchase-input::placeholder {
+        font-size: 0.875rem;
+    }
+
+    .instruction-image {
+        display: none;
+    }
+
+    .img_box {
+        width: 11.25rem;
+        height: 6.716875rem;
+        margin-top: 0;
+
+    }
+
+    .ins-image {
+        display: block;
+        width: 7.6875rem;
+        height: 5.625rem;
+
+    }
+
+    .button-img {
+        margin-left: 8.75rem;
+        margin-top: 4.6875rem;
+
+    }
+
+    .mobile2 .purchase-label {
+        margin-top: 1.5rem;
+    }
+
+    .img-grid {
+        gap: 0.46875rem;
+    }
+
+    .rank_btn {
+        width: 11.280625rem;
+        height: 2.5rem;
+        margin-left: 0.5rem;
+    }
+
+    .ReactModal__Content {
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-6%);
+
+    }
+
+    .title-text {
+        margin: 0;
+
+    }
+
+    .drop-zone {
+        width: 17.53125rem;
+        height: 10.625rem;
+        margin-top: 1.125rem;
+        margin-bottom: 1.875rem;
+    }
+
+    .modal-btns {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .here-drag {
+        margin-top: 3rem;
+    }
+}

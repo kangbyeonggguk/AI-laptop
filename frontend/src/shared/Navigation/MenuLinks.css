@@ -1,0 +1,10 @@
+.header_links_menu_list {
+  width: 4.5rem;
+}
+.header_links_menu_list a {
+  text-decoration: none;
+  font-size: 0.875rem;
+  color: #333333;
+  font-weight: bold;
+  font-family: "Pretendard-Regular";
+}

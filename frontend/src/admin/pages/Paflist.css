@@ -1,0 +1,133 @@
+.paflist {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* padding-left: 11.25rem; */
+}
+.paflist_search {
+  margin-top: 2.5rem;
+  width: 49.875rem;
+  height: 3rem;
+  border: solid 1px #759cff;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  background-image: url("../../../public/img/admin/search.png");
+  background-size: 1.125rem 1.125rem;
+  background-repeat: no-repeat;
+  background-position: 1rem 0.9375rem;
+  padding-left: 3.125rem;
+  padding-right: 0;
+}
+.paflist_search::placeholder {
+  color: #cccccc;
+}
+.paflist_search:focus {
+  outline: none;
+  box-shadow: none;
+}
+.paflist_title {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  height: 1.4375rem;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.pafilist_main_listtop {
+  height: 3.25rem;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px #999999;
+}
+.pafilist_main_listtop span {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.pafilist_main_list {
+  height: 3.25rem;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px #999999;
+}
+.pafilist_main_list {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px #999999;
+}
+.pafilist_main_list span {
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+.paflist_main_moreimg {
+  width: 0.3125rem;
+  height: 0.545625rem;
+}
+.paflist_page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.paflist-modal {
+  width: 45.1875rem;
+  height: 52.3125rem;
+  padding: 3.25rem 3.25rem;
+}
+.paflist-modal_title {
+  display: block;
+  height: 2.1875rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.paflist-modal_name {
+  height: 1.4375rem;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.paflist-modal_des {
+  width: 41.375rem;
+  height: 1.25rem;
+  border: solid 1px #b3b3b3;
+  font-size: 0.875rem;
+  font-weight: 400;
+  border-radius: 5px;
+  padding: 0.9375rem 1.875rem;
+  margin-bottom: 1.5rem;
+  overflow: auto;
+}
+.paflist-modal_imgcontain {
+  width: 45.1875rem;
+  height: 26.9375rem;
+}
+.paflist-modal_imgbox {
+  width: 22.1875rem;
+  height: 13rem;
+  border: solid 1px #759cff;
+  border-radius: 5px;
+  background: #f0f4ff;
+  margin-bottom: 0.6875rem;
+}
+.paflist-modal_img {
+  width: 100%;
+  height: 100%;
+}
+.paflist_modal_cancle {
+  width: 1.25rem;
+  height: 1.25rem;
+  position: absolute;
+  top: 6.3761%;
+  right: 6.4%;
+  cursor: pointer;
+}
+.paflist-modal_img_enlarge {
+  width: 45.6875rem;
+  height: 27rem;
+}
+.paflist-modal_img_enlarge_img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

@@ -1,0 +1,90 @@
+.filterimg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.filter {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #4f80ff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.filter-modal {
+  width: 15.25rem;
+  padding: 1.625rem 1.4375rem;
+}
+.filter-modal_title {
+  display: flex;
+  justify-content: space-between;
+}
+.filter-modal_title_text {
+  width: 1.75rem;
+  height: 1.4375rem;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.filter-modal_title_cancle {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+.filter-modal_date {
+  margin-top: 1.9375rem;
+  width: 1.5625rem;
+  height: 1.25rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.filter-modal_menu {
+  margin-top: 0.5rem;
+  height: 1.5625rem;
+  margin-right: 0.5rem;
+  padding: 0 1rem;
+  border: solid 1px #cccccc;
+  border-radius: 99px;
+  color: #cccccc;
+  font-weight: 400;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.filter-modal_menu_active {
+  color: #759cff;
+  border-color: #759cff;
+}
+.filter-modal_name {
+  margin-top: 1.5rem;
+  width: 1.5625rem;
+  height: 1.25rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.filter-modal_savebtn {
+  width: 7.5rem;
+  height: 2.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #ffffff;
+  background-color: #4f80ff;
+  border-radius: 4px;
+  margin-top: 1.875rem;
+  margin-right: 0.375rem;
+  cursor: pointer;
+}
+.filter-modal_canclebtn {
+  width: 7.5rem;
+  height: 2.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #4f80ff;
+  background-color: #ffffff;
+  border: solid 1px #4f80ff;
+  border-radius: 4px;
+  margin-top: 1.875rem;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .filter {
+    font-weight: 400;
+    font-size: 0.75rem;
+  }
+}

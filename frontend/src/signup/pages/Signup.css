@@ -1,0 +1,192 @@
+.signup-text {
+    margin-top: 9.4375rem;
+    text-align: center;
+    font-family: "Pretendard-Regular";
+}
+
+.signup-form {
+    margin-top: 2.6875rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.id-input {
+    width: 32.9375rem;
+    height: 2.875rem;
+    margin-right: 0.5rem;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid #4F80FF;
+    padding-left: 1rem;
+    font-family: "Pretendard-Regular";
+    margin-bottom: 2.1875rem;
+    margin-top: 0.25rem;
+}
+
+.double_check {
+    width: 11.6875rem;
+    height: 3.125rem;
+    border-radius: 0.3125rem;
+    color: white;
+    background-color: #4F80FF;
+    border: 0.0625rem solid #4F80FF;
+    font-size: 1rem;
+    margin-top: -2rem;
+    font-family: "Pretendard-Regular";
+    cursor: pointer;
+
+}
+
+.id-content {
+    display: flex;
+    align-items: center;
+}
+
+.signup-input {
+    width: 45.125rem;
+    height: 2.875rem;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid #4F80FF;
+    padding-left: 1rem;
+    font-family: "Pretendard-Regular";
+    margin-bottom: 2.1875rem;
+    margin-top: 0.25rem;
+    display: flex
+}
+
+.signup-bottom {
+    margin-top: 0.125rem;
+    display: flex;
+    justify-content: center;
+}
+
+.signup-label {
+    font-family: "Pretendard-Regular";
+}
+
+.reset_button {
+    width: 10rem;
+    height: 2.5rem;
+    margin-right: 0.25rem;
+    border-radius: 0.3125rem;
+    color: #4F80FF;
+    background-color: white;
+    border: 0.0625rem solid #4F80FF;
+    font-size: 0.875rem;
+    font-family: "Pretendard-Regular";
+    cursor: pointer;
+}
+
+.signup_button,
+.signup-next {
+    width: 10rem;
+    height: 2.5rem;
+    margin-left: 0.25rem;
+    border-radius: 0.3125rem;
+    color: white;
+    background-color: #4F80FF;
+    border: 0.0625rem solid #4F80FF;
+    font-size: 0.875rem;
+    font-family: "Pretendard-Regular";
+    cursor: pointer;
+}
+
+.id-input,
+.signup-input:focus {
+    outline: none;
+    /* 포커스 효과 제거 */
+}
+
+.password_mismatch {
+    color: red;
+    margin-top: -1.9375rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.75rem;
+}
+
+.error-border {
+    border: 0.0625rem solid red;
+}
+
+.isuserid_available {
+    color: #759CFF;
+    margin-top: -1.9375rem;
+    margin-bottom: 1.5rem;
+    /* margin-right: 36.5625rem; */
+    font-size: 0.75rem;
+}
+
+.isuserid_available.used {
+    color: red;
+}
+
+.invalid_email {
+    color: red;
+    margin-top: -1.9375rem;
+    margin-bottom: 1.5rem;
+    margin-right: 32.1875rem;
+    font-size: 0.75rem;
+}
+
+.id-input::placeholder {
+    color: #B3B3B3;
+    padding: 0.875rem;
+
+}
+
+.signup-input::placeholder {
+    color: #B3B3B3;
+    padding: 0.875rem;
+}
+
+
+@media (max-width: 768px) {
+    .signup-text {
+        margin-top: 5.8125rem;
+        font-size: 1.5rem;
+    }
+
+    .signup-form {
+        margin-top: 1.5rem;
+    }
+
+    .id-input {
+        width: 14.896875rem;
+    }
+
+    .signup-input {
+        width: 21.875rem;
+        margin-right: 0;
+        margin-top: 0.25rem;
+        margin-bottom: 2.1875rem;
+    }
+
+    .signup-label {
+        margin-right: 16.75rem;
+    }
+
+    .password_mismatch {}
+
+    .isuserid_available {
+        margin-right: 15.3125rem;
+    }
+
+    .invalid_email {
+        margin-right: 9.0625rem;
+    }
+
+    .double_check {
+        width: 6.375rem;
+        height: 3.125rem;
+    }
+
+    .reset_button,
+    .signup_button,
+    .signup-next {
+        width: 11.280625rem;
+    }
+
+    .signup-bottom {
+        margin-top: 15.5rem;
+    }
+}

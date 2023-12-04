@@ -1,0 +1,124 @@
+.mypage-auth_title {
+  margin-top: 7rem;
+  height: 3.625rem;
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+.mypage-auth_contentcontain {
+  margin-top: 3.5rem;
+  width: 45.125rem;
+}
+.mypage-auth_content {
+  width: 45.125rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.3125rem;
+}
+.mypage-auth_content_name {
+  height: 1.4375rem;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.mypage-auth_content_input {
+  height: 1.125rem;
+  border: solid 1px #759cff;
+  border-radius: 5px;
+  padding: 0.9375rem 1.875rem;
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+.mypage-auth_content_input2 {
+  width: 29.1875rem;
+  height: 1.125rem;
+  border: solid 1px #759cff;
+  border-radius: 5px;
+  padding: 0.9375rem 1.875rem;
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+.mypage-auth_content_input:focus,
+.mypage-auth_content_input2:focus {
+  outline: none;
+}
+.mypage-auth_content_err {
+  margin-top: 0.4375rem;
+  height: 0.625rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: #759cff;
+}
+.mypage-auth_btncontain {
+  display: flex;
+  margin-top: 5.1875rem;
+}
+.mypage-auth_content_btn {
+  margin-left: 0.5rem;
+  width: 11.6875rem;
+  height: 3.3125rem;
+  border-radius: 5px;
+  background-color: #4f80ff;
+  border: none;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+.mypage-auth_btn {
+  width: 10rem;
+  height: 2.5rem;
+  border: solid 0.5px #759cff;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #759cff;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .mypage-auth_title {
+    margin-top: 2.5rem;
+    height: 2.1875rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .mypage-auth_contentcontain {
+    margin-top: 1.5rem;
+    width: 23.125rem;
+  }
+  .mypage-auth_content {
+    width: 23.125rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+  }
+  .mypage-auth_content_name {
+    height: 1.4375rem;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .mypage-auth_content_input {
+    height: 1.125rem;
+  }
+  .mypage-auth_content_input2 {
+    width: 16.14625rem;
+  }
+  .mypage-auth_content_input:focus {
+    outline: none;
+  }
+  .mypage-auth_content_err {
+    margin-top: 0.1875rem;
+    height: 0.9375rem;
+  }
+  .mypage-auth_btncontain {
+    margin-top: 3.9375rem;
+  }
+  .mypage-auth_content_btn {
+    margin-left: 0.60375rem;
+    width: 6.375rem;
+    height: 3.125rem;
+  }
+  .mypage-auth_btn {
+    width: 11.280625rem;
+    height: 2.5rem;
+  }
+}

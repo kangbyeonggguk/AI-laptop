@@ -1,0 +1,51 @@
+.mobile-navi {
+  width: 100%;
+  height: 4.75rem;
+  position: fixed;
+  background: #ffffff;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: none;
+}
+.mobile-navi img {
+  width: 4.375rem;
+  height: 4.75rem;
+  margin: 0 2vw;
+  /* filter: grayscale(10);
+  opacity: 0.5; */
+}
+.menu1:hover,
+.menu1:active,
+.menu1.active {
+  content: url(../../../public/img/navbar/menu1-1.png);
+}
+.menu2:hover,
+.menu2:active,
+.menu2.active {
+  content: url(../../../public/img/navbar/menu2-1.png);
+}
+.menu3:hover,
+.menu3:active,
+.menu3.active {
+  content: url(../../../public/img/navbar/menu3-1.png);
+}
+.menu4:hover,
+.menu4:active,
+.menu4.active {
+  content: url(../../../public/img/navbar/menu4-1.png);
+}
+
+/* .mobile-navi img:hover,
+.mobile-navi img:active,
+.mobile-navi img.active {
+  filter: grayscale(0);
+  opacity: 1;
+} */
+
+@media (max-width: 768px) {
+  .mobile-navi {
+    display: flex;
+    justify-content: center;
+  }
+}

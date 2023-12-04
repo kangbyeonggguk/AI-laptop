@@ -1,0 +1,36 @@
+.ratingsystem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.ratingsystem_ratingcontain {
+  width: 65rem;
+  margin-top: 3.4375rem;
+  display: flex;
+  justify-content: space-between;
+}
+.ratingsystem_image {
+  margin-top: 2.375rem;
+  width: 47.1875rem;
+  height: 24.75rem;
+}
+@media (max-width: 768px) {
+  .ratingsystem_ratingcontain {
+    width: 25.1225rem;
+    margin-top: 0.9375rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .ratingsystem_image {
+    margin-top: 0.875rem;
+    width: 21.9375rem;
+    height: 11.50625rem;
+  }
+  .mobile-contain {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

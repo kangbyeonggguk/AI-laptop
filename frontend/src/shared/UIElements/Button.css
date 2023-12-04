@@ -1,0 +1,28 @@
+.button {
+    font-family: "Pretendard-Regular";
+
+    text-align: center;
+    font-size: 14px;
+    line-height: 20.16px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    /* 수평 가운데 정렬 */
+    align-items: center;
+    /* 수직 가운데 정렬 */
+    cursor: pointer;
+}
+
+
+.active_button {
+    background-color: var(--rankColor);
+    color: white;
+    margin-left: 8px;
+    border: 0px solid transparent
+}
+
+.inactive_button {
+    color: var(--buttonColor);
+    border: 0.5px solid var(--buttonColor);
+    background-color: #FAFBFF;
+}

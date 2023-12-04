@@ -1,0 +1,12 @@
+.mypage-edit_img {
+  margin-top: 4.75rem;
+  width: 14.25rem;
+  height: 14.25rem;
+}
+@media (max-width: 768px) {
+  .mypage-edit_img {
+    margin-top: 2.5rem;
+    width: 7.125rem;
+    height: 7.125rem;
+  }
+}
