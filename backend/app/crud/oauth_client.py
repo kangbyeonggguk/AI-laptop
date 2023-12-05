@@ -24,6 +24,18 @@ class OAuthClient:
         self._header_name = "Authorization"
         self._header_type = "Bearer"
 
+    def get_value_based_on_parameter(self, parameter):
+        if parameter == "client_id":
+            return self._client_id
+        elif parameter == "client_secret_id":
+            return self._client_secret_id
+        elif parameter == "redirect_uri":
+            return self._redirect_uri
+        elif parameter == "authentication_uri":
+            return self._authentication_uri
+        else:
+            return None  
+
     def _get_connector_for_ssl(self) -> aiohttp.TCPConnector:
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         return aiohttp.TCPConnector(ssl=ssl_context)

@@ -47,3 +47,5 @@ def get_account_info(db: Session, token: str):
     return db.query(Account).filter(Account.account_id == token_id).first()
 
 
+
+

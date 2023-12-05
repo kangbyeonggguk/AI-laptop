@@ -6,7 +6,7 @@ import Mypageauth from "./Mypageauth";
 import Mypageedit from "./Mypageedit";
 
 const Mypage = () => {
-  const [authcheck, setAuthCheck] = useState(true);
+  const [authcheck, setAuthCheck] = useState(false);
 
   return (
     <div className="mypage-auth">

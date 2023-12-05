@@ -16,8 +16,8 @@ class Account(Base):
     admin = Column(BOOLEAN, nullable=False)  # true, false
     password = Column(String(255), nullable=False)
     nickname = Column(String(16), nullable=False)
-    email = Column(String(255), unique=True, nullable=False)
-    phonenumber = Column(String(255), unique=True, nullable=False)
+    email = Column(String(255), unique=False, nullable=False)
+    phonenumber = Column(String(255), unique=False, nullable=False)
     create_date = Column(
         DateTime, nullable=True, default=datetime.now(pytz.timezone("Asia/Seoul"))
     )
