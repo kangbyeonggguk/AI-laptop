@@ -57,9 +57,9 @@ naver_client = OAuthClient(
 )
 
 kakao_client = OAuthClient(
-    client_id="your_client_id",
+    client_id="3a8a581619662b5a126943e55dfda42f",
     client_secret_id="your_client_secret_id",
-    redirect_uri="your_callback_uri",
+    redirect_uri="https://localhost:3000/auth",
     authentication_uri="https://kauth.kakao.com/oauth",
     resource_uri="https://kapi.kakao.com/v2/user/me",
     verify_uri="https://kapi.kakao.com/v1/user/access_token_info",
