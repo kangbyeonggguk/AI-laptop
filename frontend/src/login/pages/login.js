@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook"; //api호출 훅 불러오기
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/actions/userActions";
+import { useParams } from "react-router-dom";
 
 import "./login.css";
 
@@ -10,10 +11,6 @@ const Rest_api_key = "3a8a581619662b5a126943e55dfda42f"; // REST API KEY
 const redirect_uri = "http://localhost:3000/auth"; // Redirect URI
 // OAuth 요청 URL
 const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${`3a8a581619662b5a126943e55dfda42f`}&redirect_uri=${`https://localhost:3000/auth`}&response_type=code`;
-
-const kakaoHandleLogin = () => {
-  window.location.href = kakaoURL;
-};
 
 const code = new URL(window.location.href).searchParams.get("code");
 console.log(code);
@@ -35,6 +32,37 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { code } = useParams(); // useParams로 라우터 파라미터를 받아옵니다.
+
+  useEffect(() => {
+    const handleCodeReceived = async () => {
+      const code = new URL(window.location.href).searchParams.get("code");
+      console.log(code);
+
+      if (code) {
+        try {
+          const responseData = await sendRequest(
+            "http://127.0.0.1:8000/",
+            "POST",
+            JSON.stringify({ code }),
+            {
+              "Content-Type": "application/json",
+            }
+          );
+
+          console.log("Response from backend:", responseData);
+        } catch (error) {
+          console.error("Error sending code to backend:", error.message);
+        }
+      }
+    };
+
+    handleCodeReceived();
+  }, [code, sendRequest]);
+
+  const kakaoHandleLogin = () => {
+    window.location.href = kakaoURL;
+  };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -60,36 +88,20 @@ const Login = () => {
       );
 
       const { access_token, refresh_token } = responseData;
-      // 토큰 갱신을 위한 타이머 설정 함수
-      const checkTokenExpiration = () => {
-        const expirationTime = localStorage.getItem("accessTokenExpiration");
-        if (expirationTime) {
-          const now = new Date();
-          const expiration = new Date(expirationTime);
-          const timeUntilExpiration = expiration - now;
 
-          // 만료 시간 5분 전에 갱신
-          const refreshTime = 5 * 60 * 1000;
-          if (timeUntilExpiration < refreshTime) {
-            // 만료 5분 전이면 토큰 갱신
-            refreshAccessToken();
-          }
-        }
-      };
-
-      const expires_in = 3600;
-
+      const expires_in = 10;
       const expirationTime = Date.now() + expires_in * 1000;
 
       dispatch({ type: "LOGIN_USER" });
 
       localStorage.setItem("isLoggedIn", "true");
-
       localStorage.setItem("accessToken", access_token);
       localStorage.setItem("refreshToken", refresh_token);
       localStorage.setItem("accessTokenExpiration", expirationTime);
 
       console.log(responseData.access_token);
+
+      checkTokenExpiration();
 
       setError(null);
       navigate("/");
@@ -98,45 +110,52 @@ const Login = () => {
     }
   };
 
-  const refreshAccessToken = async (refreshTokenKey) => {
+  const checkTokenExpiration = async () => {
+    const expirationTime = localStorage.getItem("accessTokenExpiration");
+    if (expirationTime) {
+      const now = new Date();
+      const expiration = new Date(expirationTime);
+      const timeUntilExpiration = expiration - now;
+
+      console.log("현재 시간:", now);
+      console.log("만료 시간:", expiration);
+      console.log("만료까지 남은 시간:", timeUntilExpiration);
+
+      const refreshTime = 5 * 60 * 1000;
+      if (timeUntilExpiration < refreshTime) {
+        await refreshAccessToken();
+      }
+    }
+  };
+
+  const refreshAccessToken = async () => {
     try {
-      if (!refreshTokenKey) {
-        console.error("refreshTokenKey가 비어있거나 전달되지 않았습니다.");
+      const refreshToken = localStorage.getItem("refreshToken");
+      if (!refreshToken) {
+        console.error("리프레시 토큰이 없습니다.");
         return;
       }
 
-      const accessToken = localStorage.getItem("accessToken");
-      const expirationTime = localStorage.getItem("accessTokenExpiration");
+      const url = new URL("http://127.0.0.1:8000/accounts/refresh-token");
+      url.searchParams.append("refresh_token_key", refreshToken);
 
-      if (!accessToken || !expirationTime) {
-        console.error("저장된 액세스 토큰 또는 만료 시간이 없습니다.");
-        return;
-      }
+      const responseData = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refresh_token_key: refreshToken }),
+      });
 
-      // 만료 시간이 현재 시간보다 이전이라면 토큰을 갱신
-      const isTokenExpired = new Date(expirationTime) < new Date();
+      if (responseData.ok) {
+        const data = await responseData.json();
+        const newAccessToken = data.access_token;
 
-      if (isTokenExpired) {
-        const url = new URL("http://127.0.0.1:8000/accounts/refresh-token");
-        url.searchParams.append("refresh_token_key", refreshTokenKey);
-
-        const responseData = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (responseData.ok) {
-          const data = await responseData.json();
-          const newAccessToken = data.access_token;
-
-          localStorage.setItem("accessToken", newAccessToken);
-          console.log("토큰 재발급 성공!", newAccessToken);
-        } else {
-          console.error("토큰 재발급 요청에 실패했습니다.");
-          console.error("응답 상태:", responseData.status);
-        }
+        localStorage.setItem("accessToken", newAccessToken);
+        console.log("토큰 재발급 성공!", newAccessToken);
+      } else {
+        console.error("토큰 재발급 요청에 실패했습니다.");
+        console.error("응답 상태:", responseData.status);
       }
     } catch (error) {
       console.error("토큰 재발급 요청 중 오류가 발생했습니다.", error);
