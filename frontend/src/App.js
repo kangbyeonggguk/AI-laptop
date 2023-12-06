@@ -9,6 +9,7 @@ import "./App.css";
 import MainNavigation from "./shared/Navigation/MainNavigation";
 
 import AuthPage from "./login/pages/auth";
+import AuthNaverPage from "./login/pages/authnaver";
 
 const Main = React.lazy(() => import("./main/pages/Main"));
 const Mypage = React.lazy(() => import("./mypage/pages/Mypage"));
@@ -95,6 +96,7 @@ function App() {
                 element={<PrivateRoute element={<PurchaseForm />} />}
               />
               <Route exact path="/auth" Component={AuthPage} />
+              <Route exact path="/authnaver" Component={AuthNaverPage} />
             </Routes>
           </Suspense>
         </main>
