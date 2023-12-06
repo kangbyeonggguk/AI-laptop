@@ -26,6 +26,8 @@ class AccountCreate(BaseModel):
 class Token(BaseModel):
     access_token: str
     refresh_token: str
+    platform_type: str
+    admin: bool
 
 
 class AccountUpdate(BaseModel):

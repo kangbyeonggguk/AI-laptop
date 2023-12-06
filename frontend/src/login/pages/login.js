@@ -69,7 +69,6 @@ const Login = () => {
       setError("아이디와 비밀번호를 모두 입력해주세요.");
       return;
     }
-    console.log("로그인 시도:", id, password);
 
     try {
       const formData = new FormData();
@@ -93,7 +92,7 @@ const Login = () => {
       localStorage.setItem("refreshToken", refresh_token);
       localStorage.setItem("accessTokenExpiration", expirationTime);
 
-      console.log(responseData.access_token);
+      console.log(responseData.admin);
 
       checkTokenExpiration();
 

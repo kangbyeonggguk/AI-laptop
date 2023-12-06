@@ -44,6 +44,7 @@ def update_account(db: Session, token: str, account: AccountUpdate):
 
 def get_account_info(db: Session, token: str):
     token_id = int(util.decode_token(token))
+    print(token_id)
     return db.query(Account).filter(Account.account_id == token_id).first()
 
 

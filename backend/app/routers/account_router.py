@@ -44,8 +44,13 @@ async def account_login(form_data: OAuth2PasswordRequestForm = Depends(),
     refresh_token = util.create_refresh_token(account.account_id)
     rd.setex(refresh_token, two_weeks, account.account_id)
 
+    print(account.platform_type)
+    print(account.admin)
+
     return {"access_token": util.create_access_token(account.account_id),
-            "refresh_token": refresh_token}
+            "refresh_token": refresh_token,
+            "platform_type":account.platform_type,
+            "admin":account.admin}
 
 
 @router.post("/accounts/refresh-token", status_code=status.HTTP_200_OK)
@@ -66,74 +71,96 @@ async def account_logout(refresh_token_key: str):
 
 
 
-@router.post("/accounts/login/{sns}",status_code=status.HTTP_200_OK)
+@router.post("/accounts/login/{sns}",status_code=status.HTTP_200_OK,response_model=account_schema.Token)
 async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Session = Depends(db.session) ):
    
-    if oauthcode is None:
+    if oauthcode is None:#인가 코드 없으면 에러
          raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect oathcode",
             headers={"WWW-Authenticate": "Bearer"}
         )
     else:
-    
-  
         oauth_client=util.get_oauth_client(sns)
-        # redirect_uri = util.get_oauth_client(sns).get_value_based_on_parameter("redirect_uri")
        
-        # 카카오로부터 받은 코드를 사용하여 액세스 토큰 요청
-        token_url = "https://kauth.kakao.com/oauth/token"
-        data = {
-            "grant_type": "authorization_code",
-            "client_id": oauth_client.get_value_based_on_parameter("client_id"), 
-            #"client_secret": oauth_client(sns).client_secret_id, 
-            "redirect_uri": oauth_client.get_value_based_on_parameter("redirect_uri"),
-            "code": oauthcode,
-        } 
-        platform_type=""
+      
+        platform_type,user_url,token_url,data,account="","","",{},""
         if sns=="kakao":
             platform_type="K"
-        else:
+            user_url = "https://kapi.kakao.com/v2/user/me"
+            token_url = "https://kauth.kakao.com/oauth/token"
+            data = {
+                "grant_type": "authorization_code",
+                "client_id": oauth_client.get_value_based_on_parameter("client_id"), 
+                #"client_secret": oauth_client(sns).client_secret_id, 
+                "redirect_uri": oauth_client.get_value_based_on_parameter("redirect_uri"),
+                "code": oauthcode,
+            } 
+        elif sns=="naver":
             platform_type="N"
-      
+            user_url = "https://openapi.naver.com/v1/nid/me"
+            token_url = "https://nid.naver.com/oauth2.0/token"
+            data = {
+                "grant_type": "authorization_code",
+                "client_id": oauth_client.get_value_based_on_parameter("client_id"), 
+                "client_secret": oauth_client.get_value_based_on_parameter("client_secret_id"), 
+                "redirect_uri": oauth_client.get_value_based_on_parameter("redirect_uri"),
+                "code": oauthcode,
+                "state":"false",
+            } 
        
         try:
-            async with httpx.AsyncClient() as client:#카카오 토큰 요청
+            async with httpx.AsyncClient() as client:#토큰 요청
                 response = await client.post(token_url, data=data)
                 response_data = response.json()
 
             #토큰을 받게 될 시 유저 정보 가져오기    
-            user_url = "https://kapi.kakao.com/v2/user/me"
             headers = {"Authorization": f"Bearer {response_data['access_token']}"}
             async with httpx.AsyncClient() as client:
                 user_response = await client.get(user_url, headers=headers)
                 user_data = user_response.json()
-            
-            account=account_schema.AccountCreate(
-                id=str(user_data["id"]),
-                platform_type=platform_type,
-                admin=0,
-                password="kakaoid!",
-                nickname=user_data["properties"]["nickname"],
-                email="kakao@kakao.com",
-                phonenumber="010-1111-1111",
-                create_date=datetime.now(pytz.timezone("Asia/Seoul"))
-            )
-          
+            id=""
+            if platform_type=="K":
+                id=user_data["id"]
+                account=account_schema.AccountCreate(
+                    id=str(user_data["id"]),
+                    platform_type=platform_type,
+                    admin=0,
+                    password="kakaoid!",
+                    nickname=user_data["properties"]["nickname"],
+                    email="kakao@kakao.com",
+                    phonenumber="010-1111-1111",
+                    create_date=datetime.now(pytz.timezone("Asia/Seoul"))
+                )
+            elif platform_type=="N":
+                id=user_data["response"]["id"]
+                account=account_schema.AccountCreate(
+                    id=str(user_data["response"]["id"]),
+                    platform_type=platform_type,
+                    admin=0,
+                    password="naverid!",
+                    nickname=user_data["response"]["name"],
+                    email="naver@naver.com",
+                    phonenumber="010-1111-1111",
+                    create_date=datetime.now(pytz.timezone("Asia/Seoul"))
+                )
+
             # #유저 정보가 없다면 저장
-            check = account_crud.get_account(session, user_data["id"])
+            check = account_crud.get_account(session, id)
             if not check:
                 account_crud.create_account(db=session, account=account)
+                check = account_crud.get_account(session, id)
                 
 
             #리프레시 토큰과 액세스 토큰 발급 및 리턴
             rd = redis_config()
             two_weeks = 1209600
-            refresh_token = util.create_refresh_token(user_data["id"])
-            rd.setex(refresh_token, two_weeks, user_data["id"])
+            refresh_token = util.create_refresh_token(check.account_id)
+            rd.setex(refresh_token, two_weeks, check.account_id)
 
-            return {"access_token": util.create_access_token(user_data["id"]),
-            "refresh_token": refresh_token}
+            return {"access_token": util.create_access_token(check.account_id),
+            "refresh_token": refresh_token,"platform_type":check.platform_type,
+            "admin":check.admin}
         
         except httpx.HTTPError as http_error:
             # HTTP 요청이 실패한 경우에 대한 처리

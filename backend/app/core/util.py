@@ -48,9 +48,9 @@ def create_refresh_token(account):  # refresh_token 유효 기간 -> 1주일
 
 
 naver_client = OAuthClient(
-    client_id="your_client_id",
-    client_secret_id="your_client_secret_id",
-    redirect_uri="your_callback_uri",
+    client_id="VVPjzaZLMHYFfBStGKMf",
+    client_secret_id="w4lgzRd8IB",
+    redirect_uri="http://localhost:3000/authnaver",
     authentication_uri="https://nid.naver.com/oauth2.0",
     resource_uri="https://openapi.naver.com/v1/nid/me",
     verify_uri="https://openapi.naver.com/v1/nid/verify",
