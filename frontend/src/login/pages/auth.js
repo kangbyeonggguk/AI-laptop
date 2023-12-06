@@ -4,7 +4,7 @@ import { useHttpClient } from "../../shared/hooks/http-hook"; //api호출 훅 �
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-function AuthPage() {
+const AuthPage = () => {
   //   const location = useLocation();
 
   const { isLoading, sendRequest, clearError } = useHttpClient(); // useHttpClient 훅 사용
@@ -23,12 +23,9 @@ function AuthPage() {
           formData.append("oauthcode", code);
 
           const responseData = await sendRequest(
-            "http://127.0.0.1:8000/accounts/login/{sns}",
+            "http://127.0.0.1:8000/accounts/login/kakao",
             "POST",
-            formData,
-            {
-              "Content-Type": "multipart/form-data",
-            }
+            formData
           );
 
           console.log("Response from backend:", responseData);
@@ -42,7 +39,8 @@ function AuthPage() {
     };
 
     handleCodeReceived();
-  }, [code, sendRequest]);
-}
+  }, []);
+  return <></>;
+};
 
 export default AuthPage;

@@ -9,7 +9,6 @@ import { KAKAO_AUTH_URL } from "./Oauth";
 import "./login.css";
 
 const code = new URL(window.location.href).searchParams.get("code");
-console.log(code);
 
 const NAVER_CLIENT_ID = "VVPjzaZLMHYFfBStGKMf"; // 발급받은 클라이언트 아이디
 const REDIRECT_URI = "http://localhost:3000/auth"; // Callback URL
