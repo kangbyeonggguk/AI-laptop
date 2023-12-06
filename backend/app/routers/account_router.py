@@ -73,7 +73,7 @@ async def account_logout(refresh_token_key: str):
 
 @router.post("/accounts/login/{sns}",status_code=status.HTTP_200_OK,response_model=account_schema.Token)
 async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Session = Depends(db.session) ):
-   
+    
     if oauthcode is None:#인가 코드 없으면 에러
          raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -113,12 +113,13 @@ async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Sessio
             async with httpx.AsyncClient() as client:#토큰 요청
                 response = await client.post(token_url, data=data)
                 response_data = response.json()
-
+    
             #토큰을 받게 될 시 유저 정보 가져오기    
             headers = {"Authorization": f"Bearer {response_data['access_token']}"}
             async with httpx.AsyncClient() as client:
                 user_response = await client.get(user_url, headers=headers)
                 user_data = user_response.json()
+            
             id=""
             if platform_type=="K":
                 id=user_data["id"]
@@ -140,17 +141,17 @@ async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Sessio
                     admin=0,
                     password="naverid!",
                     nickname=user_data["response"]["name"],
-                    email="naver@naver.com",
-                    phonenumber="010-1111-1111",
+                    email=user_data["response"]["email"],
+                    phonenumber=user_data["response"]["mobile"],
                     create_date=datetime.now(pytz.timezone("Asia/Seoul"))
                 )
-
+            
             # #유저 정보가 없다면 저장
             check = account_crud.get_account(session, id)
+         
             if not check:
-                account_crud.create_account(db=session, account=account)
+                account_crud.create_account(db=session, account=account)  
                 check = account_crud.get_account(session, id)
-                
 
             #리프레시 토큰과 액세스 토큰 발급 및 리턴
             rd = redis_config()
