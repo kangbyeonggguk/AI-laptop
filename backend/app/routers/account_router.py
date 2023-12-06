@@ -1,6 +1,6 @@
 import secrets
 
-from fastapi import APIRouter, Header
+from fastapi import APIRouter, Header,Form
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import Optional
@@ -67,9 +67,9 @@ async def account_logout(refresh_token_key: str):
 
 
 @router.post("/accounts/login/{sns}",status_code=status.HTTP_200_OK)
-async def account_sns_login(sns: str,form_data:str=None,session: Session = Depends(db.session) ):
+async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Session = Depends(db.session) ):
    
-    if form_data is None:
+    if oauthcode is None:
          raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect oathcode",
@@ -77,7 +77,7 @@ async def account_sns_login(sns: str,form_data:str=None,session: Session = Depen
         )
     else:
     
-        oauthcode=form_data
+  
         oauth_client=util.get_oauth_client(sns)
         # redirect_uri = util.get_oauth_client(sns).get_value_based_on_parameter("redirect_uri")
        
