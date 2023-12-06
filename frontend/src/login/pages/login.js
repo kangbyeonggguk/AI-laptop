@@ -5,19 +5,11 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
 import { KAKAO_AUTH_URL } from "./Oauth";
+import { NAVER_AUTH_URL } from "./Oauthnaver";
 
 import "./login.css";
 
 const code = new URL(window.location.href).searchParams.get("code");
-
-const NAVER_CLIENT_ID = "VVPjzaZLMHYFfBStGKMf"; // 발급받은 클라이언트 아이디
-const REDIRECT_URI = "http://localhost:3000/auth"; // Callback URL
-const STATE = "False";
-const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${`VVPjzaZLMHYFfBStGKMf`}&state=${`False`}&redirect_uri=${`https://localhost:3000/auth`}`;
-
-const naverHandleLogin = () => {
-  window.location.href = NAVER_AUTH_URL;
-};
 
 const Login = () => {
   const { isLoading, sendRequest, clearError } = useHttpClient(); // useHttpClient 훅 사용
@@ -28,35 +20,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { code } = useParams();
-
-  useEffect(() => {
-    const handleCodeReceived = async () => {
-      const code = new URL(window.location.href).searchParams.get("code");
-      console.log(code);
-
-      if (code) {
-        try {
-          const formData = new FormData();
-          formData.append("oauthcode", code);
-
-          const responseData = await sendRequest(
-            "http://127.0.0.1:8000/accounts/login/{sns}",
-            "POST",
-            formData
-          );
-
-          console.log("Response from backend:", responseData);
-
-          localStorage.setItem("accessToken", responseData.access_token);
-          localStorage.setItem("refreshToken", responseData.refresh_token);
-        } catch (error) {
-          console.error("Error sending code to backend:", error.message);
-        }
-      }
-    };
-
-    handleCodeReceived();
-  }, [code, sendRequest]);
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -209,10 +172,10 @@ const Login = () => {
         </div>
 
         <div className="icon_wrapper">
-          <Link className="icon_text" onClick={naverHandleLogin}>
+          <a href={NAVER_AUTH_URL} className="icon_text">
             <img className="icons" src="/img/loginimg/Naver.png" alt="naver" />
             <p>네이버로 시작</p>
-          </Link>
+          </a>
         </div>
       </div>
     </div>
