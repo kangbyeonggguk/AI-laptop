@@ -7,7 +7,8 @@ import store from "../src/redux/store";
 import "./App.css";
 
 import MainNavigation from "./shared/Navigation/MainNavigation";
-// import AuthPage from "./login/pages/auth";
+
+import AuthPage from "./login/pages/auth";
 
 const Main = React.lazy(() => import("./main/pages/Main"));
 const Mypage = React.lazy(() => import("./mypage/pages/Mypage"));
@@ -33,7 +34,7 @@ const PurchaseForm = React.lazy(() =>
   import("./purchaseform/pages/PurchaseForm")
 );
 
-const AuthPage = React.lazy(() => import("./login/pages/auth"));
+// const AuthPage = React.lazy(() => import("./login/pages/auth"));
 
 const PrivateRoute = ({ element, path }) => {
   const isAuthenticated = localStorage.getItem("accessToken") !== null;
@@ -93,10 +94,7 @@ function App() {
                 path="/purchaseform"
                 element={<PrivateRoute element={<PurchaseForm />} />}
               />
-              <Route
-                path="/auth"
-                element={<PrivateRoute element={<AuthPage />} />}
-              />
+              <Route exact path="/auth" Component={AuthPage} />
             </Routes>
           </Suspense>
         </main>

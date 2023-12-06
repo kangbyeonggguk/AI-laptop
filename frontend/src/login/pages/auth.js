@@ -20,15 +20,12 @@ function AuthPage() {
       if (code) {
         try {
           const formData = new FormData();
-          formData.append("oauthcode", code);
+          formData.append("code", code);
 
           const responseData = await sendRequest(
-            "http://127.0.0.1:8000/accounts/login/{sns}",
+            "http://127.0.0.1:8000/accounts/login/kakao",
             "POST",
-            formData,
-            {
-              "Content-Type": "multipart/form-data",
-            }
+            formData
           );
 
           console.log("Response from backend:", responseData);
