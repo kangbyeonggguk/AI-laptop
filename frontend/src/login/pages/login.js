@@ -4,13 +4,9 @@ import { useHttpClient } from "../../shared/hooks/http-hook"; //api호출 훅 �
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
+import { KAKAO_AUTH_URL } from "./Oauth";
 
 import "./login.css";
-
-const Rest_api_key = "3a8a581619662b5a126943e55dfda42f"; // REST API KEY
-const redirect_uri = "http://localhost:3000/auth"; // Redirect URI
-// OAuth 요청 URL
-const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${`3a8a581619662b5a126943e55dfda42f`}&redirect_uri=${`https://localhost:3000/auth`}&response_type=code`;
 
 const code = new URL(window.location.href).searchParams.get("code");
 console.log(code);
@@ -32,7 +28,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { code } = useParams(); // useParams로 라우터 파라미터를 받아옵니다.
+  const { code } = useParams();
 
   useEffect(() => {
     const handleCodeReceived = async () => {
@@ -41,16 +37,19 @@ const Login = () => {
 
       if (code) {
         try {
+          const formData = new FormData();
+          formData.append("oauthcode", code);
+
           const responseData = await sendRequest(
-            "http://127.0.0.1:8000/",
+            "http://127.0.0.1:8000/accounts/login/{sns}",
             "POST",
-            JSON.stringify({ code }),
-            {
-              "Content-Type": "application/json",
-            }
+            formData
           );
 
           console.log("Response from backend:", responseData);
+
+          localStorage.setItem("accessToken", responseData.access_token);
+          localStorage.setItem("refreshToken", responseData.refresh_token);
         } catch (error) {
           console.error("Error sending code to backend:", error.message);
         }
@@ -59,10 +58,6 @@ const Login = () => {
 
     handleCodeReceived();
   }, [code, sendRequest]);
-
-  const kakaoHandleLogin = () => {
-    window.location.href = kakaoURL;
-  };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -209,10 +204,10 @@ const Login = () => {
       </form>
       <div className="icon_content">
         <div className="icon_wrapper">
-          <Link className="icon_text" onClick={kakaoHandleLogin}>
+          <a href={KAKAO_AUTH_URL} className="icon_text">
             <img className="icons" src="/img/loginimg/Kakao.png" alt="kakao" />
             <p>카카오톡으로 시작</p>
-          </Link>
+          </a>
         </div>
 
         <div className="icon_wrapper">
