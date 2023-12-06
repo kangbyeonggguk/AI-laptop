@@ -11,7 +11,7 @@ class Account(Base):
     __tablename__ = "account"
 
     account_id = Column(BIGINT, primary_key=True, autoincrement=True)
-    id = Column(String(30), unique=True, nullable=False)
+    id = Column(String(255), unique=True, nullable=False)
     platform_type = Column(String(1), nullable=False)  # R, K, N
     admin = Column(BOOLEAN, nullable=False)  # true, false
     password = Column(String(255), nullable=False)
