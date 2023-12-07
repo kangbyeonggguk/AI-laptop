@@ -9,21 +9,18 @@ import {
   VALIDATOR_PHONE,
   VALIDATOR_MAXLENGTH,
 } from "../../shared/util/validator";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Mypageauth = (props) => {
-  const [errname, setErrName] = useState(true);
-  const [errdate, setErrDate] = useState(true);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient(); //api호출 훅 불러오기
+
   const [errphone, setErrPhone] = useState(true);
   const [errnumber, setErrNumber] = useState(true);
   const [authlist, setAuthList] = useState({
-    name: false,
-    date: false,
     number: false,
     auth: false,
   });
   const [inputlist, setInputList] = useState({
-    name: "",
-    date: "",
     number: "",
     phone: "",
   });
@@ -35,62 +32,65 @@ const Mypageauth = (props) => {
   };
 
   const handleButtonClick = () => {
-    setAuthList({
-      ...authlist,
-      name: errname,
-      date: errdate,
-      number: errnumber,
-    });
-  };
-  useEffect(() => {
     if (
       Object.values(authlist).every((value) => value === true) &&
       Object.values(inputlist).every((value) => value !== "")
     ) {
       props.setAuthCheck(true);
     }
-  }, [authlist, props.setAuthCheck]);
+  };
+
+  const sendsms = async () => {
+    try {
+      const responseData = await sendRequest(
+        `http://127.0.0.1:8000/send`,
+        "POST",
+        JSON.stringify({ phone: inputlist.phone }),
+        {
+          "Content-Type": "application/json",
+          token: `${localStorage.getItem("accessToken")}`, // 헤더에 토큰 추가
+        }
+      );
+      setAuthList({
+        ...authlist,
+        number: true,
+        auth: false,
+      });
+      alert("인증번호가 발송되었습니다.");
+    } catch (err) {
+      alert("휴대폰번호를 다시 입력해주세요.");
+      setErrPhone(false);
+    }
+  };
+  const verify = async () => {
+    try {
+      const responseData = await sendRequest(
+        `http://127.0.0.1:8000/verify`,
+        "POST",
+        JSON.stringify({ phone: inputlist.phone, auth_num: inputlist.number }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      setAuthList({
+        ...authlist,
+        auth: true,
+      });
+      alert("인증번호가 확인되었습니다.");
+    } catch (err) {
+      setAuthList({
+        ...authlist,
+        auth: false,
+      });
+      alert("인증번호를 다시 입력해주세요.");
+      setErrNumber(false);
+    }
+  };
 
   return (
     <React.Fragment>
       <span className="mypage-auth_title">본인 인증하기</span>
       <div className="mypage-auth_contentcontain">
-        <div className="mypage-auth_content">
-          <span className="mypage-auth_content_name">이름</span>
-          <input
-            className="mypage-auth_content_input"
-            onChange={(e) => {
-              check(e, VALIDATOR_REQUIRE(), setErrName);
-              setInputList({ ...inputlist, name: e.target.value });
-            }}
-            style={{ borderColor: !errname ? "#FF4848" : "" }}
-          ></input>
-          <span
-            className="mypage-auth_content_err"
-            style={{ color: !errname ? "#FF4848" : "" }}
-          >
-            {!errname && "이름을 입력해주세요."}
-          </span>
-        </div>
-
-        <div className="mypage-auth_content">
-          <span className="mypage-auth_content_name">생년월일</span>
-          <input
-            className="mypage-auth_content_input"
-            onChange={(e) => {
-              check(e, VALIDATOR_BIRTHDATE(), setErrDate);
-              setInputList({ ...inputlist, date: e.target.value });
-            }}
-            style={{ borderColor: !errdate ? "#FF4848" : "" }}
-          ></input>
-          <span
-            className="mypage-auth_content_err"
-            style={{ color: !errdate ? "#FF4848" : "" }}
-          >
-            {!errdate && "0000.00.00형식으로 입력해주세요."}
-          </span>
-        </div>
-
         <div className="mypage-auth_content">
           <span className="mypage-auth_content_name">휴대전화 인증</span>
           <div style={{ display: "flex" }}>
@@ -104,7 +104,9 @@ const Mypageauth = (props) => {
                 borderColor: !errphone ? "#FF4848" : "",
               }}
             ></input>
-            <button className="mypage-auth_content_btn">인증요청</button>
+            <button className="mypage-auth_content_btn" onClick={sendsms}>
+              인증요청
+            </button>
           </div>
           <span
             className="mypage-auth_content_err"
@@ -126,14 +128,12 @@ const Mypageauth = (props) => {
               style={{
                 borderColor: !errnumber ? "#FF4848" : "",
               }}
+              readOnly={authlist.auth}
             ></input>
             <button
               className="mypage-auth_content_btn"
-              onClick={() => {
-                setAuthList({
-                  ...authlist,
-                  auth: true,
-                });
+              onClick={(e) => {
+                verify();
               }}
             >
               확인

@@ -140,7 +140,7 @@ const Mypageedit = () => {
       const mypageedit = async () => {
         try {
           const responseData = await sendRequest(
-            `http://127.0.0.1:8000/accounts?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjk5MTg2NTg3LCJleHAiOjE2OTkxOTAxODd9.FnU4sl_rhmjrTpARChzqc9I7PbQapQBcv_K5425w0Sw`,
+            `http://127.0.0.1:8000/accounts`,
             "PATCH",
             JSON.stringify({
               password: inputlist.pw,

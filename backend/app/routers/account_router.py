@@ -17,16 +17,19 @@ from schemas import account_schema
 
 from datetime import datetime
 import pytz 
+from core.sms_config import Settings as Settings
+import random
+from twilio.rest import Client
 
 router = APIRouter(
 )
 
-
+#회원가입
 @router.post("/accounts", status_code=status.HTTP_200_OK)
 async def account_create(_account: account_schema.AccountCreate, session: Session = Depends(db.session)):
     account_crud.create_account(db=session, account=_account)
 
-
+#로그인
 @router.post("/accounts/login", response_model=account_schema.Token, status_code=status.HTTP_200_OK)
 async def account_login(form_data: OAuth2PasswordRequestForm = Depends(),
                         session: Session = Depends(db.session)):
@@ -52,7 +55,7 @@ async def account_login(form_data: OAuth2PasswordRequestForm = Depends(),
             "platform_type":account.platform_type,
             "admin":account.admin}
 
-
+#토큰 리프레시
 @router.post("/accounts/refresh-token", status_code=status.HTTP_200_OK)
 async def account_refresh_token_check(refresh_token_key: str):
     rd = redis_config()
@@ -63,14 +66,14 @@ async def account_refresh_token_check(refresh_token_key: str):
 
     return {"access_token": util.create_access_token(int(check))}
 
-
+#로그아웃
 @router.post("/accounts/logout", status_code=status.HTTP_200_OK)
 async def account_logout(refresh_token_key: str):
     rd = redis_config()
     rd.delete(refresh_token_key)
 
 
-
+#소셜 로그인
 @router.post("/accounts/login/{sns}",status_code=status.HTTP_200_OK,response_model=account_schema.Token)
 async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Session = Depends(db.session) ):
     
@@ -165,8 +168,53 @@ async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Sessio
         
         except httpx.HTTPError as http_error:
             # HTTP 요청이 실패한 경우에 대한 처리
-            return {"error": str(http_error)}
+            raise HTTPException(status_code=401, detail="Unauthorized")
 
+#문자 전송
+@router.post("/send",status_code=status.HTTP_200_OK)
+async def account_send_sms(request_data: dict,session: Session = Depends(db.session),token: str = Header(None)):
+    phone = request_data.get("phone", "")
+
+    #해당 유저 휴대폰 번호인지 확인
+    phonecheck=account_crud.get_account_info(db=session, token=token)
+    if  phonecheck.phonenumber.replace("-", "")!=phone:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthorized"
+        )
+    else:
+        auth_num = str(random.randint(100000, 999999))
+        rd = redis_config()
+        print(auth_num)
+        rd.setex(phone, 600, auth_num)
+     
+        sms_setting = Settings()
+        twilio_client = Client(sms_setting.twilio_account_sid, sms_setting.twilio_auth_token)
+        try:
+            message = twilio_client.messages.create(
+                to="+82"+phone,
+                from_=sms_setting.twilio_phone_number,
+                body="리퍼 연구소 개인 정보 변경 인증번호:"+auth_num
+            )
+            
+            # 성공한 경우 응답
+            return {"result":True}
+            
+        except Exception as e:
+            # 실패한 경우 에러 응답
+            raise HTTPException(status_code=401, detail="Unauthorized")
+    
+#문자 인증 확인
+@router.post("/verify",status_code=status.HTTP_200_OK)
+async def account_sms_verify(request_data: dict,token: str = Header(None)):
+    phone = request_data.get("phone")
+    auth_num = request_data.get("auth_num")
+    rd = redis_config()
+    check=rd.get(phone)
+    if check.decode('utf-8')==auth_num:
+        return {"result":True} 
+    else:
+        raise HTTPException(status_code=401, detail="Unauthorized")
 
 @router.get("/callback")
 async def callback(
@@ -195,7 +243,7 @@ async def get_sns_account(
     user_info = await oauth_client.get_user_info(access_token=access_token)
     return {"account": user_info}
 
-
+#아이디 중복 확인
 @router.get("/accounts/duplicate", status_code=status.HTTP_200_OK)
 async def account_id_check(id: str, session: Session = Depends(db.session)):
     check = account_crud.get_account(session, id)
@@ -203,16 +251,16 @@ async def account_id_check(id: str, session: Session = Depends(db.session)):
     if check:
         raise HTTPException(status_code=400)
 
-
+#내 정보 수정
 @router.patch("/accounts", status_code=status.HTTP_200_OK)
 async def account_info_update(account: account_schema.AccountUpdate, session: Session = Depends(db.session), token: str = Header(None)):
     account_crud.update_account(db=session, token=token, account=account)
 
-
+#회원 정보 확인
 @router.get("/accounts", status_code=status.HTTP_200_OK)
 async def account_info_get(session: Session = Depends(db.session), token: str = Header(None)):
     result = account_crud.get_account_info(db=session, token=token)
-    print(result)
+   
 
     if result:
         account_info = {
