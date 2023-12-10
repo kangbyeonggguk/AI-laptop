@@ -187,13 +187,15 @@ async def account_send_sms(request_data: dict,session: Session = Depends(db.sess
         rd = redis_config()
         print(auth_num)
         rd.setex(phone, 600, auth_num)
+        
+        twilio_phone_number = 'newly_added_twilio_phone_number'
      
         sms_setting = Settings()
         twilio_client = Client(sms_setting.twilio_account_sid, sms_setting.twilio_auth_token)
         try:
             message = twilio_client.messages.create(
                 to="+82"+phone,
-                from_=sms_setting.twilio_phone_number,
+                from_=twilio_phone_number,  # 업데이트된 전화번호 사용
                 body="리퍼 연구소 개인 정보 변경 인증번호:"+auth_num
             )
             
