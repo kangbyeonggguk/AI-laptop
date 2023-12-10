@@ -13,7 +13,7 @@ const Goodsview = (props) => {
   );
   const imagePaths =
     loadedGoods.length > 0
-      ? loadedGoods[0].laptop_info_list_image
+      ? loadedGoods[0].laptop_info_list.laptop_info_list_image
           .map((image) => image.path)
           .reverse()
       : [];
@@ -22,16 +22,15 @@ const Goodsview = (props) => {
   useEffect(() => {
     if (
       loadedGoods.length > 0 &&
-      loadedGoods[0].laptop_info_list_image.length > 0 &&
+      loadedGoods[0].laptop_info_list.laptop_info_list_image.length > 0 &&
       !mainImg
     ) {
       setMainImg(
-        loadedGoods[0].laptop_info_list_image[
-          loadedGoods[0].laptop_info_list_image.length - 1
+        loadedGoods[0].laptop_info_list.laptop_info_list_image[
+          loadedGoods[0].laptop_info_list.laptop_info_list_image.length - 1
         ].path
       );
     }
-    console.log(loadedGoods);
   }, [loadedGoods]);
 
   // console.log(imagePaths);
@@ -135,7 +134,8 @@ const Goodsview = (props) => {
           <div className="goodsview_contain">
             <div className="goodsview_imgcontain">
               <div className="goodsview_img_mainbox center">
-                {loadedGoods[0].laptop_info_list_image.length > 0 ? (
+                {loadedGoods[0].laptop_info_list.laptop_info_list_image.length >
+                0 ? (
                   <img
                     className="goodsview_img_main"
                     src={mainImg}
@@ -155,7 +155,8 @@ const Goodsview = (props) => {
             </div>
             <div className="goodsview_descontain">
               <div className="goodsview_des_name">
-                {loadedGoods[0].title}
+                [{loadedGoods[0].title}]
+                {loadedGoods[0].laptop_info_list.device_name}
                 <div className="goodsview_mobile_price">
                   <a
                     style={{
@@ -218,51 +219,49 @@ const Goodsview = (props) => {
               <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">구매제한</a>
                 <a className="goodsview_des_text_value">
-                  {loadedGoods[0].purchase_limit}개
+                  {loadedGoods[0].laptop_info_list.purchase_limit}개
                 </a>
               </div>
 
               <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">배송비</a>
                 <a className="goodsview_des_text_value">
-                  {loadedGoods[0].delivery_fee}/택배
+                  {loadedGoods[0].laptop_info_list.delivery_fee}/택배
                 </a>
               </div>
 
               <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">상품코드</a>
                 <a className="goodsview_des_text_value">
-                  {loadedGoods[0].product_code}
+                  {loadedGoods[0].laptop_info_list.product_code}
                 </a>
               </div>
 
               <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">자체상품코드</a>
                 <a className="goodsview_des_text_value">
-                  {loadedGoods[0].own_product_code}
+                  {loadedGoods[0].laptop_info_list.own_product_code}
                 </a>
               </div>
 
               <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">브랜드</a>
                 <a className="goodsview_des_text_value">
-                  {loadedGoods[0].brand}
+                  {loadedGoods[0].laptop_info_list.brand}
                 </a>
               </div>
 
               <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">제조사</a>
                 <a className="goodsview_des_text_value">
-                  {loadedGoods[0].manufacturing_company}
+                  {loadedGoods[0].laptop_info_list.manufacturing_company}
                 </a>
               </div>
 
-              <div className="goodsview_des_text">
+              {/* <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">상품재고</a>
-                <a className="goodsview_des_text_value">
-                  {loadedGoods[0].stock}개
-                </a>
-              </div>
+                <a className="goodsview_des_text_value">개</a>
+              </div> */}
             </div>
           </div>
           <div className="goodsview_price-btn">

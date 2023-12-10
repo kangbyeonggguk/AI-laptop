@@ -41,17 +41,15 @@ def get_laptops_desc(db: Session, page: int = 1, rating=None):
     page_size = 6
     skip = (page - 1) * page_size
 
-    query = db.query(models.Laptop).options(
-        joinedload(models.Laptop.laptop_info_list_image)
-    )
+    query = db.query(models.Laptop2).options(joinedload(models.Laptop2.laptop_info_list).joinedload(models.Laptop.laptop_info_list_image))
 
     if rating is not None:
-        query = query.filter(models.Laptop.rank == rating)
+        query = query.filter(models.Laptop2.rank == rating)
 
     data_count = query.count()
 
     return (
-        query.order_by(models.Laptop.price.desc()).offset(skip).limit(page_size).all(),
+        query.order_by(models.Laptop2.price.desc()).offset(skip).limit(page_size).all(),
         data_count,
     )
 
@@ -75,17 +73,15 @@ def get_laptops_desc(db: Session, page: int = 1, rating=None):
 def get_laptops_asc(db: Session, page: int = 1, rating=str):
     page_size = 6
     skip = (page - 1) * page_size
-    data_count = db.query(models.Laptop.laptop_info_list_id).count()
-    query = db.query(models.Laptop).options(
-        joinedload(models.Laptop.laptop_info_list_image)
-    )
-
+    data_count = db.query(models.Laptop2.laptop_info_list_id).count()
+    query = db.query(models.Laptop2).options(joinedload(models.Laptop2.laptop_info_list).joinedload(models.Laptop.laptop_info_list_image))
+  
     if rating is not None:
-        query = query.filter(models.Laptop.rank == rating)
+        query = query.filter(models.Laptop2.rank == rating)
 
     data_count = query.count()
-
+   
     return (
-        query.order_by(models.Laptop.price.asc()).offset(skip).limit(page_size).all(),
+        query.order_by(models.Laptop2.price.asc()).offset(skip).limit(page_size).all(),
         data_count,
     )

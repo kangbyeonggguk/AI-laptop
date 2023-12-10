@@ -35,12 +35,15 @@ const Goods = (props) => {
                       <div>
                         {/*-- */}
                         <div className="goods_notebook_imgbox center">
-                          {notebook.laptop_info_list_image.length > 0 ? (
+                          {notebook.laptop_info_list.laptop_info_list_image
+                            .length > 0 ? (
                             <img
                               className="goods_notebook_img"
                               src={`${
-                                notebook.laptop_info_list_image[
-                                  notebook.laptop_info_list_image.length - 1
+                                notebook.laptop_info_list
+                                  .laptop_info_list_image[
+                                  notebook.laptop_info_list
+                                    .laptop_info_list_image.length - 1
                                 ].path
                               }`}
                               alt="notebookimage"
@@ -50,7 +53,8 @@ const Goods = (props) => {
                           )}
                         </div>
                         <div className="goods_notebook_name">
-                          {notebook.title}
+                          [{notebook.title}]
+                          {notebook.laptop_info_list.device_name}
                         </div>
                         <div className="goods_notebook_pricecontain">
                           <div className="goods_notebook_price">
@@ -88,14 +92,14 @@ const Goods = (props) => {
                                 className="goods_dev_scaleimg"
                                 src={`/img/goods/scale.png`}
                               />
-                              {notebook.screen_size}인치
+                              {notebook.laptop_info_list.screen_size}인치
                             </div>
                           </div>
 
                           <div className="goods_descontain">
                             <div className="goods_des_title">업무용</div>
                             <div className="goods_des_value">
-                              {notebook.business_usage
+                              {notebook.laptop_info_list.business_usage
                                 .split(",")
                                 .map((img, index) => (
                                   <img
@@ -111,14 +115,14 @@ const Goods = (props) => {
                             <div className="goods_des_title">인강용</div>
                             <div className="goods_des_value">
                               인터넷 강의 용으로{" "}
-                              {notebook.internet_lecture_usage}
+                              {notebook.laptop_info_list.internet_lecture_usage}
                             </div>
                           </div>
 
                           <div className="goods_descontain">
                             <div className="goods_des_title">게임용</div>
                             <div className="goods_des_value">
-                              {notebook.gaming_usage}
+                              {notebook.laptop_info_list.gaming_usage}
                             </div>
                           </div>
 

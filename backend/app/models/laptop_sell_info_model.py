@@ -15,6 +15,7 @@ class LaptopSellInfo(Base):
     step = Column(String(2), nullable=False)
     create_date = Column(DateTime, nullable=True, default=datetime.now(pytz.timezone("Asia/Seoul")))
     update_date = Column(DateTime, nullable=True)
+    rank = Column(String(64), nullable=True,default=None)
 
     # foreignkey 생성
     account_id = Column(BIGINT, ForeignKey("account.account_id"), nullable=True)
