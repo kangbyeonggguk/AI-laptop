@@ -174,10 +174,9 @@ async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Sessio
 @router.post("/send",status_code=status.HTTP_200_OK)
 async def account_send_sms(request_data: dict,session: Session = Depends(db.session),token: str = Header(None)):
     phone = request_data.get("phone", "")
-
     #해당 유저 휴대폰 번호인지 확인
     phonecheck=account_crud.get_account_info(db=session, token=token)
-    if  phonecheck.phonenumber.replace("-", "")!=phone:
+    if phonecheck.phonenumber.replace("-", "")!=phone:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Unauthorized"
@@ -185,7 +184,7 @@ async def account_send_sms(request_data: dict,session: Session = Depends(db.sess
     else:
         auth_num = str(random.randint(100000, 999999))
         rd = redis_config()
-        print(auth_num)
+
         rd.setex(phone, 600, auth_num)
      
         sms_setting = Settings()
@@ -202,6 +201,7 @@ async def account_send_sms(request_data: dict,session: Session = Depends(db.sess
             
         except Exception as e:
             # 실패한 경우 에러 응답
+            print(e)
             raise HTTPException(status_code=401, detail="Unauthorized")
     
 #문자 인증 확인

@@ -32,6 +32,7 @@ const Goodsroute = () => {
               : ""
           }`
         );
+
         setTotalcount(total_count);
         setLoadedGoods(responseData);
       } catch (err) {

@@ -17,6 +17,7 @@ class Image(ImageBase):
 
 class LaptopBase(BaseModel):
     title: Optional[str] = None
+    laptop_info_list_id: int
     price: int
     price_time_sale: int
     os: str
