@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import store from "../src/redux/store";
+import { store, persistor } from "../src/redux/store";
 
 import "./App.css";
 

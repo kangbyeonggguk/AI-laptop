@@ -29,9 +29,17 @@ const AuthNaverPage = () => {
             formData
           );
 
+          const { platform_type, admin } = responseData;
+
           console.log("Response from backend:", responseData);
 
-          dispatch({ type: "LOGIN_USER" });
+          dispatch({
+            type: "LOGIN_USER",
+            payload: {
+              platformType: platform_type,
+              isAdmin: admin === true,
+            },
+          });
 
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("accessToken", responseData.access_token);

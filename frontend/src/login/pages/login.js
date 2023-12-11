@@ -43,12 +43,23 @@ const Login = () => {
         formData
       );
 
-      const { access_token, refresh_token } = responseData;
+      const { access_token, refresh_token, platform_type, admin } =
+        responseData;
 
       const expires_in = 10;
       const expirationTime = Date.now() + expires_in * 1000;
 
-      dispatch({ type: "LOGIN_USER" });
+      dispatch(
+        loginUser(access_token, refresh_token, platform_type, admin === 1)
+      );
+
+      dispatch({
+        type: "LOGIN_USER",
+        payload: {
+          platformType: platform_type,
+          isAdmin: admin === true,
+        },
+      });
 
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("accessToken", access_token);

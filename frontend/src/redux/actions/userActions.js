@@ -4,11 +4,15 @@ export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const SET_LOGIN_STATUS = "SET_LOGIN_STATUS";
 
-export const loginUser = (accessToken, refreshToken) => {
+export const loginUser = (accessToken, refreshToken, platformType, isAdmin) => {
   return (dispatch) => {
     dispatch(setTokens(accessToken, refreshToken));
     dispatch({
       type: "LOGIN_USER",
+      payload: {
+        platformType,
+        isAdmin,
+      },
     });
   };
 };

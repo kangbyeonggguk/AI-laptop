@@ -10,6 +10,8 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         login: true,
+        platformType: action.payload.platformType,
+        isAdmin: action.payload.isAdmin,
       };
     case "LOGOUT_USER":
       return {

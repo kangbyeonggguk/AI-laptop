@@ -31,7 +31,15 @@ const AuthPage = () => {
 
           console.log("Response from backend:", responseData);
 
-          dispatch({ type: "LOGIN_USER" });
+          const { platform_type, admin } = responseData;
+
+          dispatch({
+            type: "LOGIN_USER",
+            payload: {
+              platformType: platform_type,
+              isAdmin: admin === true,
+            },
+          });
 
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("accessToken", responseData.access_token);
