@@ -71,7 +71,7 @@
 }
 .paflist-modal {
   width: 45.1875rem;
-  height: 52.3125rem;
+  /* height: 52.3125rem; */
   padding: 3.25rem 3.25rem;
 }
 .paflist-modal_title {

@@ -17,7 +17,9 @@ const dummydata = [
     level: "A",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 
   {
@@ -31,7 +33,9 @@ const dummydata = [
     level: "S",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 
   {
@@ -45,7 +49,9 @@ const dummydata = [
     level: "A",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 
   {
@@ -59,7 +65,9 @@ const dummydata = [
     level: "S",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 
   {
@@ -73,7 +81,9 @@ const dummydata = [
     level: "A",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 
   {
@@ -87,7 +97,9 @@ const dummydata = [
     level: "S",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 
   {
@@ -101,7 +113,9 @@ const dummydata = [
     level: "A",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 
   {
@@ -115,7 +129,9 @@ const dummydata = [
     level: "B",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 
   {
@@ -129,7 +145,9 @@ const dummydata = [
     level: "A",
     model: " NT950XBE-X716A",
     register: "2023. 09. 08",
-    description: "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    description:
+      "모서리 부분 파손이 살짝 있음. 화면 상태는 \n 기스 없이 깔끔한 편.",
+    step: 2,
   },
 ];
 
@@ -180,23 +198,48 @@ const Userlist = () => {
       <div className="paflist_title">노트북 리스트</div>
       <div className="notebooklist_main">
         {dummydata.map((list, index) => (
-          <div className="notebooklist_container" key={index} onClick={() => openModal(list)}>
-            <img src={list.notebook_img} alt="notebook_img" className="notebooklist_img" />
+          <div
+            className="notebooklist_container"
+            key={index}
+            onClick={() => openModal(list)}
+          >
+            <img
+              src={list.notebook_img}
+              alt="notebook_img"
+              className="notebooklist_img"
+            />
           </div>
         ))}
       </div>
       {selectedItem && (
         <div id="backdrop-hook">
-          <Modal show={isModalOpen} onCancel={closeModal} className="notebooklist_modal">
+          <Modal
+            show={isModalOpen}
+            onCancel={closeModal}
+            className="notebooklist_modal"
+          >
             <div className="modal_context">
               <div style={{ display: "flex", flexDirection: "space-between" }}>
                 <h1 className="userlist_modalTitle">노트북 상세정보</h1>
-                <img src="/img/admin/Cancel.png" alt="cancel" className="modal_cancel" onClick={closeModal} />
+                <img
+                  src="/img/admin/Cancel.png"
+                  alt="cancel"
+                  className="modal_cancel"
+                  onClick={closeModal}
+                />
               </div>
               <div className="notebook_modelContainer">
                 <div className="notebook_rank_container">
-                  <img src="/img/admin/notebook.png" alt="notebook" className="notebook_img" />
-                  <img src={`/img/admin/rank_${selectedItem.level}.png`} alt={`rank ${selectedItem.level}`} className="level_img" />
+                  <img
+                    src="/img/admin/notebook.png"
+                    alt="notebook"
+                    className="notebook_img"
+                  />
+                  <img
+                    src={`/img/admin/rank_${selectedItem.level}.png`}
+                    alt={`rank ${selectedItem.level}`}
+                    className="level_img"
+                  />
                 </div>
                 <div className="des_container">
                   <p className="notebook_title">{selectedItem.name}</p>
@@ -204,24 +247,62 @@ const Userlist = () => {
                     모델명: {selectedItem.model}
                     <br /> 등록일: {selectedItem.register}
                   </p>
-                  <p className="notebook_description">{selectedItem.description}</p>
+                  <p className="notebook_description">
+                    {selectedItem.description}
+                  </p>
                 </div>
               </div>
               <div className="slide_container">
-                <img src="/img/admin/Left_arrow.png" alt="left_arrow" className="modal_arrow" />
-                <div className="img_slide_container" onClick={() => openDetailModal(selectedItem.front)}>
-                  <img src={selectedItem.front} alt="front" className="aspect_laptop" />
+                <img
+                  src="/img/admin/Left_arrow.png"
+                  alt="left_arrow"
+                  className="modal_arrow"
+                />
+                <div
+                  className="img_slide_container"
+                  onClick={() => openDetailModal(selectedItem.front)}
+                >
+                  <img
+                    src={selectedItem.front}
+                    alt="front"
+                    className="aspect_laptop"
+                  />
                 </div>
-                <div className="img_slide_container" onClick={() => openDetailModal(selectedItem.back)}>
-                  <img src={selectedItem.back} alt="back" className="aspect_laptop" />
+                <div
+                  className="img_slide_container"
+                  onClick={() => openDetailModal(selectedItem.back)}
+                >
+                  <img
+                    src={selectedItem.back}
+                    alt="back"
+                    className="aspect_laptop"
+                  />
                 </div>
-                <div className="img_slide_container" onClick={() => openDetailModal(selectedItem.keyboard)}>
-                  <img src={selectedItem.keyboard} alt="keyboard" className="aspect_laptop" />
+                <div
+                  className="img_slide_container"
+                  onClick={() => openDetailModal(selectedItem.keyboard)}
+                >
+                  <img
+                    src={selectedItem.keyboard}
+                    alt="keyboard"
+                    className="aspect_laptop"
+                  />
                 </div>
-                <div className="img_slide_container" onClick={() => openDetailModal(selectedItem.monitor)}>
-                  <img src={selectedItem.monitor} alt="monitor" className="aspect_laptop" />
+                <div
+                  className="img_slide_container"
+                  onClick={() => openDetailModal(selectedItem.monitor)}
+                >
+                  <img
+                    src={selectedItem.monitor}
+                    alt="monitor"
+                    className="aspect_laptop"
+                  />
                 </div>
-                <img src="/img/admin/Right_arrow.png" alt="left_arrow" className="modal_arrow" />
+                <img
+                  src="/img/admin/Right_arrow.png"
+                  alt="left_arrow"
+                  className="modal_arrow"
+                />
               </div>
             </div>
           </Modal>
@@ -239,13 +320,24 @@ const Userlist = () => {
             back={selectedItem.back}
             keyboard={selectedItem.keyboard}
             monitor={selectedItem.monitor}
-            detail={true}>
-            <img src={selectedimg} alt="detail_aspect" style={{ width: "100%", height: "100%" }}></img>
+            detail={true}
+          >
+            <img
+              src={selectedimg}
+              alt="detail_aspect"
+              style={{ width: "100%", height: "100%" }}
+            ></img>
           </Modal>
         </div>
       )}
       <div className="paflist_page">
-        <Page itemlen={itemlen} searchParams={searchParams} setSearchParams={setSearchParams} searchparamshandler={searchparamshandler}></Page>
+        <Page
+          itemlen={itemlen}
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          searchparamshandler={searchparamshandler}
+          itemcount={7}
+        ></Page>
       </div>
     </React.Fragment>
   );

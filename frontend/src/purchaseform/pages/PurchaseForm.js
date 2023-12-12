@@ -156,7 +156,7 @@ const PurchaseForm = () => {
     formData.append("device_name", deviceName);
     formData.append("serial_number", modelName);
     formData.append("product_details", productDetails);
-    formData.append("step", 2);
+    formData.append("step", 1);
     formData.append("create_date", time);
 
     const images = selectedImages.filter((image) => image !== null);
@@ -183,10 +183,8 @@ const PurchaseForm = () => {
       );
 
       navigate(
-        `/result?sell_id=${response.sell_id}&front_image=${response.front_image}&back=${response.serving_datas.back}&front=${response.serving_datas.front}&keyboard=${response.serving_datas.keyboard}&monitor=${response.serving_datas.monitor}`
+        `/result?sell_id=${response.sell_id}&front_image=${response.front_image}&back=${response.serving_datas.back}&front=${response.serving_datas.front}&keyboard=${response.serving_datas.keyboard}&monitor=${response.serving_datas.monitor}&total_rank=${response.total_rank}`
       );
-
-      console.log(response);
     } catch (error) {
       console.error("Error while sending data to the server:", error);
     }
