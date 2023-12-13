@@ -181,66 +181,80 @@ const Paflist = () => {
               />
               <a>입금</a>
             </div>
-            <div className="paflist-modal_name">노트북 사진</div>
-            <div className="paflist-modal_imgcontain">
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div
-                  className="paflist-modal_imgbox"
-                  onClick={(e) => {
-                    setImgurl(loadeddata[listnum].laptop_sell_images[0].path);
-                    openEnlarge();
-                  }}
-                >
-                  <img
-                    className="paflist-modal_img"
-                    src={loadeddata[listnum].laptop_sell_images[0].path}
-                  />
+            {loadeddata[listnum].laptop_sell_images[0] && (
+              <>
+                <div className="paflist-modal_name">노트북 사진</div>
+                <div className="paflist-modal_imgcontain">
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div
+                      className="paflist-modal_imgbox"
+                      onClick={(e) => {
+                        setImgurl(
+                          loadeddata[listnum].laptop_sell_images[0].path
+                        );
+                        openEnlarge();
+                      }}
+                    >
+                      <img
+                        className="paflist-modal_img"
+                        src={loadeddata[listnum].laptop_sell_images[0].path}
+                      />
+                    </div>
+                    <div
+                      className="paflist-modal_imgbox"
+                      onClick={(e) => {
+                        setImgurl(
+                          loadeddata[listnum].laptop_sell_images[0].path
+                        );
+                        openEnlarge();
+                      }}
+                    >
+                      <img
+                        className="paflist-modal_img"
+                        src={loadeddata[listnum].laptop_sell_images[0].path}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div
+                      className="paflist-modal_imgbox"
+                      onClick={(e) => {
+                        setImgurl(
+                          loadeddata[listnum].laptop_sell_images[0].path
+                        );
+                        openEnlarge();
+                      }}
+                    >
+                      <img
+                        className="paflist-modal_img"
+                        src={loadeddata[listnum].laptop_sell_images[0].path}
+                      />
+                    </div>
+                    <div
+                      className="paflist-modal_imgbox"
+                      onClick={(e) => {
+                        setImgurl(
+                          loadeddata[listnum].laptop_sell_images[0].path
+                        );
+                        openEnlarge();
+                      }}
+                    >
+                      <img
+                        className="paflist-modal_img"
+                        src={loadeddata[listnum].laptop_sell_images[0].path}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div
-                  className="paflist-modal_imgbox"
-                  onClick={(e) => {
-                    setImgurl(loadeddata[listnum].laptop_sell_images[0].path);
-                    openEnlarge();
-                  }}
-                >
-                  <img
-                    className="paflist-modal_img"
-                    src={loadeddata[listnum].laptop_sell_images[0].path}
-                  />
-                </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div
-                  className="paflist-modal_imgbox"
-                  onClick={(e) => {
-                    setImgurl(loadeddata[listnum].laptop_sell_images[0].path);
-                    openEnlarge();
-                  }}
-                >
-                  <img
-                    className="paflist-modal_img"
-                    src={loadeddata[listnum].laptop_sell_images[0].path}
-                  />
-                </div>
-                <div
-                  className="paflist-modal_imgbox"
-                  onClick={(e) => {
-                    setImgurl(loadeddata[listnum].laptop_sell_images[0].path);
-                    openEnlarge();
-                  }}
-                >
-                  <img
-                    className="paflist-modal_img"
-                    src={loadeddata[listnum].laptop_sell_images[0].path}
-                  />
-                </div>
-              </div>
-            </div>
+              </>
+            )}
           </Modal>
 
           <Enlargemodal
