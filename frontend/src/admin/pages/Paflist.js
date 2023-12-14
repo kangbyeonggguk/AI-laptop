@@ -24,13 +24,8 @@ const Paflist = () => {
   };
 
   const [selectedStep, setSelectedStep] = useState(1);
-  const handleRadioChange = async (event) => {
+  const handleRadioChange = (event) => {
     setSelectedStep(event.target.value);
-
-    await sendRequest(
-      `http://127.0.0.1:8000/sell/progress?step=${event.target.value}&sell_id=${sellid}`,
-      "PATCH"
-    );
   };
   const [listnum, setListNum] = useState(0);
   const Listnumhandler = (index) => {
@@ -102,7 +97,7 @@ const Paflist = () => {
     const getinfo = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/admin/laptop_info_list?${
+          `http://127.0.0.1:8000/admin/laptop_sell_info_list?${
             searchParams.get("page") ? `page=${searchParams.get("page")}` : 1
           }${
             searchParams.get("name") ? `&name=${searchParams.get("name")}` : ""
@@ -114,6 +109,7 @@ const Paflist = () => {
         setLoadedData(responseData.list);
       } catch (err) {
         setError(err);
+        alert("신청서 정보를 찾을 수 없습니다.");
       }
     };
     getinfo();
@@ -124,6 +120,24 @@ const Paflist = () => {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}. ${month}. ${day}`;
+  };
+  const patchinfo = async () => {
+    await sendRequest(
+      `http://127.0.0.1:8000/sell/progress?step=${selectedStep}&sell_id=${sellid}`,
+      "PATCH"
+    );
+  };
+  const deleteinfo = () => {
+    const deletelaptop = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://127.0.0.1:8000/admin/laptop_sell_info_list?sell_id=${loadeddata[listnum].laptop_sell_info_id}`,
+          "delete"
+        );
+        //window.location.reload();
+      } catch (err) {}
+    };
+    deletelaptop();
   };
   return (
     <React.Fragment>
@@ -255,6 +269,18 @@ const Paflist = () => {
                 </div>
               </>
             )}
+            <div className="center">
+              <button
+                className="paflist-modal_editbutton"
+                onClick={patchinfo}
+                style={{ marginRight: "13px", marginLeft: "15px" }}
+              >
+                수정하기
+              </button>
+              <button className="paflist-modal_editbutton" onClick={deleteinfo}>
+                삭제하기
+              </button>
+            </div>
           </Modal>
 
           <Enlargemodal
@@ -296,7 +322,7 @@ const Paflist = () => {
                     onChange={() => handleItemSelect(list)}
                   ></input>
                   <span style={{ marginLeft: "1rem", width: "8.8125rem" }}>
-                    <span style={{ fontWeight: "bold" }}>{index + 1}</span>{" "}
+                    <span style={{ fontWeight: "bold" }}></span>{" "}
                     {list.accounts.nickname}님의 매입신청서
                   </span>
                   <span

@@ -25,9 +25,11 @@ async def laptop_sell_info_input(device_name: Annotated[str, Form()], serial_num
     bucket_name = 'notebookproject-s3'
 
     try:
+        urls=[]
         for i in files:
             file_data = await i.read()
             s3_file_name = i.filename
+            urls.append(s3_file_name)
             file_obj = BytesIO(file_data)
             s3.upload_fileobj(file_obj, bucket_name, s3_file_name)
 
@@ -66,10 +68,11 @@ async def laptop_sell_info_input(device_name: Annotated[str, Form()], serial_num
             # sell_id = db.query(LaptopSellInfo.laptop_sell_info_id).filter(LaptopSellInfo.device_name == device_name,
             #                                         LaptopSellInfo.serial_number == serial_number).first()[0]
             sell_id=db_sell.laptop_sell_info_id
-            url = f"https://{bucket_name}.s3.{location}.amazonaws.com/{s3_file_name}"
-            db_image = LaptopSellImage(path=url, laptop_sell_info_id=sell_id)
-            db.add(db_image)
-            db.commit()
+            for j in urls:
+                url = f"https://{bucket_name}.s3.{location}.amazonaws.com/{j}"
+                db_image = LaptopSellImage(path=url, laptop_sell_info_id=sell_id)
+                db.add(db_image)
+                db.commit()
             
             return {"sell_id": sell_id,
                     "front_image": f"https://{bucket_name}.s3.{location}.amazonaws.com/{files[1].filename}",
@@ -126,5 +129,23 @@ def get_laptop_sell_info_list( db: Session,name:str,page:int):
         )
         query = query.filter(LaptopSellInfo.account_id.in_(account_ids))
 
-    return query.offset(skip).limit(page_size).all(),query.count()
-   
+    return query.order_by(LaptopSellInfo.create_date.desc()).offset(skip).limit(page_size).all(),query.count()
+
+# 관리자 페이지 데이터 삭제
+def delete_laptop_sell_info_list( db: Session,sell_id:str):
+    info=(db.query(LaptopSellInfo).filter(LaptopSellInfo.laptop_sell_info_id==sell_id).first())
+
+    if info:
+        image_path= [image.path for image in info.laptop_sell_images]
+        s3= s3_connection()
+
+        bucket_name = 'notebookproject-s3'
+        for i in image_path:
+            file_name = i.split("/")[-1]
+            s3.delete_object(Bucket=bucket_name,Key=file_name)
+    
+    db.query(LaptopSellImage).filter(LaptopSellImage.laptop_sell_info_id==sell_id).delete()
+
+    db.query(LaptopSellInfo).filter(LaptopSellInfo.laptop_sell_info_id==sell_id).delete()
+
+    db.commit()

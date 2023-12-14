@@ -151,6 +151,7 @@ const Userlist = () => {
         setLoadedData(responseData.accounts);
       } catch (err) {
         setError(err);
+        alert("유저 정보를 찾을 수 없습니다.");
       }
     };
     getinfo();
@@ -193,8 +194,7 @@ const Userlist = () => {
                   onChange={() => handleItemSelect(list)}
                 ></input>
                 <span style={{ marginLeft: "1rem", width: "13.1875rem" }}>
-                  <span style={{ fontWeight: "bold" }}>{index + 1}</span>{" "}
-                  {list.nickname}
+                  <span style={{ fontWeight: "bold" }}></span> {list.nickname}
                 </span>
                 <span style={{ marginLeft: "1rem", width: "16.125rem" }}>
                   {list.email}
