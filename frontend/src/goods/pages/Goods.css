@@ -123,9 +123,8 @@
 .goods_des_value_hardware {
   font-weight: 400;
   font-size: 0.75rem;
-  display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  margin-top: 0.3rem;
   width: 5.5rem;
   height: 3.1875rem;
   color: #333333;

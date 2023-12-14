@@ -18,4 +18,3 @@ class LaptopImage(Base):
 
     # 관계 매핑
     #laptops = relationship("Laptop", back_populates="laptop_images")
-

@@ -15,31 +15,46 @@ class Image(ImageBase):
         orm_mode = True
 
 
-class LaptopBase(BaseModel):
-    title: Optional[str] = None
-    laptop_info_list_id: int
-    price: int
-    price_time_sale: int
-    os: str
+# class LaptopBase(BaseModel):
+#     title: Optional[str] = None
+#     laptop_info_list_id: int
+#     price: int
+#     price_time_sale: int
+#     os: str
+#     screen_size: str
+#     business_usage: str
+#     internet_lecture_usage: str
+#     gaming_usage: str
+#     hardware: str
+#     hashtag: str
+#     purchase_limit: str
+#     delivery_fee: str
+#     product_code: int
+#     own_product_code: str
+#     manufacturing_company: str
+#     brand: str
+#     stock: str
+#     rank: str
+#     laptop_info_list_image: List[Image] = []
+
+
+# class Laptop(LaptopBase):
+#     laptop_info_list_id: int
+
+#     class Config:
+#         orm_mode = True
+class PatchLaptopinfo(BaseModel):
+    info_id: int
+    device_name: str
     screen_size: str
     business_usage: str
     internet_lecture_usage: str
     gaming_usage: str
-    hardware: str
-    hashtag: str
     purchase_limit: str
     delivery_fee: str
-    product_code: int
-    own_product_code: str
     manufacturing_company: str
     brand: str
-    stock: str
-    rank: str
-    laptop_info_list_image: List[Image] = []
-
-
-class Laptop(LaptopBase):
-    laptop_info_list_id: int
 
     class Config:
         orm_mode = True
+    

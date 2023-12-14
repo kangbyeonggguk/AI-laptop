@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .rating_title {
   margin-top: 3.4375rem;
   width: 11.25rem;
@@ -12,6 +13,7 @@
   font-weight: 700;
   color: #333333;
 }
+
 .rating_guide {
   margin-top: 0.5rem;
   width: 12.25rem;
@@ -20,6 +22,7 @@
   font-weight: 500;
   color: #808080;
 }
+
 .rating_sort {
   margin-top: 3.4375rem;
   height: 1.875rem;
@@ -28,11 +31,13 @@
   align-items: center;
   position: relative;
 }
+
 .rating_sort_menucontain {
   display: flex;
   position: absolute;
   left: 0;
 }
+
 .rating_sort_menu {
   height: 1.5625rem;
   margin-right: 0.6875rem;
@@ -44,14 +49,17 @@
   font-size: 0.75rem;
   cursor: pointer;
 }
+
 .rating_sort_menu_active {
   color: #759cff;
   border-color: #759cff;
 }
+
 .rating-sort_filter {
   position: absolute;
   right: 0;
 }
+
 .rating_notebook_contain {
   width: 62.25rem;
   display: flex;
@@ -59,6 +67,7 @@
   padding-left: 1.13rem;
   margin-top: 1.3125rem;
 }
+
 .rating_notebook {
   width: 14.75rem;
   height: 20rem;
@@ -70,6 +79,7 @@
   background-color: #ffffff;
   position: relative;
 }
+
 .rating_notebook_imgbox {
   width: 14.75rem;
   height: 10.736875rem;
@@ -77,10 +87,12 @@
   border-radius: 5.88px;
   border: solid 1px #759cff;
 }
+
 .rating_notebook_img {
   width: 13.9725rem;
   height: 8.38375rem;
 }
+
 .rating_notebook_name {
   margin-top: 1.325625rem;
   font-weight: 700;
@@ -89,6 +101,7 @@
   display: flex;
   align-items: center;
 }
+
 .rating_notebook_model {
   margin-top: 0.5rem;
   font-weight: 400;
@@ -98,14 +111,17 @@
   display: flex;
   align-items: center;
 }
+
 .rating_notebook_des {
   margin-top: 1.1875rem;
   font-weight: 400;
   font-size: 0.875rem;
-  height: 2.5rem;
+  width: 14.5625rem;
+  height: 3.75rem;
   display: flex;
   align-items: center;
 }
+
 .rating_notebook_rank {
   width: 3.5rem;
   height: 3.5rem;
@@ -123,6 +139,7 @@
     font-weight: 700;
     color: #333333;
   }
+
   .rating_guide {
     margin-top: 0rem;
     width: 10.875rem;
@@ -131,6 +148,7 @@
     font-weight: 400;
     color: #808080;
   }
+
   .rating_sort {
     margin-top: 1.5rem;
     height: 3.8125rem;
@@ -139,14 +157,17 @@
     align-items: center;
     position: relative;
   }
+
   .rating_sort_menucontain {
     bottom: 0;
     left: 0;
   }
+
   .rating-sort_filter {
     top: 0;
     right: 0;
   }
+
   .rating_sort_menu {
     height: 1.5625rem;
     margin-right: 0.25rem;
@@ -164,11 +185,13 @@
     color: #759cff;
     border-color: #759cff;
   }
+
   .rating_notebook_contain {
     width: 23.0625rem;
     padding-left: 0rem;
     margin-top: 0.5rem;
   }
+
   .rating_notebook {
     width: 23.0625rem;
     height: 8.94rem;
@@ -180,6 +203,7 @@
     display: flex;
     justify-content: left;
   }
+
   .rating_notebook_imgbox {
     width: 9.340625rem;
     height: 7.14rem;
@@ -187,16 +211,19 @@
     border-radius: 3.91px;
     margin-right: 1.596875rem;
   }
+
   .rating_notebook_img {
     width: 9.291875rem;
     height: 5.575rem;
   }
+
   .rating_notebook_name {
     margin-top: 0rem;
     font-weight: 700;
     font-size: 1rem;
     height: 1.625rem;
   }
+
   .rating_notebook_model {
     margin-top: 0.5625rem;
     font-weight: 400;
@@ -204,6 +231,7 @@
     height: 2.125rem;
     color: #808080;
   }
+
   .rating_notebook_des {
     margin-top: 0.5625rem;
     font-weight: 400;
@@ -211,6 +239,7 @@
     height: 2.125rem;
     width: 9.75rem;
   }
+
   .rating_notebook_rank {
     width: 2.5rem;
     height: 2.5rem;

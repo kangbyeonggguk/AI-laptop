@@ -13,8 +13,6 @@ class Laptop(Base):
     gaming_usage = Column(String(16), nullable=False)
     purchase_limit = Column(String(16), nullable=False)
     delivery_fee = Column(String(16), nullable=False)
-    product_code = Column(Integer, nullable=False)
-    own_product_code = Column(String(16), nullable=False)
     manufacturing_company = Column(String(16), nullable=False)
     brand = Column(String(16), nullable=False)
     create_date = Column(DATETIME, nullable=False, default=func.utc_timestamp())
@@ -33,10 +31,11 @@ class Laptop2(Base):
     price_time_sale = Column(Integer, nullable=True)
     os = Column(String(30), nullable=False)
     hardware = Column(String(100), nullable=False)
-    brand = Column(String(30), nullable=False)
     rank = Column(String(64), nullable=False)
     laptop_info_list_id = Column(Integer, ForeignKey("laptop_info_list.laptop_info_list_id"),nullable=False)
     laptop_info_list = relationship("Laptop", back_populates="laptop")
+    create_date = Column(DATETIME, nullable=False, default=func.utc_timestamp())
+    update_date = Column(DATETIME)
 
 class Image(Base):
     __tablename__ = 'laptop_info_list_image'

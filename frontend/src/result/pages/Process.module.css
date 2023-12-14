@@ -4,9 +4,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
-
 
 .title {
     margin-top: 8px;
@@ -16,20 +14,20 @@
     @media screen and (max-width: 768px) {
         width: 244px;
         height: 186px;
-
-
     }
 
+    width: 292px;
+    height: 223px;
+}
+
+.laptop_img {
     width: 290px;
     height: 174px;
 }
 
 .modelContainer {
     @media screen and (max-width: 768px) {
-
         margin-left: calc(50% - 244px / 2);
-
-
     }
 
     width: 335px;
@@ -39,7 +37,6 @@
 }
 
 .model_title {
-
     margin: 26.67px 0 0 3px;
     font-family: "Pretendard-Regular";
     font-weight: 700;
@@ -53,7 +50,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 17.28px;
-    color: #808080
+    color: #808080;
 }
 
 .robot {
@@ -81,46 +78,64 @@
 .process_container {
     display: flex;
     margin-top: 40px;
-    height: 158px;
     max-width: 100%;
+
     flex-wrap: wrap;
     margin-left: 10px;
     justify-content: center;
     /* 수평 가운데 정렬 */
     align-items: center;
     /* 수직 가운데 정렬 */
-    height: 100%;
+    height: 158px;
+}
 
+.next {
+    display: flex;
+}
+
+.stepContainer {
+    width: 110px;
+    height: 158px;
+    display: flex;
+    flex-direction: column;
+    /* Assuming you want a column layout */
+    align-items: center;
+    /* Horizontally center items */
+    text-align: center;
 }
 
 .step_img {
     @media screen and (max-width: 768px) {
         width: 110px;
         height: 158px;
-
-
     }
+}
 
-    margin-top: 27px;
+.active {
+    margin-top: 18px;
+    margin-bottom: 15px;
+}
 
-
-
-
+.step_dec {
+    font-size: 16px;
+    line-height: 23.04px;
+    font-family: "Pretendard-Regular";
+    font-weight: 700;
+    color: #333333;
+    text-align: center;
 }
 
 .arrow {
     @media screen and (max-width: 768px) {
         margin: 50% 5px;
-
     }
 
-    margin: 50% 8px;
-
-
+    margin: 50% 12px;
 }
 
 .grayscale {
     filter: grayscale(100%);
+    color: #999999;
 }
 
 .button_group {
@@ -136,5 +151,4 @@
 
     width: 160px;
     height: 40px;
-
 }

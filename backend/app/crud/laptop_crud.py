@@ -7,5 +7,3 @@
 #                             hardware=laptop.hardware, brand=laptop.brand)
 #     db.add(db_laptop)
 #     db.commit()
-
-

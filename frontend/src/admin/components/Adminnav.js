@@ -15,6 +15,9 @@ const Adminnav = () => {
       <NavLink to="/admin/notebooklist" className="adminnav-list">
         노트북 리스트
       </NavLink>
+      <NavLink to="/admin/salelist" className="adminnav-list">
+        판매 노트북 리스트
+      </NavLink>
     </div>
   );
 };

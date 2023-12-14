@@ -191,16 +191,29 @@ const Div = styled.div`
 
 const Loading = () => {
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-   
     window.scrollTo(0, 0); // 페이지 렌더링 시 맨 위로 스크롤
   }, []);
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Div>
-        <img src="/img/loading/BlueStar.png" alt="BlueStar" className="b_star1" />
-        <img src="/img/loading/PinkStar.png" alt="PinkStar" className="p_star" />
+        <img
+          src="/img/loading/BlueStar.png"
+          alt="BlueStar"
+          className="b_star1"
+        />
+        <img
+          src="/img/loading/PinkStar.png"
+          alt="PinkStar"
+          className="p_star"
+        />
         <img src="/img/loading/AI.png" alt="AI" className="ai" />
       </Div>
 
@@ -231,7 +244,8 @@ const Loading = () => {
         )}
 
         <div className="description">
-          <span className="theme_color">AI</span>가 <span className="theme_color">등급을 측정중</span>입니다.
+          <span className="theme_color">AI</span>가{" "}
+          <span className="theme_color">등급을 측정중</span>입니다.
         </div>
       </Center>
     </div>
