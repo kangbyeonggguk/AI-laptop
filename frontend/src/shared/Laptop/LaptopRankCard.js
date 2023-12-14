@@ -38,7 +38,11 @@ const LaptopRankCard = (props) => {
   return (
     <Container className={`${props.className}`}>
       <img src={props.img} alt={props.alt} className="laptop_img" />
-      <img src={`/img/result/${props.rank}.png`} alt={`rank ${props.rank}`} className="rank_img" />
+      <img
+        src={`/img/result/${props.rank}.png`}
+        alt={`rank ${props.rank}`}
+        className="rank_img"
+      />
       {props.children}
     </Container>
   );
