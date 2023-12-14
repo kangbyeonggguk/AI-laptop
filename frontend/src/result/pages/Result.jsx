@@ -7,12 +7,9 @@ import LaptopRankCard from "../../shared/Laptop/LaptopRankCard";
 import ProgressBar from "../../shared/UIElements/ProgressBar";
 import Button from "../../shared/UIElements/Button";
 import Modal from "../../shared/UIElements/Modal";
-import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Result = () => {
   const params = new URLSearchParams(window.location.search);
-
-  const { isLoading, sendRequest, clearError } = useHttpClient();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalProcessOpen, setIsModalProcessOpen] = useState(false);
@@ -22,10 +19,9 @@ const Result = () => {
     front: params.get("front"),
     keyboard: params.get("keyboard"),
     monitor: params.get("monitor"),
-    totalRank: params.get("total_rank"),
   };
 
-  const { back, front, keyboard, monitor, totalRank } = defaultValues;
+  const { back, front, keyboard, monitor } = defaultValues;
 
   const getRankValue = (rank) => {
     switch (rank) {
@@ -54,17 +50,17 @@ const Result = () => {
   };
 
   const average = calculateAverage(laptopState);
-  // let totalRank;
+  let totalRank;
 
-  // if (average < 10) {
-  //   totalRank = "S";
-  // } else if (average >= 10 && average < 30) {
-  //   totalRank = "A";
-  // } else if (average >= 30 && average < 50) {
-  //   totalRank = "B";
-  // } else {
-  //   totalRank = "ERROR";
-  // }
+  if (average < 10) {
+    totalRank = "S";
+  } else if (average >= 10 && average < 30) {
+    totalRank = "A";
+  } else if (average >= 30 && average < 50) {
+    totalRank = "B";
+  } else {
+    totalRank = "ERROR";
+  }
 
   const navigate = useNavigate();
 
@@ -74,17 +70,6 @@ const Result = () => {
 
   const openProcessModal = () => {
     setIsModalProcessOpen(true);
-    const patchstep = async () => {
-      try {
-        const responseData = await sendRequest(
-          `http://127.0.0.1:8000/sell/progress?step=2&sell_id=${params.get(
-            "sell_id"
-          )}`,
-          "PATCH"
-        );
-      } catch (err) {}
-    };
-    patchstep();
   };
 
   const closeModal = () => {
@@ -94,14 +79,8 @@ const Result = () => {
 
   useEffect(() => {
     // 테마 설정
-    document.documentElement.style.setProperty(
-      "--rankColor",
-      theme.primary_100
-    );
-    document.documentElement.style.setProperty(
-      "--buttonColor",
-      theme.primary_80
-    );
+    document.documentElement.style.setProperty("--rankColor", theme.primary_100);
+    document.documentElement.style.setProperty("--buttonColor", theme.primary_80);
 
     window.scrollTo(0, 0); // 페이지 렌더링 시 맨 위로 스크롤
   }, []);
@@ -111,11 +90,7 @@ const Result = () => {
       <PageTitle title={"노트북 등급"} className={styles.title}>
         과연 내 노트북의 등급은?
       </PageTitle>
-      <LaptopRankCard
-        img={params.get("front_image")}
-        rank={totalRank}
-        className={styles.rankcard}
-      />
+      <LaptopRankCard img={params.get("front_image")} rank={totalRank} className={styles.rankcard} />
       <div className={styles.result_description}>
         맥북 에어는 <span className={styles.rank}>{totalRank}등급</span>입니다!
       </div>
@@ -126,11 +101,7 @@ const Result = () => {
         <ProgressBar category="monitor" damaged={laptopState.monitor} />
       </div>
       <div className={styles.button_group}>
-        <Button
-          active={false}
-          className={styles.prev_btn}
-          onClick={() => navigate("/purchaseform")}
-        >
+        <Button active={false} className={styles.prev_btn} onClick={() => navigate("/purchaseform")}>
           이전으로
         </Button>
         <Button active={true} className={styles.prev_btn} onClick={openModal}>
@@ -139,12 +110,7 @@ const Result = () => {
         <div id="backdrop-hook">
           <Modal show={isModalOpen} onCancel={closeModal}>
             <div className={styles.modal}>
-              <img
-                src="/img/result/Cancel.png"
-                alt="cancel"
-                className={styles.cancel}
-                onClick={closeModal}
-              />
+              <img src="/img/result/Cancel.png" alt="cancel" className={styles.cancel} onClick={closeModal} />
               <img src="/img/result/Look_small.png" alt="look" />
               <div className={styles.modal_comment}>
                 <p style={{ marginTop: "8px" }}>
@@ -152,18 +118,10 @@ const Result = () => {
                 </p>
               </div>
               <div className={styles.modal_button}>
-                <Button
-                  active={false}
-                  onClick={closeModal}
-                  className={styles.btn}
-                >
+                <Button active={false} onClick={closeModal} className={styles.btn}>
                   취소
                 </Button>
-                <Button
-                  active={true}
-                  onClick={openProcessModal}
-                  className={styles.btn}
-                >
+                <Button active={true} onClick={openProcessModal} className={styles.btn}>
                   신청하기
                 </Button>
               </div>
@@ -173,37 +131,21 @@ const Result = () => {
         <div id="backdrop-hook">
           <Modal show={isModalProcessOpen} onCancel={closeModal}>
             <div className={styles.modal} style={{ height: "261px" }}>
-              <img
-                src="/img/result/Cancel.png"
-                alt="cancel"
-                className={styles.cancel}
-                onClick={closeModal}
-              />
+              <img src="/img/result/Cancel.png" alt="cancel" className={styles.cancel} onClick={closeModal} />
               <div className={styles.modal_comment}>
                 <p style={{ margin: "22px 0 9px 0", fontWeight: "500" }}>
-                  측정 신청이 완료되었습니다. <br /> 노트북을 아래 주소로
-                  보내주세요!
+                  측정 신청이 완료되었습니다. <br /> 노트북을 아래 주소로 보내주세요!
                 </p>
 
                 <p className={styles.address}>
-                  (주)도구모음: 서울특별시 강남구 봉은사로 <br /> 454 (금탁타워)
-                  2층
+                  (주)도구모음: 서울특별시 강남구 봉은사로 <br /> 454 (금탁타워) 2층
                 </p>
               </div>
               <div className={styles.modal_button}>
                 <Button
                   active={true}
-                  onClick={() =>
-                    navigate(`/process`, {
-                      state: {
-                        totalRank,
-                        frontImage: params.get("front_image"),
-                        id: params.get("sell_id"),
-                      },
-                    })
-                  }
-                  className={styles.process_btn}
-                >
+                  onClick={() => navigate("/process", { state: { totalRank, frontImage: params.get("front_image") } })}
+                  className={styles.process_btn}>
                   진행 상황 확인하기
                 </Button>
               </div>

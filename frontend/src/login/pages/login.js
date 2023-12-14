@@ -6,7 +6,6 @@ import { loginUser } from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
 import { KAKAO_AUTH_URL } from "./Oauth";
 import { NAVER_AUTH_URL } from "./Oauthnaver";
-import { jwtDecode as jwt_decode } from "jwt-decode";
 
 import "./login.css";
 
@@ -47,8 +46,8 @@ const Login = () => {
       const { access_token, refresh_token, platform_type, admin } =
         responseData;
 
-      const expires_in = 9;
-      const expirationTime = Date.now() * expires_in;
+      const expires_in = 10;
+      const expirationTime = Date.now() + expires_in * 1000;
 
       dispatch(
         loginUser(access_token, refresh_token, platform_type, admin === 1)
@@ -69,29 +68,36 @@ const Login = () => {
 
       console.log(responseData.admin);
 
+      checkTokenExpiration();
+
       setError(null);
       navigate("/");
     } catch (error) {
       setError("잘못된 비밀번호입니다. 다시 확인해주세요.");
     }
   };
-  // 액세스 토큰 만료 여부 확인
-  function isAccessTokenExpired(accessToken) {
-    // JWT 라이브러리를 사용하여 액세스 토큰 디코딩
-    const decodedToken = jwt_decode(accessToken);
-    // 디코딩된 토큰에서 만료 시간을 추출
-    const expirationTime = decodedToken.exp;
-    // 현재 시간을 밀리초 단위로 얻은 후, 초 단위로 변환
-    const currentTime = Math.floor(Date.now() / 1000);
-    // 만료 시간이 현재 시간보다 작으면 토큰은 만료된 것으로 간주
-    return expirationTime < currentTime;
-  }
 
-  // 리프레시 토큰을 사용하여 새로운 액세스 토큰 갱신
-  async function refreshAccessToken() {
+  const checkTokenExpiration = async () => {
+    const expirationTime = localStorage.getItem("accessTokenExpiration");
+    if (expirationTime) {
+      const now = new Date();
+      const expiration = new Date(expirationTime);
+      const timeUntilExpiration = expiration - now;
+
+      console.log("현재 시간:", now);
+      console.log("만료 시간:", expiration);
+      console.log("만료까지 남은 시간:", timeUntilExpiration);
+
+      const refreshTime = 5 * 60 * 1000;
+      if (timeUntilExpiration < refreshTime) {
+        await refreshAccessToken();
+      }
+    }
+  };
+
+  const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem("refreshToken");
-
       if (!refreshToken) {
         console.error("리프레시 토큰이 없습니다.");
         return;
@@ -121,25 +127,7 @@ const Login = () => {
     } catch (error) {
       console.error("토큰 재발급 요청 중 오류가 발생했습니다.", error);
     }
-  }
-
-  // 주기적으로 액세스 토큰 갱신을 수행하거나, 요청을 보낼 때마다 확인하는 예제
-  async function performTokenRefresh() {
-    if (isAccessTokenExpired(localStorage.getItem("accessToken"))) {
-      // 액세스 토큰이 만료되었을 때 리프레시 토큰으로 갱신
-      await refreshAccessToken();
-    }
-
-    // 이후 여기에 액세스 토큰을 사용하는 요청 등의 코드를 추가할 수 있습니다.
-  }
-
-  // 주기적으로 수행하려면 setInterval 사용
-  // 1시간마다 실행
-  setInterval(performTokenRefresh, 5 * 60 * 1000);
-
-  // 또는 요청을 보낼 때마다 확인하려면 해당 요청 코드 내에서 호출
-  // 예시: fetch나 axios 등의 비동기 요청 후에 호출
-  // await performTokenRefresh();
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");

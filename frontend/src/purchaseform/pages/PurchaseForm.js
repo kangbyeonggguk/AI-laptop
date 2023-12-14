@@ -187,8 +187,10 @@ const PurchaseForm = () => {
       );
 
       navigate(
-        `/result?sell_id=${response.sell_id}&front_image=${response.front_image}&back=${response.serving_datas.back}&front=${response.serving_datas.front}&keyboard=${response.serving_datas.keyboard}&monitor=${response.serving_datas.monitor}&total_rank=${response.total_rank}`
+        `/result?sell_id=${response.sell_id}&front_image=${response.front_image}&back=${response.serving_datas.back}&front=${response.serving_datas.front}&keyboard=${response.serving_datas.keyboard}&monitor=${response.serving_datas.monitor}`
       );
+
+      console.log(response);
     } catch (error) {
       console.error("Error while sending data to the server:", error);
     }

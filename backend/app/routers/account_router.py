@@ -53,7 +53,7 @@ async def account_login(form_data: OAuth2PasswordRequestForm = Depends(),
     return {"access_token": util.create_access_token(account.account_id),
             "refresh_token": refresh_token,
             "platform_type":account.platform_type,
-            "admin":account.admin,}
+            "admin":account.admin}
 
 #토큰 리프레시
 @router.post("/accounts/refresh-token", status_code=status.HTTP_200_OK)
