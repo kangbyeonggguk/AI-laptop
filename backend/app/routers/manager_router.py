@@ -7,6 +7,7 @@ from models import  laptop_info_list as laptop_info_list_models
 from crud import laptop_sell_crud
 from crud import laptop_info_list
 from schemas import laptop_info_list as laptop_info_list_schema
+from schemas import laptop_schema 
 from typing import Annotated,List
 
 router = APIRouter(
@@ -69,3 +70,22 @@ async def create_laptop_info_list(device_name: Annotated[str, Form()],screen_siz
 @router.delete("/admin/laptop_info_list", status_code=200)
 def delete_laptop_info_list(info_id:str=None,db: Session = Depends(db.session)):
     laptop_info_list.delete_laptops_info(info_id=info_id,db=db)
+
+@router.get("/admin/laptop_list", status_code=200)
+def read_laptop_list(page: int = 1, name: str = None, db: Session = Depends(db.session)):
+    list,total_count,info_list=laptop_info_list.get_laptop_list(page=page,name=name,db=db)
+    if not list:
+        raise HTTPException(status_code=404, detail="No admin info found")
+    return {"list":list,"data_count":total_count,"info_list":info_list}
+
+@router.patch("/admin/laptop_list", status_code=200)
+def patch_laptop_list(info:laptop_schema.PatchLaptop, db: Session = Depends(db.session)):
+    laptop_info_list.patch_laptop_list(info=info,db=db)
+
+@router.delete("/admin/laptop_list", status_code=200)
+def delete_laptop_list(laptop_id:str=None, db: Session = Depends(db.session)):
+    laptop_info_list.delete_aptop_list(laptop_id=laptop_id,db=db)
+
+@router.post("/admin/laptop_list", status_code=200)
+def create_laptop_list(info:laptop_schema.CreateLaptop,db: Session = Depends(db.session)):
+    laptop_info_list.create_laptop_list(info=info,db=db)

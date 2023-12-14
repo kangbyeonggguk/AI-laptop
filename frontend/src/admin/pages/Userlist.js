@@ -5,71 +5,12 @@ import Modal from "../../shared/UIElements/Modal";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
 import "./Userlist.css";
-
-const dummydata = [
-  {
-    index: 1,
-    id: "dac0eBdu",
-    nickname: "Teddy",
-    email: "jdh@naver.com",
-    time: "2023. 10. 31",
-    phoneNumer: "010-5988-5857",
-  },
-  {
-    index: 2,
-    id: "dac0efEdu",
-    nickname: "최지원1",
-    email: "Jiwon@gmail.com",
-    time: "2023. 09. 12",
-    phoneNumer: "010-5988-5857",
-  },
-  {
-    index: 3,
-    id: "dac0efEdu",
-    nickname: "최지원2",
-    email: "Jiwon@gmail.com",
-    time: "2023. 10. 31",
-    phoneNumer: "010-5988-5857",
-  },
-  {
-    index: 4,
-    id: "dac0efEdu",
-    nickname: "최지원3",
-    email: "Jiwon@gmail.com",
-    time: "2023.  10. 31",
-    phoneNumer: "010-5988-5857",
-  },
-  {
-    index: 5,
-    id: "dac0efEdu",
-    nickname: "최지원4",
-    email: "Jiwon@gmail.com",
-    time: "2023. 10. 31",
-    phoneNumer: "010-5988-5857",
-  },
-  {
-    index: 6,
-    id: "dac0efEdu",
-    nickname: "최지원5",
-    email: "Jiwon@gmail.com",
-    time: "2023.  10. 31",
-    phoneNumer: "010-5988-5857",
-  },
-  {
-    index: 7,
-    id: "dac0efEdu",
-    nickname: "최지원6",
-    email: "Jiwon@gmail.com",
-    time: "2023. 10. 31",
-    phoneNumer: "010-5988-5857",
-  },
-];
+import "./Paflist.css";
 
 const Userlist = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [selectedItems, setSelectedItems] = useState([]);
 
   const { isLoading, sendRequest, clearError } = useHttpClient();
 
@@ -103,38 +44,6 @@ const Userlist = () => {
     setSelectedItem(null);
   };
 
-  const isAllSelected = () => {
-    return selectedItems.length === loadeddata.length;
-  };
-
-  const handleSelectAll = () => {
-    // 전체 체크박스 상태를 반전시킴
-    // 만약 전체 체크박스가 선택되어 있다면 해제하고,
-    // 선택되어 있지 않다면 선택함
-    if (isAllSelected()) {
-      // 모든 항목의 체크를 해제
-      setSelectedItems([]);
-    } else {
-      // 모든 항목을 선택
-      setSelectedItems([...loadeddata]);
-    }
-  };
-
-  const handleItemSelect = (item) => {
-    if (isSelected(item)) {
-      // 이미 선택된 항목인 경우, 선택 취소
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== item)
-      );
-    } else {
-      // 선택되지 않은 항목인 경우, 선택
-      setSelectedItems([...selectedItems, item]);
-    }
-  };
-
-  const isSelected = (item) => {
-    return selectedItems.includes(item);
-  };
   useEffect(() => {
     const getinfo = async () => {
       try {
@@ -177,22 +86,12 @@ const Userlist = () => {
           <div className="paflist_title">유저 리스트</div>
           <div className="pafilist_main">
             <div className="pafilist_main_listtop">
-              <input
-                type="checkbox"
-                onChange={handleSelectAll} // 전체 선택 상태 변경 핸들러 연결
-                checked={isAllSelected()}
-              ></input>
               <span style={{ marginLeft: "1rem" }}>Name</span>
               <span style={{ marginLeft: "11.8125rem" }}>E-mail</span>
               <span style={{ marginLeft: "13.5625rem " }}>Join Date</span>
             </div>
             {loadeddata.map((list, index) => (
               <div className="pafilist_main_list" key={index}>
-                <input
-                  type="checkbox"
-                  checked={isSelected(list)} // 항목의 선택 상태 확인
-                  onChange={() => handleItemSelect(list)}
-                ></input>
                 <span style={{ marginLeft: "1rem", width: "13.1875rem" }}>
                   <span style={{ fontWeight: "bold" }}></span> {list.nickname}
                 </span>

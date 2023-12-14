@@ -10,7 +10,7 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import Imageupload from "../components/Imageupload";
 
 const NotebookList = () => {
-  const [selectedImages, setSelectedImages] = useState(Array(4).fill(null));
+  const [selectedImages, setSelectedImages] = useState(Array(4).fill(""));
 
   const [isadd, setIsAdd] = useState(false); //추가하기인지 아닌지 확인
 
@@ -54,9 +54,7 @@ const NotebookList = () => {
       image: loadeddata[index].laptop_info_list_image,
     });
   };
-  useEffect(() => {
-    console.log(inputlist);
-  }, [inputlist]);
+
   const [listnum, setListNum] = useState(0);
   const Listnumhandler = (index) => {
     setListNum(index);
@@ -89,39 +87,6 @@ const NotebookList = () => {
   };
 
   const [selectedItem, setSelectedItem] = useState(null);
-  const [selectedItems, setSelectedItems] = useState([]);
-  const isAllSelected = () => {
-    return selectedItems.length === loadeddata.length;
-  };
-
-  const handleSelectAll = () => {
-    // 전체 체크박스 상태를 반전시킴
-    // 만약 전체 체크박스가 선택되어 있다면 해제하고,
-    // 선택되어 있지 않다면 선택함
-    if (isAllSelected()) {
-      // 모든 항목의 체크를 해제
-      setSelectedItems([]);
-    } else {
-      // 모든 항목을 선택
-      setSelectedItems([...loadeddata]);
-    }
-  };
-
-  const handleItemSelect = (item) => {
-    if (isSelected(item)) {
-      // 이미 선택된 항목인 경우, 선택 취소
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== item)
-      );
-    } else {
-      // 선택되지 않은 항목인 경우, 선택
-      setSelectedItems([...selectedItems, item]);
-    }
-  };
-
-  const isSelected = (item) => {
-    return selectedItems.includes(item);
-  };
 
   useEffect(() => {
     const getinfo = async () => {
@@ -243,7 +208,6 @@ const NotebookList = () => {
     });
 
     try {
-      const accessToken = localStorage.getItem("accessToken");
       const response = await sendRequest(
         "http://localhost:8000/admin/laptop_info_list",
         "POST",
@@ -266,361 +230,334 @@ const NotebookList = () => {
   };
   return (
     <React.Fragment>
-      {!isLoading && loadeddata && (
-        <>
-          <Modal
-            show={showModal}
-            onCancel={closeModal}
-            className="paflist-modal"
-            Backdropclass={imgenlarge && "backdropclose"}
-          >
-            {isadd ? (
-              <span className="paflist-modal_title">노트북 추가하기</span>
-            ) : (
-              <span className="paflist-modal_title">노트북 상세 정보</span>
-            )}
+      <Modal
+        show={showModal}
+        onCancel={closeModal}
+        className="paflist-modal"
+        Backdropclass={imgenlarge && "backdropclose"}
+      >
+        {isadd ? (
+          <span className="paflist-modal_title">노트북 추가하기</span>
+        ) : (
+          <span className="paflist-modal_title">노트북 상세 정보</span>
+        )}
 
-            <img
-              className="paflist_modal_cancle"
-              src="/img/modal/Cancle.png"
-              alt="modalcancle"
-              onClick={closeModal}
-            />
-            <div className="paflist-modal_name">기기명</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.device_name}
-              onChange={(e) => {
-                setInputList({ ...inputlist, device_name: e.target.value });
-              }}
-            ></input>
-            <div className="paflist-modal_name">화면 사이즈</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.screen_size}
-              onChange={(e) => {
-                setInputList({ ...inputlist, screen_size: e.target.value });
-              }}
-            ></input>
-            <div className="paflist-modal_name">업무용</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.business_usage}
-              onChange={(e) => {
-                setInputList({ ...inputlist, business_usage: e.target.value });
-              }}
-            ></input>
-            <div className="paflist-modal_name">인강용</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.internet_lecture_usage}
-              onChange={(e) => {
-                setInputList({
-                  ...inputlist,
-                  internet_lecture_usage: e.target.value,
-                });
-              }}
-            ></input>
+        <img
+          className="paflist_modal_cancle"
+          src="/img/modal/Cancle.png"
+          alt="modalcancle"
+          onClick={closeModal}
+        />
+        <div className="paflist-modal_name">기기명</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.device_name}
+          onChange={(e) => {
+            setInputList({ ...inputlist, device_name: e.target.value });
+          }}
+        ></input>
+        <div className="paflist-modal_name">화면 사이즈</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.screen_size}
+          onChange={(e) => {
+            setInputList({ ...inputlist, screen_size: e.target.value });
+          }}
+        ></input>
+        <div className="paflist-modal_name">업무용</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.business_usage}
+          onChange={(e) => {
+            setInputList({ ...inputlist, business_usage: e.target.value });
+          }}
+        ></input>
+        <div className="paflist-modal_name">인강용</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.internet_lecture_usage}
+          onChange={(e) => {
+            setInputList({
+              ...inputlist,
+              internet_lecture_usage: e.target.value,
+            });
+          }}
+        ></input>
 
-            <div className="paflist-modal_name">게임용</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.gaming_usage}
-              onChange={(e) => {
-                setInputList({
-                  ...inputlist,
-                  gaming_usage: e.target.value,
-                });
-              }}
-            ></input>
+        <div className="paflist-modal_name">게임용</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.gaming_usage}
+          onChange={(e) => {
+            setInputList({
+              ...inputlist,
+              gaming_usage: e.target.value,
+            });
+          }}
+        ></input>
 
-            <div className="paflist-modal_name">구매제한</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.purchase_limit}
-              onChange={(e) => {
-                setInputList({
-                  ...inputlist,
-                  purchase_limit: e.target.value,
-                });
-              }}
-            ></input>
+        <div className="paflist-modal_name">구매제한</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.purchase_limit}
+          onChange={(e) => {
+            setInputList({
+              ...inputlist,
+              purchase_limit: e.target.value,
+            });
+          }}
+        ></input>
 
-            <div className="paflist-modal_name">배송비</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.delivery_fee}
-              onChange={(e) => {
-                setInputList({
-                  ...inputlist,
-                  delivery_fee: e.target.value,
-                });
-              }}
-            ></input>
+        <div className="paflist-modal_name">배송비</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.delivery_fee}
+          onChange={(e) => {
+            setInputList({
+              ...inputlist,
+              delivery_fee: e.target.value,
+            });
+          }}
+        ></input>
 
-            <div className="paflist-modal_name">제조사</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.manufacturing_company}
-              onChange={(e) => {
-                setInputList({
-                  ...inputlist,
-                  manufacturing_company: e.target.value,
-                });
-              }}
-            ></input>
+        <div className="paflist-modal_name">제조사</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.manufacturing_company}
+          onChange={(e) => {
+            setInputList({
+              ...inputlist,
+              manufacturing_company: e.target.value,
+            });
+          }}
+        ></input>
 
-            <div className="paflist-modal_name">브랜드</div>
-            <input
-              className="paflist-modal_des"
-              value={inputlist.brand}
-              onChange={(e) => {
-                setInputList({
-                  ...inputlist,
-                  brand: e.target.value,
-                });
-              }}
-            ></input>
+        <div className="paflist-modal_name">브랜드</div>
+        <input
+          className="paflist-modal_des"
+          value={inputlist.brand}
+          onChange={(e) => {
+            setInputList({
+              ...inputlist,
+              brand: e.target.value,
+            });
+          }}
+        ></input>
 
-            {isadd ? (
-              <Imageupload
-                selectedImages={selectedImages}
-                setSelectedImages={setSelectedImages}
-              />
-            ) : (
+        {isadd ? (
+          <Imageupload
+            selectedImages={selectedImages}
+            setSelectedImages={setSelectedImages}
+          />
+        ) : (
+          <>
+            {inputlist.image && (
               <>
-                {inputlist.image && (
-                  <>
-                    <div className="paflist-modal_name">노트북 사진</div>
-                    <div className="paflist-modal_imgcontain">
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <div
-                          className="paflist-modal_imgbox"
-                          onClick={(e) => {
-                            setImgurl(
-                              inputlist.image[0] ? inputlist.image[0].path : ""
-                            );
-                            openEnlarge();
-                          }}
-                        >
-                          <img
-                            className="paflist-modal_img"
-                            src={
-                              inputlist.image[0] ? inputlist.image[0].path : ""
-                            }
-                          />
-                        </div>
-                        <div
-                          className="paflist-modal_imgbox"
-                          onClick={(e) => {
-                            setImgurl(
-                              inputlist.image[1] ? inputlist.image[1].path : ""
-                            );
-                            openEnlarge();
-                          }}
-                        >
-                          <img
-                            className="paflist-modal_img"
-                            src={
-                              inputlist.image[1] ? inputlist.image[1].path : ""
-                            }
-                          />
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <div
-                          className="paflist-modal_imgbox"
-                          onClick={(e) => {
-                            setImgurl(
-                              inputlist.image[2] ? inputlist.image[2].path : ""
-                            );
-                            openEnlarge();
-                          }}
-                        >
-                          <img
-                            className="paflist-modal_img"
-                            src={
-                              inputlist.image[2] ? inputlist.image[2].path : ""
-                            }
-                          />
-                        </div>
-                        <div
-                          className="paflist-modal_imgbox"
-                          onClick={(e) => {
-                            setImgurl(
-                              inputlist.image[3] ? inputlist.image[3].path : ""
-                            );
-                            openEnlarge();
-                          }}
-                        >
-                          <img
-                            className="paflist-modal_img"
-                            src={
-                              inputlist.image[3] ? inputlist.image[3].path : ""
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </>
-            )}
-
-            <div className="center">
-              {isadd ? (
-                <button
-                  className="paflist-modal_editbutton"
-                  onClick={createinfo}
-                >
-                  추가하기
-                </button>
-              ) : (
-                <>
-                  <button
-                    className="paflist-modal_editbutton"
-                    onClick={patchinfo}
-                    style={{ marginRight: "13px", marginLeft: "15px" }}
-                  >
-                    수정하기
-                  </button>
-                  <button
-                    className="paflist-modal_editbutton"
-                    onClick={deleteinfo}
-                  >
-                    삭제하기
-                  </button>
-                </>
-              )}
-            </div>
-          </Modal>
-
-          <Enlargemodal
-            show={imgenlarge}
-            onCancel={closeEnlarge}
-            className="paflist-modal_img_enlarge"
-          >
-            <img
-              className="paflist-modal_img_enlarge_img"
-              src={imgurl}
-              alt="imgenlarge"
-            ></img>
-          </Enlargemodal>
-
-          <input
-            type="text"
-            className="paflist_search"
-            placeholder="내용 검색하기"
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-          ></input>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <div className="paflist_title">노트북 리스트</div>
-            <button
-              className="paflist_addbutton"
-              onClick={() => {
-                addhandler();
-                openModal();
-              }}
-            >
-              노트북 추가
-            </button>
-          </div>
-          <div className="pafilist_main">
-            <div className="pafilist_main_listtop">
-              <input
-                type="checkbox"
-                onChange={handleSelectAll} // 전체 선택 상태 변경 핸들러 연결
-                checked={isAllSelected()}
-              ></input>
-              <span style={{ marginLeft: "1rem" }}>Name</span>
-              <span style={{ marginLeft: "11.4375rem" }}>Screen</span>
-              <span style={{ marginLeft: "11.4375rem" }}>Time</span>
-            </div>
-            {loadeddata.map((list, index) => (
-              <div key={index}>
-                <div className="pafilist_main_list">
-                  <input
-                    type="checkbox"
-                    checked={isSelected(list)} // 항목의 선택 상태 확인
-                    onChange={() => handleItemSelect(list)}
-                  ></input>
-                  <span style={{ marginLeft: "1rem", width: "8.8125rem" }}>
-                    <span style={{ fontWeight: "bold" }}></span>{" "}
-                    {list.device_name}
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: "5rem",
-                      width: "4.9125rem",
-                    }}
-                  >
-                    {list.screen_size}
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: "9rem",
-                      width: "4.9125rem",
-                      marginRight: "15.051625rem",
-                    }}
-                  >
-                    {formatDate(list.create_date)}
-                  </span>
+                <div className="paflist-modal_name">노트북 사진</div>
+                <div className="paflist-modal_imgcontain">
                   <div
-                    className="center"
-                    style={{ cursor: "pointer" }}
-                    onClick={(e) => {
-                      openModal();
-                      Listnumhandler(index);
-                      inpulistvalue(index);
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
                     }}
                   >
                     <div
-                      style={{
-                        fontSize: "0.75rem",
-                        width: "2.875rem",
-                        textAlign: "left",
+                      className="paflist-modal_imgbox"
+                      onClick={(e) => {
+                        setImgurl(
+                          inputlist.image[0] ? inputlist.image[0].path : ""
+                        );
+                        openEnlarge();
                       }}
                     >
-                      더보기
+                      <img
+                        className="paflist-modal_img"
+                        src={inputlist.image[0] ? inputlist.image[0].path : ""}
+                      />
                     </div>
-                    <img
-                      className="paflist_main_moreimg"
-                      src="/img/admin/more.png"
-                      alt="morepng"
-                    ></img>
+                    <div
+                      className="paflist-modal_imgbox"
+                      onClick={(e) => {
+                        setImgurl(
+                          inputlist.image[1] ? inputlist.image[1].path : ""
+                        );
+                        openEnlarge();
+                      }}
+                    >
+                      <img
+                        className="paflist-modal_img"
+                        src={inputlist.image[1] ? inputlist.image[1].path : ""}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div
+                      className="paflist-modal_imgbox"
+                      onClick={(e) => {
+                        setImgurl(
+                          inputlist.image[2] ? inputlist.image[2].path : ""
+                        );
+                        openEnlarge();
+                      }}
+                    >
+                      <img
+                        className="paflist-modal_img"
+                        src={inputlist.image[2] ? inputlist.image[2].path : ""}
+                      />
+                    </div>
+                    <div
+                      className="paflist-modal_imgbox"
+                      onClick={(e) => {
+                        setImgurl(
+                          inputlist.image[3] ? inputlist.image[3].path : ""
+                        );
+                        openEnlarge();
+                      }}
+                    >
+                      <img
+                        className="paflist-modal_img"
+                        src={inputlist.image[3] ? inputlist.image[3].path : ""}
+                      />
+                    </div>
                   </div>
                 </div>
+              </>
+            )}
+          </>
+        )}
+
+        <div className="center">
+          {isadd ? (
+            <button className="paflist-modal_editbutton" onClick={createinfo}>
+              추가하기
+            </button>
+          ) : (
+            <>
+              <button
+                className="paflist-modal_editbutton"
+                onClick={patchinfo}
+                style={{ marginRight: "13px", marginLeft: "15px" }}
+              >
+                수정하기
+              </button>
+              <button className="paflist-modal_editbutton" onClick={deleteinfo}>
+                삭제하기
+              </button>
+            </>
+          )}
+        </div>
+      </Modal>
+
+      <Enlargemodal
+        show={imgenlarge}
+        onCancel={closeEnlarge}
+        className="paflist-modal_img_enlarge"
+      >
+        <img
+          className="paflist-modal_img_enlarge_img"
+          src={imgurl}
+          alt="imgenlarge"
+        ></img>
+      </Enlargemodal>
+
+      <input
+        type="text"
+        className="paflist_search"
+        placeholder="내용 검색하기"
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+      ></input>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <div className="paflist_title">노트북 리스트</div>
+        <button
+          className="paflist_addbutton"
+          onClick={() => {
+            addhandler();
+            openModal();
+          }}
+        >
+          노트북 추가
+        </button>
+      </div>
+      <div className="pafilist_main">
+        <div className="pafilist_main_listtop">
+          <span style={{ marginLeft: "1rem" }}>Name</span>
+          <span style={{ marginLeft: "11.4375rem" }}>Screen</span>
+          <span style={{ marginLeft: "11.4375rem" }}>Time</span>
+        </div>
+        {loadeddata &&
+          loadeddata.map((list, index) => (
+            <div key={index}>
+              <div className="pafilist_main_list">
+                <span style={{ marginLeft: "1rem", width: "8.8125rem" }}>
+                  <span style={{ fontWeight: "bold" }}></span>{" "}
+                  {list.device_name}
+                </span>
+                <span
+                  style={{
+                    marginLeft: "5rem",
+                    width: "4.9125rem",
+                  }}
+                >
+                  {list.screen_size}
+                </span>
+                <span
+                  style={{
+                    marginLeft: "9rem",
+                    width: "4.9125rem",
+                    marginRight: "15.051625rem",
+                  }}
+                >
+                  {formatDate(list.create_date)}
+                </span>
+                <div
+                  className="center"
+                  style={{ cursor: "pointer" }}
+                  onClick={(e) => {
+                    openModal();
+                    Listnumhandler(index);
+                    inpulistvalue(index);
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "0.75rem",
+                      width: "2.875rem",
+                      textAlign: "left",
+                    }}
+                  >
+                    더보기
+                  </div>
+                  <img
+                    className="paflist_main_moreimg"
+                    src="/img/admin/more.png"
+                    alt="morepng"
+                  ></img>
+                </div>
               </div>
-            ))}
-          </div>
-          <div className="paflist_page">
-            <Page
-              itemlen={itemlen}
-              searchParams={searchParams}
-              setSearchParams={setSearchParams}
-              searchparamshandler={searchparamshandler}
-              itemcount={7}
-            ></Page>
-          </div>
-        </>
-      )}
+            </div>
+          ))}
+      </div>
+      <div className="paflist_page">
+        <Page
+          itemlen={itemlen}
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          searchparamshandler={searchparamshandler}
+          itemcount={7}
+        ></Page>
+      </div>
     </React.Fragment>
   );
 };

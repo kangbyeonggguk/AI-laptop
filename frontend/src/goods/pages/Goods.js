@@ -132,7 +132,10 @@ const Goods = (props) => {
                               {notebook.hardware
                                 .split(",")
                                 .map((props, index) => (
-                                  <span key={index}>{props}</span>
+                                  <div key={index}>
+                                    <span>{props}</span>
+                                    <br />
+                                  </div>
                                 ))}
                             </div>
                           </div>

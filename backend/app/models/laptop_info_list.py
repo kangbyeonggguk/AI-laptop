@@ -34,6 +34,8 @@ class Laptop2(Base):
     rank = Column(String(64), nullable=False)
     laptop_info_list_id = Column(Integer, ForeignKey("laptop_info_list.laptop_info_list_id"),nullable=False)
     laptop_info_list = relationship("Laptop", back_populates="laptop")
+    create_date = Column(DATETIME, nullable=False, default=func.utc_timestamp())
+    update_date = Column(DATETIME)
 
 class Image(Base):
     __tablename__ = 'laptop_info_list_image'
