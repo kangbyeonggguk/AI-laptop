@@ -230,7 +230,7 @@ const Goodsview = (props) => {
                 </a>
               </div>
 
-              <div className="goodsview_des_text">
+              {/* <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">상품코드</a>
                 <a className="goodsview_des_text_value">
                   {loadedGoods[0].laptop_info_list.product_code}
@@ -242,7 +242,7 @@ const Goodsview = (props) => {
                 <a className="goodsview_des_text_value">
                   {loadedGoods[0].laptop_info_list.own_product_code}
                 </a>
-              </div>
+              </div> */}
 
               <div className="goodsview_des_text">
                 <a className="goodsview_des_text_key">브랜드</a>

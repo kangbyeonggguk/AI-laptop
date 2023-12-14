@@ -37,6 +37,28 @@ const AuthLinks = ({ isLoggedIn, logoutUser, platformType, isAdmin }) => {
     }
   };
 
+  // let isLogoutHandled = false;
+
+  // localStorage.getItem(isLoggedIn);
+  // // 브라우저 닫힘 이벤트 핸들러 함수
+  // function handleBeforeUnload(event) {
+  //   if (isLoggedIn === false) {
+  //     handleLogout();
+  //     isLogoutHandled = true;
+  //   }
+  // }
+
+  // // 브라우저 닫힘 이벤트 리스너 등록
+  // window.addEventListener("beforeunload", handleBeforeUnload);
+
+  // // 페이지 언로드 시에만 로그아웃 처리하도록 설정
+  // window.addEventListener("unload", function () {
+  //   if (!isLogoutHandled) {
+  //     handleLogout();
+  //     isLogoutHandled = true;
+  //   }
+  // });
+
   return (
     <React.Fragment>
       {!isLoggedIn ? (

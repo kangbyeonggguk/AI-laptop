@@ -26,7 +26,7 @@ const Filter = (props) => {
     filtercancle();
   };
 
-  const pricearray = ["all", "asc", "desc"]; //쿼리에 따라 name 메뉴 체크
+  const pricearray = ["all", "asc", "desc"]; //쿼리에 따라 price 메뉴 체크
   const [priceIndex, setPriceIndex] = useState(
     searchParams.get("price") === null
       ? 0
@@ -40,14 +40,14 @@ const Filter = (props) => {
       : parseInt(datearray.indexOf(searchParams.get("date")))
   );
 
-  const namearray = ["all", "asc", "desc"]; //쿼리에 따라 name 메뉴 체크
-  const [nameIndex, setNameIndex] = useState(
-    searchParams.get("name") === null
-      ? 0
-      : parseInt(namearray.indexOf(searchParams.get("name")))
-  );
+  // const namearray = ["all", "asc", "desc"]; //쿼리에 따라 name 메뉴 체크
+  // const [nameIndex, setNameIndex] = useState(
+  //   searchParams.get("name") === null
+  //     ? 0
+  //     : parseInt(namearray.indexOf(searchParams.get("name")))
+  // );
 
-  const ratingarray = ["", "ss", "s", "a", "b", "c"]; //쿼리에 따라 name 메뉴 체크
+  const ratingarray = ["", "ss", "s", "a", "b", "c"]; //쿼리에 따라 rank 메뉴 체크
   const [ratingIndex, setRatingIndex] = useState(
     searchParams.get("rating") === null
       ? 0
@@ -77,11 +77,11 @@ const Filter = (props) => {
               ? "desc"
               : datearray[parseInt(datearray.indexOf(searchParams.get("date")))]
           }`,
-          name: `${
-            searchParams.get("name") === null
-              ? "asc"
-              : namearray[parseInt(namearray.indexOf(searchParams.get("name")))]
-          }`,
+          // name: `${
+          //   searchParams.get("name") === null
+          //     ? "asc"
+          //     : namearray[parseInt(namearray.indexOf(searchParams.get("name")))]
+          // }`,
         }),
   });
   const filtersave = () => {
@@ -98,11 +98,11 @@ const Filter = (props) => {
         ? 0
         : parseInt(datearray.indexOf(searchParams.get("date")))
     );
-    setNameIndex(
-      searchParams.get("date") === null
-        ? 0
-        : parseInt(datearray.indexOf(searchParams.get("date")))
-    );
+    // setNameIndex(
+    //   searchParams.get("date") === null
+    //     ? 0
+    //     : parseInt(datearray.indexOf(searchParams.get("date")))
+    // );
     setRatingIndex(
       searchParams.get("rating") === null
         ? 0
@@ -143,13 +143,13 @@ const Filter = (props) => {
                     parseInt(datearray.indexOf(searchParams.get("date")))
                   ]
             }`,
-            name: `${
-              searchParams.get("name") === null
-                ? "all"
-                : namearray[
-                    parseInt(namearray.indexOf(searchParams.get("name")))
-                  ]
-            }`,
+            // name: `${
+            //   searchParams.get("name") === null
+            //     ? "all"
+            //     : namearray[
+            //         parseInt(namearray.indexOf(searchParams.get("name")))
+            //       ]
+            // }`,
           }),
     });
   };
@@ -218,7 +218,7 @@ const Filter = (props) => {
                 </div>
               ))}
             </div>
-            <div className="filter-modal_name">이름</div>
+            {/* <div className="filter-modal_name">이름</div>
             <div style={{ display: "flex" }}>
               {[
                 ["전체", "all"],
@@ -231,14 +231,14 @@ const Filter = (props) => {
                     nameIndex === index ? " filter-modal_menu_active" : "" //선택된 메뉴 css 변경
                   }`}
                   onClick={() => {
-                    setNameIndex(index);
+                    // setNameIndex(index);
                     setFilter((prev) => ({ ...prev, name: `${menu[1]}` }));
                   }}
                 >
                   {menu[0]}
                 </div>
               ))}
-            </div>
+            </div> */}
           </>
         )}
 
