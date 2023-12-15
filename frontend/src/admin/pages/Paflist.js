@@ -102,7 +102,7 @@ const Paflist = () => {
           `http://127.0.0.1:8000/admin/laptop_sell_info_list?sell_id=${loadeddata[listnum].laptop_sell_info_id}`,
           "delete"
         );
-        //window.location.reload();
+        window.location.reload();
       } catch (err) {}
     };
     deletelaptop();
@@ -161,7 +161,7 @@ const Paflist = () => {
           />
           <a>입금</a>
         </div>
-        {loadeddata && loadeddata[listnum].laptop_sell_images[0] && (
+        {loadeddata && (
           <>
             <div className="paflist-modal_name">노트북 사진</div>
             <div className="paflist-modal_imgcontain">
@@ -169,25 +169,37 @@ const Paflist = () => {
                 <div
                   className="paflist-modal_imgbox"
                   onClick={(e) => {
-                    setImgurl(loadeddata[listnum].laptop_sell_images[0].path);
+                    setImgurl(
+                      loadeddata[listnum].laptop_sell_images[1] &&
+                        loadeddata[listnum].laptop_sell_images[1].path
+                    );
                     openEnlarge();
                   }}
                 >
                   <img
                     className="paflist-modal_img"
-                    src={loadeddata[listnum].laptop_sell_images[0].path}
+                    src={
+                      loadeddata[listnum].laptop_sell_images[1] &&
+                      loadeddata[listnum].laptop_sell_images[1].path
+                    }
                   />
                 </div>
                 <div
                   className="paflist-modal_imgbox"
                   onClick={(e) => {
-                    setImgurl(loadeddata[listnum].laptop_sell_images[0].path);
+                    setImgurl(
+                      loadeddata[listnum].laptop_sell_images[0] &&
+                        loadeddata[listnum].laptop_sell_images[0].path
+                    );
                     openEnlarge();
                   }}
                 >
                   <img
                     className="paflist-modal_img"
-                    src={loadeddata[listnum].laptop_sell_images[0].path}
+                    src={
+                      loadeddata[listnum].laptop_sell_images[0] &&
+                      loadeddata[listnum].laptop_sell_images[0].path
+                    }
                   />
                 </div>
               </div>
@@ -200,25 +212,37 @@ const Paflist = () => {
                 <div
                   className="paflist-modal_imgbox"
                   onClick={(e) => {
-                    setImgurl(loadeddata[listnum].laptop_sell_images[0].path);
+                    setImgurl(
+                      loadeddata[listnum].laptop_sell_images[2] &&
+                        loadeddata[listnum].laptop_sell_images[2].path
+                    );
                     openEnlarge();
                   }}
                 >
                   <img
                     className="paflist-modal_img"
-                    src={loadeddata[listnum].laptop_sell_images[0].path}
+                    src={
+                      loadeddata[listnum].laptop_sell_images[2] &&
+                      loadeddata[listnum].laptop_sell_images[2].path
+                    }
                   />
                 </div>
                 <div
                   className="paflist-modal_imgbox"
                   onClick={(e) => {
-                    setImgurl(loadeddata[listnum].laptop_sell_images[0].path);
+                    setImgurl(
+                      loadeddata[listnum].laptop_sell_images[3] &&
+                        loadeddata[listnum].laptop_sell_images[3].path
+                    );
                     openEnlarge();
                   }}
                 >
                   <img
                     className="paflist-modal_img"
-                    src={loadeddata[listnum].laptop_sell_images[0].path}
+                    src={
+                      loadeddata[listnum].laptop_sell_images[3] &&
+                      loadeddata[listnum].laptop_sell_images[3].path
+                    }
                   />
                 </div>
               </div>

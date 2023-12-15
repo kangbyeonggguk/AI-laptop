@@ -53,19 +53,6 @@ const Result = () => {
     return sum / values.length;
   };
 
-  const average = calculateAverage(laptopState);
-  // let totalRank;
-
-  // if (average < 10) {
-  //   totalRank = "S";
-  // } else if (average >= 10 && average < 30) {
-  //   totalRank = "A";
-  // } else if (average >= 30 && average < 50) {
-  //   totalRank = "B";
-  // } else {
-  //   totalRank = "ERROR";
-  // }
-
   const navigate = useNavigate();
 
   const openModal = () => {
