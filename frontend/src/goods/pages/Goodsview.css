@@ -4,16 +4,19 @@
   flex-direction: column;
   align-items: center;
 }
+
 .goodsview_contain {
   display: flex;
   margin-top: 3.1875rem;
 }
+
 .goodsview_imgcontain {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 }
+
 .goodsview_img_mainbox {
   width: 25.7281rem;
   height: 19.6669rem;
@@ -21,10 +24,12 @@
   border-radius: 10.78px;
   border: solid 2.16px #759cff;
 }
+
 .goodsview_img_main {
   width: 25.59375rem;
   height: 15.35625rem;
 }
+
 .goodsview_rank {
   width: 7.543125rem;
   height: 7.543125rem;
@@ -32,31 +37,37 @@
   bottom: 29%;
   right: -4.5%;
 }
+
 .goodsview_descontain {
   margin-left: 6.75rem;
 }
+
 .goodsview_des_name {
   height: 2.1875rem;
   font-weight: 700;
   font-size: 1.5rem;
   margin-bottom: 1.375rem;
 }
+
 .goodsview_des_text {
   display: flex;
   height: 1.475rem;
   margin-bottom: 1.5rem;
 }
+
 .goodsview_des_text_key {
   width: 7.25rem;
   font-weight: 500;
   font-size: 1rem;
   color: #808080;
 }
+
 .goodsview_des_text_value {
   font-weight: 400;
   font-size: 1rem;
   margin-left: 1.6875rem;
 }
+
 .goodsview_pricecontain {
   width: 27.5625rem;
   height: 5.4375rem;
@@ -69,6 +80,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .goodsview_pricebox {
   width: 25.0625rem;
   height: 1.4375rem;
@@ -76,15 +88,18 @@
   justify-content: space-between;
   align-items: center;
 }
+
 .goodsview_price_text {
   font-weight: 700;
   font-size: 1rem;
 }
+
 .goodsview_price_price1 {
   font-weight: 400;
   font-size: 1rem;
   text-align: right;
 }
+
 .goodsview_price_hr {
   width: 100%;
   height: 1px;
@@ -93,21 +108,25 @@
   margin-top: 1rem;
   margin-bottom: 0.8125rem;
 }
+
 .goodsview_price_price2 {
   font-weight: 700;
   font-size: 1.5rem;
   text-align: right;
   color: #4f80ff;
 }
+
 .goodsview_price-btn {
   width: 67rem;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
+
 .goodsview_btncontain {
   margin-top: 1.5rem;
 }
+
 .goodsview_btn {
   width: 10rem;
   height: 2.5rem;
@@ -120,10 +139,12 @@
   color: #759cff;
   cursor: pointer;
 }
+
 .goodsview_modal {
   width: 22.5rem;
   height: 15rem;
 }
+
 .good_modal_box {
   width: 100%;
   height: 100%;
@@ -133,6 +154,7 @@
   justify-content: center;
   position: relative;
 }
+
 .goodsview_modal_cancle {
   width: 1rem;
   height: 1rem;
@@ -141,16 +163,19 @@
   right: 4.44444%;
   cursor: pointer;
 }
+
 .goodsview_modal_img {
   width: 4.15875rem;
   height: 3.1875rem;
 }
+
 .goodsview_modal_text {
   height: 1.4375rem;
   font-weight: 500;
   font-size: 1rem;
   margin-top: 1.21875rem;
 }
+
 .goodsview_modal_button {
   width: 6.5rem;
   height: 2.5rem;
@@ -163,9 +188,11 @@
   margin-top: 2.5rem;
   cursor: pointer;
 }
+
 .goodsview_mobile_price {
   display: none;
 }
+
 @media (max-width: 768px) {
   .goodsview_contain {
     margin-top: 1.6875rem;
@@ -173,19 +200,23 @@
     height: 16.5675rem;
     position: relative;
   }
+
   .goodsview_imgcontain {
     position: static;
   }
+
   .goodsview_img_mainbox {
     width: 9.340625rem;
     height: 7.14rem;
     border-radius: 3.91px;
     border: solid 0.66px #759cff;
   }
+
   .goodsview_img_main {
     width: 9.291875rem;
     height: 5.575rem;
   }
+
   .goodsview_rank {
     width: 2.5rem;
     height: 2.5rem;
@@ -193,9 +224,11 @@
     top: 35.4609%;
     left: 34.8648%;
   }
+
   .goodsview_descontain {
     margin-left: 2.0625rem;
   }
+
   .goodsview_des_name {
     height: 1.625rem;
     font-weight: 700;
@@ -205,20 +238,24 @@
     top: 51.3052%;
     left: 0;
   }
+
   .goodsview_des_text {
     height: 0.75rem;
     margin-bottom: 0.5rem;
   }
+
   .goodsview_des_text_key {
     width: 2.875rem;
     font-weight: 400;
     font-size: 0.5rem;
   }
+
   .goodsview_des_text_value {
     font-weight: 500;
     font-size: 0.5rem;
     margin-left: 0.25rem;
   }
+
   .goodsview_pricecontain {
     width: 23.124rem;
     height: 4.3575rem;
@@ -227,24 +264,29 @@
     border-radius: 4.94px;
     margin-top: 8.245rem;
   }
+
   .goodsview_pricebox {
     width: 21.0275rem;
     height: 1.25rem;
   }
+
   .goodsview_price_text {
     font-size: 0.875rem;
   }
+
   .goodsview_price_price1 {
     font-weight: 400;
     font-size: 0.875rem;
     text-align: right;
   }
+
   .goodsview_price_hr {
     width: 100%;
     height: 1px;
     margin-top: 0.8125rem;
     margin-bottom: 0.8125rem;
   }
+
   .goodsview_price_price2 {
     font-weight: 700;
     font-size: 1.25rem;
@@ -252,17 +294,20 @@
     color: #4f80ff;
     font-family: "Work Sans", sans-serif;
   }
+
   .goodsview_price-btn {
     width: 23.125rem;
 
     align-items: center;
   }
+
   .goodsview_btncontain {
     margin-top: 2.2925rem;
     width: 23.125rem;
     display: flex;
     justify-content: space-between;
   }
+
   .goodsview_btn {
     width: 11.25rem;
     height: 2.5rem;

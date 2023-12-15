@@ -56,7 +56,11 @@ const ProgressBar = (props) => {
     <GraphContainer>
       <div>
         {/* 파손도 아이콘이미지(앞면/옆면/키보드/액정 props에 따라 이미지 설정하기) */}
-        <img src={`/img/result/${props.category}_WithText.png`} alt="damage_cate" className="damaged_img"></img>
+        <img
+          src={`/img/result/${props.category}_WithText.png`}
+          alt="damage_cate"
+          className="damaged_img"
+        ></img>
       </div>
       <div>
         <GraphBar

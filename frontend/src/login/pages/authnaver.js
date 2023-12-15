@@ -67,7 +67,7 @@ const AuthNaverPage = () => {
         // 만료 시간이 현재 시간보다 작으면 토큰은 만료된 것으로 간주
         return expirationTime < currentTime;
       }
-      // 리프레시 토큰을 사용하여 새로운 액세스 토큰 갱신
+
       async function refreshAccessToken() {
         try {
           const refreshToken = localStorage.getItem("refreshToken");
@@ -103,23 +103,14 @@ const AuthNaverPage = () => {
         }
       }
 
-      // 주기적으로 액세스 토큰 갱신을 수행하거나, 요청을 보낼 때마다 확인하는 예제
       async function performTokenRefresh() {
         if (isAccessTokenExpired(localStorage.getItem("accessToken"))) {
           // 액세스 토큰이 만료되었을 때 리프레시 토큰으로 갱신
           await refreshAccessToken();
         }
-
-        // 이후 여기에 액세스 토큰을 사용하는 요청 등의 코드를 추가할 수 있습니다.
       }
 
-      // 주기적으로 수행하려면 setInterval 사용
-      // 1시간마다 실행
-      setTimeout(performTokenRefresh, 1 * 60 * 1000);
-
-      // 또는 요청을 보낼 때마다 확인하려면 해당 요청 코드 내에서 호출
-      // 예시: fetch나 axios 등의 비동기 요청 후에 호출
-      // await performTokenRefresh();
+      setTimeout(performTokenRefresh, 60 * 60 * 1000);
     };
 
     handleCodeReceived();

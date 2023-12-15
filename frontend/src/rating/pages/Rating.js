@@ -6,9 +6,11 @@ import Filter from "../../shared/UIElements/Filter";
 import Pagetitle from "../../shared/Pagetitle/Pagetitle";
 import Page from "../../shared/UIElements/Page";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { useNavigate } from "react-router-dom";
 
 const Rating = () => {
   const { isLoading, sendRequest, clearError } = useHttpClient();
+  const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [itemlen, setItemLen] = useState(10);
@@ -102,13 +104,25 @@ const Rating = () => {
           </div>
           <div className="rating_notebook_contain">
             {loadeddata.map((notebook, index) => (
-              <div className="rating_notebook " key={index}>
+              <div
+                className="rating_notebook "
+                key={index}
+                onClick={() =>
+                  navigate(`/process`, {
+                    state: {
+                      totalRank: notebook.rank,
+                      frontImage: notebook.laptop_sell_images[1].path,
+                      id: notebook.laptop_sell_info_id,
+                    },
+                  })
+                }
+              >
                 <div className="rating_notebook_imgbox center">
                   <img
                     className="rating_notebook_img"
                     src={
-                      notebook.laptop_sell_images[0]
-                        ? `${notebook.laptop_sell_images[0].path}`
+                      notebook.laptop_sell_images[1]
+                        ? `${notebook.laptop_sell_images[1].path}`
                         : "null"
                     }
                     alt="notebookimage"

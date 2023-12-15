@@ -25,5 +25,3 @@ class PatchLaptop(BaseModel):
     laptop_info_list_id:int
     class Config:
         orm_mode: True
-
-

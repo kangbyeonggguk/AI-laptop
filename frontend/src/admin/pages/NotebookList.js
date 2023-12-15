@@ -177,7 +177,7 @@ const NotebookList = () => {
       // Create Blob object
       return new Blob([arrayBuffer], { type: mimeString });
     }
-
+    const time = new Date().toISOString();
     // 업로드된 이미지만 필터링
 
     const formData = new FormData();
@@ -190,21 +190,22 @@ const NotebookList = () => {
     formData.append("delivery_fee", inputlist.delivery_fee);
     formData.append("manufacturing_company", inputlist.manufacturing_company);
     formData.append("brand", inputlist.brand);
+    formData.append("create_date", time);
 
     const images = selectedImages.filter((image) => image !== null);
 
-    images.forEach((image, index) => {
-      if (index === 0) {
-        formData.append("files", dataURItoBlob(images[1]), `info2_file_0.jpg`);
-      } else if (index === 1) {
-        formData.append("files", dataURItoBlob(images[0]), `info2_file_1.jpg`);
-      } else {
-        formData.append(
-          "files",
-          dataURItoBlob(image),
-          `info2_file_${index}.jpg`
-        );
-      }
+    // 0번 1번 인덱스 위치 변경
+    const temp = selectedImages[0];
+    selectedImages[0] = selectedImages[1];
+    selectedImages[1] = temp;
+
+    // 변경된 이미지 배열을 사용하여 파일 이름 생성
+    selectedImages.forEach((image, index) => {
+      const uniqueFileName = `${time}_${index}_${Math.random()
+        .toString(36)
+        .substring(7)}.png`;
+
+      formData.append("files", dataURItoBlob(image), uniqueFileName);
     });
 
     try {

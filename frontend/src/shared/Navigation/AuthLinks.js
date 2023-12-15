@@ -1,5 +1,5 @@
 // AuthLinks.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { connect } from "react-redux";
@@ -12,6 +12,43 @@ const AuthLinks = ({ isLoggedIn, logoutUser, platformType, isAdmin }) => {
   const { isLoading, sendRequest, clearError, setIsLoading } = useHttpClient();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [timeoutId, setTimeoutId] = useState(null);
+
+  useEffect(() => {
+    const resetTimeout = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      const newTimeoutId = setTimeout(() => {
+        handleLogout();
+      }, 30 * 60 * 1000);
+
+      setTimeoutId(newTimeoutId);
+    };
+
+    const handleUserActivity = () => {
+      resetTimeout();
+    };
+    const handleBeforeUnload = (event) => {
+      handleLogout();
+    };
+
+    window.addEventListener("mousemove", handleUserActivity);
+    window.addEventListener("keydown", handleUserActivity);
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      window.removeEventListener("mousemove", handleUserActivity);
+      window.removeEventListener("keydown", handleUserActivity);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [timeoutId]);
 
   const handleLogout = async () => {
     try {
@@ -25,66 +62,14 @@ const AuthLinks = ({ isLoggedIn, logoutUser, platformType, isAdmin }) => {
         const url = new URL("http://127.0.0.1:8000/accounts/logout");
         url.searchParams.append("refresh_token_key", refreshToken);
 
-        const responseData = await sendRequest(url.toString(), "POST");
+        await dispatch(logoutUser());
+
+        localStorage.setItem("isLoggedIn", "false");
 
         navigate("/");
       }
-      dispatch(logoutUser());
-
-      localStorage.setItem("isLoggedIn", "false");
-    } catch (error) {
-      // console.error("로그아웃 중 오류 발생:", error);
-    }
+    } catch (error) {}
   };
-
-  // function logout() {
-  //   localStorage.removeItem("accessToken");
-  //   localStorage.removeItem("refrehToken");
-  //   localStorage.removeItem("accessTokenExpiration");
-  //   localStorage.removeItem("isLoggedIn");
-  // }
-
-  // let logoutTimer;
-
-  // function resetLogoutTimer() {
-  //   clearTimeout(logoutTimer);
-  //   logoutTimer = setTimeout(logoutUser, 1 * 60 * 1000); // 30분 타이머
-  // }
-
-  // function logoutUser() {
-  //   logout();
-  //   console.log("자동 로그아웃 발생");
-  //   dispatch(loginUser);
-  // }
-
-  // // 활동이 감지되면 타이머를 리셋
-  // document.addEventListener("mousemove", resetLogoutTimer);
-  // document.addEventListener("keydown", resetLogoutTimer);
-
-  // // 초기화
-  // resetLogoutTimer();
-
-  // let isLogoutHandled = false;
-
-  // localStorage.getItem(isLoggedIn);
-  // // 브라우저 닫힘 이벤트 핸들러 함수
-  // function handleBeforeUnload(event) {
-  //   if (isLoggedIn === false) {
-  //     handleLogout();
-  //     isLogoutHandled = true;
-  //   }
-  // }
-
-  // // 브라우저 닫힘 이벤트 리스너 등록
-  // window.addEventListener("beforeunload", handleBeforeUnload);
-
-  // // 페이지 언로드 시에만 로그아웃 처리하도록 설정
-  // window.addEventListener("unload", function () {
-  //   if (!isLogoutHandled) {
-  //     handleLogout();
-  //     isLogoutHandled = true;
-  //   }
-  // });
 
   return (
     <React.Fragment>

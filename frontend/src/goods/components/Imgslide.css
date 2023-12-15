@@ -6,16 +6,19 @@
   justify-content: space-between;
   margin-top: 5.270625rem;
 }
+
 .imgslide_arrow {
   width: 1rem;
   height: 1rem;
 }
+
 .imgslide_img {
   width: 6.5rem;
   height: 3.875rem;
   border: solid 1px #759cff;
   border-radius: 5px;
 }
+
 @media (max-width: 768px) {
   .imgslide {
     width: 23.101875rem;
@@ -25,10 +28,12 @@
     left: 0;
     bottom: 0;
   }
+
   .imgslide_arrow {
     width: 0.726875rem;
     height: 0.726875rem;
   }
+
   .imgslide_img {
     width: 4.72625rem;
     height: 2.8175rem;

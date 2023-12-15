@@ -4,11 +4,13 @@
   margin-top: 3.4375rem;
   margin-bottom: 5.25rem;
 }
+
 .page_arrow {
   width: 0.4175rem;
   height: 0.625rem;
   cursor: pointer;
 }
+
 .page_num {
   width: 1.5625rem;
   height: 1.5625rem;
@@ -17,11 +19,13 @@
   font-size: 0.875rem;
   cursor: pointer;
 }
+
 .page_num_active {
   border-radius: 5px;
   background-color: #4f80ff;
   color: #ffffff;
 }
+
 .page_num_contain {
   margin-left: 1.25rem;
   margin-right: 0.3125rem;

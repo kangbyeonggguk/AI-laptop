@@ -29,7 +29,6 @@ const Process = (props) => {
           `http://localhost:8000/sell/process/${id}`
         );
 
-        console.log(response);
         const dateObject = new Date(response.create_date);
         const newResponseData = {
           device_name: response.device_name,
@@ -82,7 +81,7 @@ const Process = (props) => {
       <div className={styles.process_container}>
         {imageNames.map((imageName, index) => (
           // 이미지 파일 이름을 사용하여 이미지 태그를 동적으로 생성
-          <div key={imageName.label || index} className={styles.next}>
+          <div key={index} className={styles.next}>
             <div className={styles.stepContainer}>
               <img
                 src={`/img/process/${imageName["imageName"]}`}
