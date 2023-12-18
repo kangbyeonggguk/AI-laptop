@@ -30,14 +30,24 @@ const AuthLinks = ({ isLoggedIn, logoutUser, platformType, isAdmin }) => {
     const handleUserActivity = () => {
       resetTimeout();
     };
-    const handleBeforeUnload = (event) => {
-      handleLogout();
+    let isPageFocused = true;
+
+    const handleFocusChange = () => {
+      isPageFocused = document.hasFocus();
     };
+
+    const handleBeforeUnload = () => {
+      if (!isPageFocused) {
+        handleLogout();
+      }
+    };
+
+    window.addEventListener("focus", handleFocusChange);
+    window.addEventListener("blur", handleFocusChange);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     window.addEventListener("mousemove", handleUserActivity);
     window.addEventListener("keydown", handleUserActivity);
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
       if (timeoutId) {

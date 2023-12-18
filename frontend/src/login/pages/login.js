@@ -129,7 +129,7 @@ const Login = () => {
     }
   }
 
-  setTimeout(performTokenRefresh, 60 * 60 * 1000);
+  setInterval(performTokenRefresh, 1 * 60 * 1000);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
