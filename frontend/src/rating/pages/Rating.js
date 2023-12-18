@@ -33,7 +33,7 @@ const Rating = () => {
     const getinfo = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/sell?${
+          `${process.env.REACT_APP_BACKEND_URL}/sell?${
             searchParams.get("page") ? `page=${searchParams.get("page")}` : 1
           }${
             searchParams.get("date")

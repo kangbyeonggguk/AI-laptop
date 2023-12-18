@@ -64,9 +64,9 @@ const Result = () => {
     const patchstep = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/sell/progress?step=2&sell_id=${params.get(
-            "sell_id"
-          )}`,
+          `${
+            process.env.REACT_APP_BACKEND_URL
+          }/sell/progress?step=2&sell_id=${params.get("sell_id")}`,
           "PATCH"
         );
       } catch (err) {}

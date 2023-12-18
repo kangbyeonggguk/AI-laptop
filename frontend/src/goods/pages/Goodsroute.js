@@ -22,7 +22,7 @@ const Goodsroute = () => {
     const fetchgoods = async (event) => {
       try {
         const { responseData, total_count } = await sendRequest(
-          `http://127.0.0.1:8000/purchase/goods/${
+          `${process.env.REACT_APP_BACKEND_URL}/purchase/goods/${
             searchParams.get("price") ? searchParams.get("price") : "asc"
           }?${
             searchParams.get("page") ? `page=${searchParams.get("page")}` : ""

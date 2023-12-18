@@ -39,7 +39,7 @@ const Login = () => {
       formData.append("username", id);
       formData.append("password", password);
       const responseData = await sendRequest(
-        "http://127.0.0.1:8000/accounts/login",
+        `${process.env.REACT_APP_BACKEND_URL}/accounts/login`,
         "POST",
         formData
       );
@@ -96,7 +96,9 @@ const Login = () => {
         return;
       }
 
-      const url = new URL("http://127.0.0.1:8000/accounts/refresh-token");
+      const url = new URL(
+        `${process.env.REACT_APP_BACKEND_URL}/accounts/refresh-token`
+      );
       url.searchParams.append("refresh_token_key", refreshToken);
 
       const responseData = await fetch(url, {

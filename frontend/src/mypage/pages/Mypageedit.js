@@ -55,7 +55,7 @@ const Mypageedit = () => {
     const loadmydata = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/accounts`,
+          `${process.env.REACT_APP_BACKEND_URL}/accounts`,
           "GET",
           null,
           {
@@ -140,7 +140,7 @@ const Mypageedit = () => {
       const mypageedit = async () => {
         try {
           const responseData = await sendRequest(
-            `http://127.0.0.1:8000/accounts`,
+            `${process.env.REACT_APP_BACKEND_URL}/accounts`,
             "PATCH",
             JSON.stringify({
               password: inputlist.pw,

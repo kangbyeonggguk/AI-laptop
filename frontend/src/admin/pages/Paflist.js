@@ -65,7 +65,7 @@ const Paflist = () => {
     const getinfo = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/admin/laptop_sell_info_list?${
+          `${process.env.REACT_APP_BACKEND_URL}/admin/laptop_sell_info_list?${
             searchParams.get("page") ? `page=${searchParams.get("page")}` : 1
           }${
             searchParams.get("name") ? `&name=${searchParams.get("name")}` : ""
@@ -91,7 +91,7 @@ const Paflist = () => {
   };
   const patchinfo = async () => {
     await sendRequest(
-      `http://127.0.0.1:8000/sell/progress?step=${selectedStep}&sell_id=${sellid}`,
+      `${process.env.REACT_APP_BACKEND_URL}/sell/progress?step=${selectedStep}&sell_id=${sellid}`,
       "PATCH"
     );
   };
@@ -99,7 +99,7 @@ const Paflist = () => {
     const deletelaptop = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/admin/laptop_sell_info_list?sell_id=${loadeddata[listnum].laptop_sell_info_id}`,
+          `${process.env.REACT_APP_BACKEND_URL}/admin/laptop_sell_info_list?sell_id=${loadeddata[listnum].laptop_sell_info_id}`,
           "delete"
         );
         window.location.reload();

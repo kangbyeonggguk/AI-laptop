@@ -25,7 +25,7 @@ const AuthNaverPage = () => {
           formData.append("oauthcode", code);
 
           const responseData = await sendRequest(
-            "http://127.0.0.1:8000/accounts/login/naver",
+            `${process.env.REACT_APP_BACKEND_URL}/accounts/login/naver`,
             "POST",
             formData
           );
@@ -77,7 +77,9 @@ const AuthNaverPage = () => {
             return;
           }
 
-          const url = new URL("http://127.0.0.1:8000/accounts/refresh-token");
+          const url = new URL(
+            `${process.env.REACT_APP_BACKEND_URL}/accounts/refresh-token`
+          );
           url.searchParams.append("refresh_token_key", refreshToken);
 
           const responseData = await fetch(url, {

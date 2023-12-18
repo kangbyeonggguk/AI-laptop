@@ -141,7 +141,7 @@ const Signup = () => {
 
     try {
       const response = await sendRequest(
-        `http://127.0.0.1:8000/accounts/duplicate?id=${formData.id}`
+        `${process.env.REACT_APP_BACKEND_URL}/accounts/duplicate?id=${formData.id}`
       );
 
       if (response && response.status === 200) {
@@ -191,7 +191,7 @@ const Signup = () => {
       };
 
       const responseData = await sendRequest(
-        "http://127.0.0.1:8000/accounts",
+        `${process.env.REACT_APP_BACKEND_URL}/accounts`,
         "POST",
         JSON.stringify(formDataToSend),
         {

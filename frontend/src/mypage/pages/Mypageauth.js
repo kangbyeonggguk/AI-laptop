@@ -43,7 +43,7 @@ const Mypageauth = (props) => {
   const sendsms = async () => {
     try {
       const responseData = await sendRequest(
-        `http://127.0.0.1:8000/send`,
+        `${process.env.REACT_APP_BACKEND_URL}/send`,
         "POST",
         JSON.stringify({ phone: inputlist.phone }),
         {
@@ -65,7 +65,7 @@ const Mypageauth = (props) => {
   const verify = async () => {
     try {
       const responseData = await sendRequest(
-        `http://127.0.0.1:8000/verify`,
+        `${process.env.REACT_APP_BACKEND_URL}/verify`,
         "POST",
         JSON.stringify({ phone: inputlist.phone, auth_num: inputlist.number }),
         {

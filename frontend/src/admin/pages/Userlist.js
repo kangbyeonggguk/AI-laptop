@@ -48,7 +48,7 @@ const Userlist = () => {
     const getinfo = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/admin/accounts?${
+          `${process.env.REACT_APP_BACKEND_URL}/admin/accounts?${
             searchParams.get("page") ? `page=${searchParams.get("page")}` : 1
           }${
             searchParams.get("name") ? `&name=${searchParams.get("name")}` : ""

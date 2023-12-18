@@ -69,7 +69,9 @@ const AuthLinks = ({ isLoggedIn, logoutUser, platformType, isAdmin }) => {
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("accessTokenExpiration");
 
-        const url = new URL("http://127.0.0.1:8000/accounts/logout");
+        const url = new URL(
+          `${process.env.REACT_APP_BACKEND_URL}/accounts/logout`
+        );
         url.searchParams.append("refresh_token_key", refreshToken);
 
         await dispatch(logoutUser());

@@ -92,7 +92,7 @@ const NotebookList = () => {
     const getinfo = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/admin/laptop_info_list?${
+          `${process.env.REACT_APP_BACKEND_URL}/admin/laptop_info_list?${
             searchParams.get("page") ? `page=${searchParams.get("page")}` : 1
           }${
             searchParams.get("name") ? `&name=${searchParams.get("name")}` : ""
@@ -120,7 +120,7 @@ const NotebookList = () => {
     const patch = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/admin/laptop_info_list`,
+          `${process.env.REACT_APP_BACKEND_URL}/admin/laptop_info_list`,
           "PATCH",
           JSON.stringify({
             info_id: inputlist.id,
@@ -221,7 +221,7 @@ const NotebookList = () => {
     const deletelaptop = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/admin/laptop_info_list?info_id=${inputlist.id}`,
+          `${process.env.REACT_APP_BACKEND_URL}/admin/laptop_info_list?info_id=${inputlist.id}`,
           "delete"
         );
         window.location.reload();
