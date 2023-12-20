@@ -77,7 +77,7 @@ const AuthLinks = ({ isLoggedIn, logoutUser, platformType, isAdmin }) => {
         await dispatch(logoutUser());
 
         localStorage.setItem("isLoggedIn", "false");
-
+        const responseData = await sendRequest(url.toString(), "POST");
         navigate("/");
       }
     } catch (error) {}
