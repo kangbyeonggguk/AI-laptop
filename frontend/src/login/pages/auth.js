@@ -1,122 +1,161 @@
-import React, { useEffect } from "react";
-// import { useLocation } from "react-router-dom";
-import { useHttpClient } from "../../shared/hooks/http-hook"; //api호출 훅 불러오기
-import { useParams, useNavigate } from "react-router-dom";
+// AuthLinks.js
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useHttpClient } from "../../shared/hooks/http-hook";
+import { connect } from "react-redux";
+import { loginUser, logoutUser } from "../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
-import { jwtDecode as jwt_decode } from "jwt-decode";
 
-const AuthPage = () => {
-  //   const location = useLocation();
+import "./AuthLinks.css";
 
-  const { isLoading, sendRequest, clearError } = useHttpClient(); // useHttpClient 훅 사용
-
-  const dispatch = useDispatch();
-  const { code } = useParams();
+const AuthLinks = ({ isLoggedIn, logoutUser, platformType, isAdmin }) => {
+  const { isLoading, sendRequest, clearError, setIsLoading } = useHttpClient();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [timeoutId, setTimeoutId] = useState(null);
 
   useEffect(() => {
-    const handleCodeReceived = async () => {
-      const code = new URL(window.location.href).searchParams.get("code");
-      console.log(code);
-
-      if (code) {
-        try {
-          const formData = new FormData();
-          formData.append("oauthcode", code);
-
-          const responseData = await sendRequest(
-            `${process.env.REACT_APP_BACKEND_URL}/accounts/login/kakao`,
-            "POST",
-            formData
-          );
-
-          console.log("Response from backend:", responseData);
-
-          const { platform_type, admin } = responseData;
-
-          const expires_in = 9;
-          const expirationTime = Date.now() * expires_in;
-
-          dispatch({
-            type: "LOGIN_USER",
-            payload: {
-              platformType: platform_type,
-              isAdmin: admin === true,
-            },
-          });
-
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("accessToken", responseData.access_token);
-          localStorage.setItem("refreshToken", responseData.refresh_token);
-          localStorage.setItem("accessTokenExpiration", expirationTime);
-
-          navigate("/");
-        } catch (error) {
-          console.error("Error sending code to backend:", error.message);
-        }
-      }
-      // 액세스 토큰 만료 여부 확인
-      function isAccessTokenExpired(accessToken) {
-        // JWT 라이브러리를 사용하여 액세스 토큰 디코딩
-        const decodedToken = jwt_decode(accessToken);
-        // 디코딩된 토큰에서 만료 시간을 추출
-        const expirationTime = decodedToken.exp;
-        // 현재 시간을 밀리초 단위로 얻은 후, 초 단위로 변환
-        const currentTime = Math.floor(Date.now() / 1000);
-        // 만료 시간이 현재 시간보다 작으면 토큰은 만료된 것으로 간주
-        return expirationTime < currentTime;
+    const resetTimeout = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
 
-      async function refreshAccessToken() {
-        try {
-          const refreshToken = localStorage.getItem("refreshToken");
+      const newTimeoutId = setTimeout(() => {
+        handleLogout();
+      }, 30 * 60 * 1000);
 
-          if (!refreshToken) {
-            console.error("리프레시 토큰이 없습니다.");
-            return;
-          }
-
-          const url = new URL(
-            `${process.env.REACT_APP_BACKEND_URL}/accounts/refresh-token`
-          );
-          url.searchParams.append("refresh_token_key", refreshToken);
-
-          const responseData = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ refresh_token_key: refreshToken }),
-          });
-
-          if (responseData.ok) {
-            const data = await responseData.json();
-            const newAccessToken = data.access_token;
-
-            localStorage.setItem("accessToken", newAccessToken);
-            console.log("토큰 재발급 성공!", newAccessToken);
-          } else {
-            console.error("토큰 재발급 요청에 실패했습니다.");
-            console.error("응답 상태:", responseData.status);
-          }
-        } catch (error) {
-          console.error("토큰 재발급 요청 중 오류가 발생했습니다.", error);
-        }
-      }
-
-      async function performTokenRefresh() {
-        if (isAccessTokenExpired(localStorage.getItem("accessToken"))) {
-          // 액세스 토큰이 만료되었을 때 리프레시 토큰으로 갱신
-          await refreshAccessToken();
-        }
-      }
-
-      setTimeout(performTokenRefresh, 60 * 60 * 1000);
+      setTimeoutId(newTimeoutId);
     };
 
-    handleCodeReceived();
-  }, []);
-  return <></>;
+    const handleUserActivity = () => {
+      resetTimeout();
+    };
+    let isPageFocused = true;
+
+    const handleFocusChange = () => {
+      isPageFocused = document.hasFocus();
+    };
+
+    const handleBeforeUnload = () => {
+      if (!isPageFocused) {
+        handleLogout();
+      }
+    };
+
+    window.addEventListener("focus", handleFocusChange);
+    window.addEventListener("blur", handleFocusChange);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    window.addEventListener("mousemove", handleUserActivity);
+    window.addEventListener("keydown", handleUserActivity);
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      window.removeEventListener("mousemove", handleUserActivity);
+      window.removeEventListener("keydown", handleUserActivity);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [timeoutId]);
+
+  const handleLogout = async () => {
+    try {
+      const refreshToken = localStorage.getItem("refreshToken");
+
+      if (refreshToken) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("accessTokenExpiration");
+
+        const url = new URL(
+          `${process.env.REACT_APP_BACKEND_URL}/accounts/logout`
+        );
+        url.searchParams.append("refresh_token_key", refreshToken);
+
+        await dispatch(logoutUser());
+
+        localStorage.setItem("isLoggedIn", "false");
+
+        navigate("/");
+      }
+    } catch (error) {}
+  };
+
+  return (
+    <React.Fragment>
+      {!isLoggedIn ? (
+        <>
+          <li className="header_links_auth_list">
+            <NavLink to="/signup">회원가입</NavLink>
+          </li>
+          <span className="auth_vector"></span>
+          <li className="header_links_auth_list">
+            <NavLink to="/login">로그인</NavLink>
+          </li>
+        </>
+      ) : (
+        <>
+          {platformType === "R" && !isAdmin && (
+            <>
+              <li className="header_links_auth_list">
+                <NavLink to="/mypage">내 정보 수정</NavLink>
+              </li>
+              <span className="auth_vector"></span>
+
+              <li className="header_links_auth_list">
+                <NavLink to="/main" onClick={handleLogout}>
+                  로그아웃
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {["K", "N"].includes(platformType) && !isAdmin && (
+            <>
+              <li className="header_links_auth_list">
+                <NavLink to="/main" onClick={handleLogout}>
+                  로그아웃
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {platformType === "R" && isAdmin && (
+            <>
+              <li className="header_links_auth_list">
+                <NavLink to="/mypage">내 정보 수정</NavLink>
+              </li>
+              <span className="auth_vector"></span>
+              <li className="header_links_auth_list">
+                <NavLink to="/admin">관리자</NavLink>
+              </li>
+              <span className="auth_vector"></span>
+              <li className="header_links_auth_list">
+                <NavLink to="/main" onClick={handleLogout}>
+                  로그아웃
+                </NavLink>
+              </li>
+            </>
+          )}
+        </>
+      )}
+    </React.Fragment>
+  );
 };
 
-export default AuthPage;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.user.login,
+    platformType: state.user.platformType,
+    isAdmin: state.user.isAdmin,
+  };
+};
+
+const mapDispatchToProps = {
+  loginUser,
+  logoutUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLinks);
