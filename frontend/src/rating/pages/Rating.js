@@ -52,7 +52,6 @@ const Rating = () => {
         );
         setItemLen(responseData.totalcount);
         setLoadedData(responseData.laptop_sell_info);
-        console.log(loadeddata);
       } catch (err) {
         setError(err);
       }
