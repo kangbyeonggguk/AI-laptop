@@ -92,17 +92,29 @@ def latop_sell_info_get(sell_info_id: str, db: Session):
 
 # account_id로 get 요청
 def latop_sell_info_get_by_account(account_id: str, db: Session,date:str,page:int,rank:str):
-    page_size=9
-    skip=(page-1)*9
-    data_count=db.query(LaptopSellInfo).filter(LaptopSellInfo.account_id==account_id).count()
+    page_size = 9
+    skip = (page - 1) * 9
     order_by_date = LaptopSellInfo.create_date.asc() if date == "asc" else LaptopSellInfo.create_date.desc()
-    query=db.query(LaptopSellInfo).filter(LaptopSellInfo.account_id == account_id,LaptopSellInfo.step>=2).options(joinedload(LaptopSellInfo.laptop_sell_images))
-    if rank is not None:
-        query=query.filter(LaptopSellInfo.rank==rank)
-    data_count = query.count()
-    
-    return query.order_by(order_by_date).offset(skip).limit(page_size).all(),data_count
 
+    # 기본 쿼리 작성
+    query = (
+        db.query(LaptopSellInfo)
+        .filter(LaptopSellInfo.account_id == account_id, LaptopSellInfo.step >= 2)
+        .options(joinedload(LaptopSellInfo.laptop_sell_images))
+    )
+
+    # 랭크 조건이 있는 경우 추가
+    if rank is not None:
+        query = query.filter(LaptopSellInfo.rank == rank)
+
+    # 쿼리 실행 및 정렬, 페이징 적용
+    results = query.order_by(order_by_date).offset(skip).limit(page_size).all()
+
+    # 정렬된 laptop_sell_images를 적용
+    for result in results:
+        result.laptop_sell_images = sorted(result.laptop_sell_images, key=lambda x: x.laptop_sell_image_id)
+
+    return results, len(results)
 # sell_id값으로 step값 변경
 def patch_step_by_sell_id( db: Session,sell_id:str,step:int):
     db.execute(

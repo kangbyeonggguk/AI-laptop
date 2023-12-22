@@ -111,7 +111,7 @@ const Login = () => {
       setError(null);
       navigate("/");
     } catch (error) {
-      setError("잘못된 아이디 또는 비밀번호입니다. 다시 확인해주세요.");
+      setError("잘못된 비밀번호입니다. 다시 확인해주세요.");
     }
   };
 
