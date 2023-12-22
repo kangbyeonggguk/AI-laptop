@@ -178,7 +178,7 @@ const PurchaseForm = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await sendRequest(
-        "http://localhost:8000/sell",
+        `${process.env.REACT_APP_BACKEND_URL}/sell`,
         "POST",
         formData,
         {

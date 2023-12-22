@@ -1,5 +1,5 @@
 // AuthLinks.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { connect } from "react-redux";
@@ -8,80 +8,76 @@ import { useDispatch } from "react-redux";
 
 import "./AuthLinks.css";
 
-const AuthLinks = ({ isLoggedIn, logoutUser, platformType, isAdmin }) => {
+export const AuthLinks = ({
+  isLoggedIn,
+  logoutUser,
+  platformType,
+  isAdmin,
+}) => {
   const { isLoading, sendRequest, clearError, setIsLoading } = useHttpClient();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [timeoutId, setTimeoutId] = useState(null);
-
-  useEffect(() => {
-    const resetTimeout = () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-
-      const newTimeoutId = setTimeout(() => {
-        handleLogout();
-      }, 30 * 60 * 1000);
-
-      setTimeoutId(newTimeoutId);
-    };
-
-    const handleUserActivity = () => {
-      resetTimeout();
-    };
-    let isPageFocused = true;
-
-    const handleFocusChange = () => {
-      isPageFocused = document.hasFocus();
-    };
-
-    const handleBeforeUnload = () => {
-      if (!isPageFocused) {
-        handleLogout();
-      }
-    };
-
-    window.addEventListener("focus", handleFocusChange);
-    window.addEventListener("blur", handleFocusChange);
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    window.addEventListener("mousemove", handleUserActivity);
-    window.addEventListener("keydown", handleUserActivity);
-
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-
-      window.removeEventListener("mousemove", handleUserActivity);
-      window.removeEventListener("keydown", handleUserActivity);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [timeoutId]);
+  const sessionTimeout = 120 * 60 * 1000;
+  let sessionTimer;
 
   const handleLogout = async () => {
     try {
       const refreshToken = localStorage.getItem("refreshToken");
+      const accessToken = localStorage.getItem("accessToken");
 
-      if (refreshToken) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("accessTokenExpiration");
-
-        const url = new URL(
-          `${process.env.REACT_APP_BACKEND_URL}/accounts/logout`
-        );
-        url.searchParams.append("refresh_token_key", refreshToken);
-
-        await dispatch(logoutUser());
-
-        localStorage.setItem("isLoggedIn", "false");
-
-        navigate("/");
+      if (!refreshToken || !accessToken || !isLoggedIn) {
+        return;
       }
-    } catch (error) {}
+
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("accessTokenExpiration");
+
+      // console.log(typeof accessToken, typeof refreshToken);
+
+      const url = new URL(
+        `${process.env.REACT_APP_BACKEND_URL}/accounts/logout`
+      );
+      url.searchParams.append("refresh_token_key", refreshToken);
+      const updatedUrl = new URL(url.toString());
+      const responseData = await sendRequest(updatedUrl.toString(), "POST");
+      await dispatch(logoutUser());
+
+      localStorage.setItem("isLoggedIn", "false");
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    const handleUserActivity = () => {
+      clearTimeout(sessionTimer);
+      if (isLoggedIn) {
+        sessionTimer = setTimeout(handleLogout, sessionTimeout);
+      }
+    };
+
+    const handleBeforeUnload = (event) => {
+      const isPageRefresh = !event.clientY;
+
+      if (!isPageRefresh) {
+        handleLogout();
+      }
+    };
+
+    window.addEventListener("mousemove", handleUserActivity);
+    window.addEventListener("keydown", handleUserActivity);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      clearTimeout(sessionTimer);
+      window.removeEventListener("mousemove", handleUserActivity);
+      window.removeEventListener("keydown", handleUserActivity);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [isLoggedIn, sessionTimeout]);
 
   return (
     <React.Fragment>

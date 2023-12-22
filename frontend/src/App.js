@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 
 import { store, persistor } from "../src/redux/store";
 
@@ -10,6 +10,10 @@ import MainNavigation from "./shared/Navigation/MainNavigation";
 
 import AuthPage from "./login/pages/auth";
 import AuthNaverPage from "./login/pages/authnaver";
+import { logoutUser } from "./redux/actions/userActions";
+
+import { refreshAccessToken } from "./login/pages/login";
+import { handleLogout } from "./shared/Navigation/AuthLinks";
 
 const Main = React.lazy(() => import("./main/pages/Main"));
 const Mypage = React.lazy(() => import("./mypage/pages/Mypage"));
@@ -48,6 +52,44 @@ const PrivateRoute = ({ element, path }) => {
 };
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      const accessTokenExpiration = localStorage.getItem(
+        "accessTokenExpiration"
+      );
+
+      if (accessTokenExpiration) {
+        const expirationTime = new Date(
+          Number(accessTokenExpiration)
+        ).getTime();
+        // console.log("expirationTime:", expirationTime);
+
+        const currentTime = new Date().getTime();
+        // console.log("currentTime:", currentTime);
+
+        const timeDifference = expirationTime - currentTime;
+        // console.log("timeDifference:", timeDifference);
+
+        if (timeDifference >= 0 && timeDifference <= 2 * 60 * 60 * 1000) {
+          // console.log("Reissue token");
+
+          refreshAccessToken();
+        } else if (timeDifference <= 0) {
+          dispatch(logoutUser());
+          localStorage.clear();
+          localStorage.setItem("isLoggedIn", "false");
+          // console.log("Logout");
+        }
+      }
+    };
+
+    checkTokenExpiration();
+
+    const intervalId = setInterval(checkTokenExpiration, 60 * 60 * 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <Provider store={store}>
       <BrowserRouter>

@@ -210,7 +210,7 @@ const NotebookList = () => {
 
     try {
       const response = await sendRequest(
-        "http://localhost:8000/admin/laptop_info_list",
+        `${process.env.REACT_APP_BACKEND_URL}/admin/laptop_info_list`,
         "POST",
         formData
       );

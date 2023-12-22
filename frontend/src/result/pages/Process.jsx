@@ -26,7 +26,7 @@ const Process = (props) => {
     const handleAIStep = async () => {
       try {
         const response = await sendRequest(
-          `http://localhost:8000/sell/process/${id}`
+          `${process.env.REACT_APP_BACKEND_URL}/sell/process/${id}`
         );
 
         const dateObject = new Date(response.create_date);

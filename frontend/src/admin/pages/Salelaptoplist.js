@@ -169,7 +169,7 @@ const Salelaptoplist = () => {
   const createinfo = async () => {
     try {
       const response = await sendRequest(
-        "http://localhost:8000/admin/laptop_list",
+        `${process.env.REACT_APP_BACKEND_URL}/admin/laptop_list`,
         "POST",
         JSON.stringify({
           title: inputlist.title,
