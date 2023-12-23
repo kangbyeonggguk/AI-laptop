@@ -130,6 +130,7 @@ function App() {
                   </Suspense>
                 }
               />
+
               <Route path="/process" element={<Process />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" exact element={<Signup />} />
