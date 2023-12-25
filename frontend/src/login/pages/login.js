@@ -38,14 +38,12 @@ export const refreshAccessToken = async () => {
       const newAccessToken = data.access_token;
 
       localStorage.setItem("accessToken", newAccessToken);
-      // console.log("토큰 재발급 성공!", newAccessToken);
+      console.log("토큰 재발급 성공!", newAccessToken);
     } else {
-      // console.error("토큰 재발급 요청에 실패했습니다.");
-      // console.error("응답 상태:", responseData.status);
+      console.error("토큰 재발급 요청에 실패했습니다.");
+      console.error("응답 상태:", responseData.status);
     }
-  } catch (error) {
-    // console.error("토큰 재발급 요청 중 오류가 발생했습니다.", error);
-  }
+  } catch (error) {}
 };
 
 const Login = () => {

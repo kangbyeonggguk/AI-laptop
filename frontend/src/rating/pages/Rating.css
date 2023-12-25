@@ -78,6 +78,7 @@
   margin-bottom: 1.25rem;
   background-color: #ffffff;
   position: relative;
+  cursor: pointer;
 }
 
 .rating_notebook_imgbox {

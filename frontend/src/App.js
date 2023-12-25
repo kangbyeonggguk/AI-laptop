@@ -156,14 +156,8 @@ function App() {
                 element={<PrivateRoute element={<Ratingsystem />} />}
               />
               <Route path="/loading" element={<Loading />} />
-              <Route
-                path="/result"
-                element={
-                  <Suspense fallback={<Loading />}>
-                    <Result />
-                  </Suspense>
-                }
-              />
+              <Route path="/result" element={<Result />} />
+
               <Route path="/process" element={<Process />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" exact element={<Signup />} />

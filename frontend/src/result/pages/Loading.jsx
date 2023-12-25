@@ -16,8 +16,8 @@ const Center = styled.div`
       position: relative;
       width: 263.8px;
       height: 202.72px;
-      top: 252px;
-      left: 107px;
+      top: 230px;
+      left: 15px;
       right: 19.1px;
     }
     position: absolute;
@@ -31,8 +31,8 @@ const Center = styled.div`
     @media screen and (max-width: 768px) {
       position: absolute;
 
-      left: 87px;
-
+      left: 50;
+      top: 500px;
       font-size: 24px;
       font-style: normal;
       font-weight: 700;
@@ -57,7 +57,8 @@ const Center = styled.div`
   .loading_dots {
     @media screen and (max-width: 768px) {
       position: absolute;
-      left: 200px;
+      top: 460px;
+      right: 125px;
 
       height: 12px;
     }
@@ -97,8 +98,8 @@ const Div = styled.div`
       position: relative;
       width: 48.54px;
       height: 48.54px;
-      top: 248px;
-      left: 72.12px;
+      top: 168px;
+      left: 55px;
     }
     position: absolute;
     // left: 402px;
@@ -113,8 +114,8 @@ const Div = styled.div`
       position: absolute;
       width: 65.58px;
       height: 65.58px;
-      top: 280.34px;
-      left: 29px;
+      top: 195px;
+      left: 3px;
     }
     position: absolute;
     top: 240px;
@@ -129,8 +130,8 @@ const Div = styled.div`
       position: absolute;
       width: 85.81px;
       height: 40.25px;
-      top: 401.25px;
-      left: 0;
+      top: 298px;
+      left: -26px;
       transform: rotate(-23.53deg);
     }
     position: absolute;
@@ -158,8 +159,8 @@ const Div = styled.div`
       position: absolute;
       width: 96.644px;
       height: 29.47px;
-      top: 156.93px;
-      left: 222.28px;
+      top: 72px;
+      left: 133px;
       transform: rotate(-19.72deg);
     }
     position: absolute;
@@ -174,13 +175,13 @@ const Div = styled.div`
     @media screen and (max-width: 768px) {
       position: absolute;
       width: 94.764px;
-      height: 76.052px;
-      top: 207px;
-      left: 339px;
+      height: 35px;
+      top: 113px;
+      left: 192px;
       transform: rotate(30.254deg);
     }
     width: 193.4px;
-    height: 155.21px;
+    height: 60px;
     position: absolute;
     top: 265px;
     left: 305px;
@@ -218,20 +219,22 @@ const Loading = () => {
       </Div>
 
       <Div>
-        <div className="bad">
-          <img src="/img/loading/Bad.png" alt="Bad" />
-        </div>
-        <div className="great">
-          <img src="/img/loading/Great.png" alt="Great" />
-        </div>
-        <div className="b_star2">
-          <img src="/img/loading/BlueStar.png" alt="BlueStar" />
-        </div>
+        <img src="/img/loading/Bad.png" alt="Bad" className="bad" />
+
+        <img src="/img/loading/Great.png" alt="Great" className="great" />
+
+        <img
+          src="/img/loading/BlueStar.png"
+          alt="BlueStar"
+          className="b_star2"
+        />
       </Div>
       <Center>
-        <div className="ai_robot">
-          <img src="/img/loading/AILoading.png" alt="AILoading" />
-        </div>
+        <img
+          src="/img/loading/AILoading.png"
+          alt="AILoading"
+          className="ai_robot"
+        />
 
         {loading ? (
           <div className="loading_dots">
