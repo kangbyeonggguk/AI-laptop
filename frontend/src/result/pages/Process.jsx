@@ -11,7 +11,7 @@ const Process = (props) => {
 
   const imageNames = [
     { imageName: "step_1.png", label: "신청서 작성" },
-    { imageName: "step_2.png", label: "매입가 안내" },
+    { imageName: "step_2.png", label: "내부 등급 신청" },
     { imageName: "step_3.png", label: "입금" },
   ];
 
