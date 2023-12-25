@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Provider, useDispatch } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 
 import { store, persistor } from "../src/redux/store";
 
@@ -41,6 +41,38 @@ const PurchaseForm = React.lazy(() =>
 
 // const AuthPage = React.lazy(() => import("./login/pages/auth"));
 
+const MypageRoute = ({ element, path }) => {
+  const isAuthenticated = localStorage.getItem("accessToken") !== null;
+  const platformType = useSelector((state) => state.user.platformType);
+
+  if (isAuthenticated) {
+    if (platformType === "R") {
+      return element;
+    } else {
+      return alert("접근 권한이 없습니다.");
+      // <Navigate to="/main" />;
+    }
+  } else {
+    return <Navigate to="/login" />;
+  }
+};
+
+const AdminRoute = ({ element, path }) => {
+  const isAuthenticated = localStorage.getItem("accessToken") !== null;
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+
+  if (isAuthenticated) {
+    if (isAdmin) {
+      return element;
+    } else {
+      return alert("접근 권한이 없습니다.");
+      // <Navigate to="/main" />;
+    }
+  } else {
+    return <Navigate to="/login" />;
+  }
+};
+
 const PrivateRoute = ({ element, path }) => {
   const isAuthenticated = localStorage.getItem("accessToken") !== null;
 
@@ -50,7 +82,6 @@ const PrivateRoute = ({ element, path }) => {
     return <Navigate to="/login" />;
   }
 };
-
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -63,23 +94,26 @@ function App() {
         const expirationTime = new Date(
           Number(accessTokenExpiration)
         ).getTime();
-        // console.log("expirationTime:", expirationTime);
+        console.log("expirationTime:", expirationTime);
 
         const currentTime = new Date().getTime();
-        // console.log("currentTime:", currentTime);
+        console.log("currentTime:", currentTime);
 
         const timeDifference = expirationTime - currentTime;
-        // console.log("timeDifference:", timeDifference);
+        console.log("timeDifference:", timeDifference);
 
         if (timeDifference >= 0 && timeDifference <= 2 * 60 * 60 * 1000) {
-          // console.log("Reissue token");
+          console.log("Reissue token");
 
-          refreshAccessToken();
+          // 새로운 토큰 발급 전에 기존 토큰이 만료되었는지 확인
+          if (timeDifference <= 1 * 60 * 1000) {
+            refreshAccessToken();
+          }
         } else if (timeDifference <= 0) {
           dispatch(logoutUser());
           localStorage.clear();
           localStorage.setItem("isLoggedIn", "false");
-          // console.log("Logout");
+          console.log("Logout");
         }
       }
     };
@@ -111,11 +145,11 @@ function App() {
 
               <Route
                 path="/admin/*"
-                element={<PrivateRoute element={<Admin />} />}
+                element={<AdminRoute element={<Admin />} />}
               />
               <Route
                 path="/mypage"
-                element={<PrivateRoute element={<Mypage />} />}
+                element={<MypageRoute element={<Mypage />} />}
               />
               <Route
                 path="/main/ratingsystem"
