@@ -22,7 +22,7 @@ def create_app():
     # CORS 미들웨어 추가
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=["https://refurlab.site"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
