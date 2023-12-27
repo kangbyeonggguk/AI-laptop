@@ -33,7 +33,6 @@ const Goodsview = (props) => {
     }
   }, [loadedGoods]);
 
-  // console.log(imagePaths);
   const [showbasket, setShowBasket] = useState(false);
   const [showpurchase, setShowPurchase] = useState(false);
   const closebasket = () => {

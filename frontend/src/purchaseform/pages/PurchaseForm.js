@@ -131,21 +131,17 @@ const PurchaseForm = () => {
 
   const handleAIProcessing = async () => {
     function dataURItoBlob(dataURI) {
-      // Split the data URI to get the metadata and the data part
       const splitDataURI = dataURI.split(",");
       const byteString = atob(splitDataURI[1]);
 
-      // Extract MIME type from the metadata
       const mimeString = splitDataURI[0].split(":")[1].split(";")[0];
 
-      // Convert to byte array
       const arrayBuffer = new ArrayBuffer(byteString.length);
       const intArray = new Uint8Array(arrayBuffer);
       for (let i = 0; i < byteString.length; i++) {
         intArray[i] = byteString.charCodeAt(i);
       }
 
-      // Create Blob object
       return new Blob([arrayBuffer], { type: mimeString });
     }
     const time = new Date().toISOString();

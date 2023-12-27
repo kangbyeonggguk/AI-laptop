@@ -32,8 +32,6 @@ const Userlist = () => {
     setSearchParams(searchParams);
   };
 
-  //   const navigate = useNavigate();
-
   const openModal = (item) => {
     setIsModalOpen(true);
     setSelectedItem(item);

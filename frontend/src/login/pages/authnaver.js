@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
-// import { useLocation } from "react-router-dom";
+
 import { useHttpClient } from "../../shared/hooks/http-hook"; //api호출 훅 불러오기
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { jwtDecode as jwt_decode } from "jwt-decode";
 
 const AuthNaverPage = () => {
-  //   const location = useLocation();
-
   const { isLoading, sendRequest, clearError } = useHttpClient(); // useHttpClient 훅 사용
 
   const dispatch = useDispatch();
@@ -17,7 +15,6 @@ const AuthNaverPage = () => {
   useEffect(() => {
     const handleCodeReceived = async () => {
       const code = new URL(window.location.href).searchParams.get("code");
-      console.log(code);
 
       if (code) {
         try {
@@ -31,8 +28,6 @@ const AuthNaverPage = () => {
           );
 
           const { platform_type, admin } = responseData;
-
-          console.log("Response from backend:", responseData);
 
           const expires_in = 9;
           const expirationTime = Date.now() * expires_in;
@@ -95,7 +90,6 @@ const AuthNaverPage = () => {
             const newAccessToken = data.access_token;
 
             localStorage.setItem("accessToken", newAccessToken);
-            console.log("토큰 재발급 성공!", newAccessToken);
           } else {
             console.error("토큰 재발급 요청에 실패했습니다.");
             console.error("응답 상태:", responseData.status);

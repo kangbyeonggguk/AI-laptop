@@ -16,7 +16,7 @@ const Dropdown = (props) => {
       screen_size: screen_size,
     });
   };
-  console.log(props.modellist);
+
   return (
     <div className="dropdown-container">
       <div className="dropdown-button" onClick={toggleDropdown}>

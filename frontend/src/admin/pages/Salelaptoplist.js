@@ -59,9 +59,7 @@ const Salelaptoplist = () => {
       screen_size: loadeddata[index].laptop_info_list.screen_size,
     });
   };
-  useEffect(() => {
-    console.log(inputlist);
-  }, [inputlist]);
+  useEffect(() => {}, [inputlist]);
   const [listnum, setListNum] = useState(0);
   const Listnumhandler = (index) => {
     setListNum(index);

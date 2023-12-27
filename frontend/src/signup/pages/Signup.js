@@ -199,13 +199,9 @@ const Signup = () => {
         }
       );
 
-      console.log("성공");
       // 성공적으로 회원가입한 경우의 로직
       navigate("/login");
-    } catch (err) {
-      // 오류 처리
-      console.log("실패");
-    }
+    } catch (err) {}
   };
 
   const handleReset = () => {

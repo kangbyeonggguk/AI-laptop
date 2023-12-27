@@ -13,8 +13,4 @@ class LaptopImage(Base):
     create_date = Column(DateTime, nullable=True, default=datetime.now(pytz.timezone("Asia/Seoul")))
     update_date = Column(DateTime, nullable=True)
 
-    # FK
-   # laptop_sell_info_id = Column(BIGINT, ForeignKey("laptop.laptop_id"), nullable=False)
-
-    # 관계 매핑
-    #laptops = relationship("Laptop", back_populates="laptop_images")
+  
