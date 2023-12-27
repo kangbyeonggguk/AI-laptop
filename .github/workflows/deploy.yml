@@ -18,6 +18,8 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 22
           script: |
-            cd /home/ubuntu/notebook
+            cd /home/ubuntu/notebook/frontend
             git remote update
             git pull origin dev
+            npm run build
+            sudo service nginx restart
