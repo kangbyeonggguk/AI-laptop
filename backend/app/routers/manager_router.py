@@ -88,7 +88,7 @@ def patch_laptop_list(info:laptop_schema.PatchLaptop, db: Session = Depends(db.s
 #판매 노트북 정보 삭제
 @router.delete("/admin/laptop_list", status_code=200)
 def delete_laptop_list(laptop_id:str=None, db: Session = Depends(db.session)):
-    laptop_info_list.delete_aptop_list(laptop_id=laptop_id,db=db)
+    laptop_info_list.delete_laptop_list(laptop_id=laptop_id,db=db)
 
 #판매 노트북 정보 추가
 @router.post("/admin/laptop_list", status_code=200)
