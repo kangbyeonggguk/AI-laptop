@@ -39,13 +39,7 @@ const Goods = (props) => {
                             .length > 0 ? (
                             <img
                               className="goods_notebook_img"
-                              src={`${
-                                notebook.laptop_info_list
-                                  .laptop_info_list_image[
-                                  notebook.laptop_info_list
-                                    .laptop_info_list_image.length - 1
-                                ].path
-                              }`}
+                              src={`${notebook.laptop_info_list.laptop_info_list_image[0].path}`}
                               alt="notebookimage"
                             />
                           ) : (
