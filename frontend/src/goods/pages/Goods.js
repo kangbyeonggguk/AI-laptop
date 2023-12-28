@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 
 import "./Goods.css";
 import Pagetitle from "../../shared/Pagetitle/Pagetitle";
@@ -11,6 +11,7 @@ const Goods = (props) => {
   const isLoading = props.isLoading;
   const loadedGoods = props.loadedGoods;
   const itemlen = props.totalcount;
+  const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
     window.scrollTo(0, 0); // 페이지 렌더링 시 맨 위로 스크롤
   }, []);
@@ -30,7 +31,22 @@ const Goods = (props) => {
                 loadedGoods.map((notebook, index) => (
                   <NavLink
                     key={index}
-                    to={`/main/goods/detail/${notebook.laptop_info_list_id}`}
+                    to={`/main/goods/detail/${
+                      notebook.laptop_info_list_id
+                    }?price=${
+                      searchParams.get("price")
+                        ? searchParams.get("price")
+                        : "asc"
+                    }&page=${
+                      searchParams.get("page")
+                        ? `${searchParams.get("page")}`
+                        : ""
+                    }&rating=${
+                      searchParams.get("rating") &&
+                      searchParams.get("rating") != ""
+                        ? `&rating=${searchParams.get("rating")}`
+                        : ""
+                    }`}
                     style={{ textDecoration: "none" }}
                   >
                     <div className="goods_notebook" key={index}>

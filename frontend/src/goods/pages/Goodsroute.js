@@ -19,6 +19,7 @@ const Goodsroute = () => {
   const currentPath = window.location.pathname;
   useEffect(() => {
     setError();
+
     const fetchgoods = async (event) => {
       try {
         const { responseData, total_count } = await sendRequest(
@@ -39,9 +40,8 @@ const Goodsroute = () => {
         setError(err);
       }
     };
-    if (currentPath === "/main/goods") {
-      fetchgoods();
-    }
+
+    fetchgoods();
   }, [searchParams]);
 
   return (
