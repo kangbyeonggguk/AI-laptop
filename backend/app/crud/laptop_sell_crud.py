@@ -106,7 +106,7 @@ def latop_sell_info_get_by_account(account_id: str, db: Session,date:str,page:in
     # 랭크 조건이 있는 경우 추가
     if rank is not None:
         query = query.filter(LaptopSellInfo.rank == rank)
-
+    total_count=query.count()
     # 쿼리 실행 및 정렬, 페이징 적용
     results = query.order_by(order_by_date).offset(skip).limit(page_size).all()
 
@@ -114,7 +114,7 @@ def latop_sell_info_get_by_account(account_id: str, db: Session,date:str,page:in
     for result in results:
         result.laptop_sell_images = sorted(result.laptop_sell_images, key=lambda x: x.laptop_sell_image_id)
 
-    return results, len(results)
+    return results, total_count
 # sell_id값으로 step값 변경
 def patch_step_by_sell_id( db: Session,sell_id:str,step:int):
     db.execute(

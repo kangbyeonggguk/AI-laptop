@@ -194,11 +194,6 @@ const NotebookList = () => {
 
     const images = selectedImages.filter((image) => image !== null);
 
-    // // 0번 1번 인덱스 위치 변경
-    // const temp = selectedImages[0];
-    // selectedImages[0] = selectedImages[1];
-    // selectedImages[1] = temp;
-
     // 변경된 이미지 배열을 사용하여 파일 이름 생성
     selectedImages.forEach((image, index) => {
       const uniqueFileName = `${time}_${index}_${Math.random()

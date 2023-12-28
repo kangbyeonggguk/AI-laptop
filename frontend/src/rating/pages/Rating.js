@@ -38,7 +38,7 @@ const Rating = () => {
           }${
             searchParams.get("date")
               ? `&date=${searchParams.get("date")}`
-              : "desc"
+              : "&date=desc"
           }${
             searchParams.get("rating")
               ? `&rank=${searchParams.get("rating")}`
