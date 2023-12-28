@@ -77,8 +77,7 @@ def delete_laptop_info_list(info_id:str=None,db: Session = Depends(db.session)):
 @router.get("/admin/laptop_list", status_code=200)
 def read_laptop_list(page: int = 1, name: str = None, db: Session = Depends(db.session)):
     list,total_count,info_list=laptop_info_list.get_laptop_list(page=page,name=name,db=db)
-    if not list:
-        raise HTTPException(status_code=404, detail="No laptop info found")
+  
     return {"list":list,"data_count":total_count,"info_list":info_list}
 
 #판매 노트북 정보 수정
