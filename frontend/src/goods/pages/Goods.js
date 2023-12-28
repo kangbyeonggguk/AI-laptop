@@ -11,7 +11,9 @@ const Goods = (props) => {
   const isLoading = props.isLoading;
   const loadedGoods = props.loadedGoods;
   const itemlen = props.totalcount;
-
+  useEffect(() => {
+    window.scrollTo(0, 0); // 페이지 렌더링 시 맨 위로 스크롤
+  }, []);
   return (
     <React.Fragment>
       {!isLoading && loadedGoods && (

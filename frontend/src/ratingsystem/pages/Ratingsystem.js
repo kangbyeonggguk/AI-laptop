@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pagetitle from "../../shared/Pagetitle/Pagetitle";
 import "./Ratingsystem.css";
 import Ratinginfo from "../components/Ratinginfo";
 
 const Ratingsystem = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // 페이지 렌더링 시 맨 위로 스크롤
+  }, []);
   return (
     <div className="ratingsystem">
       <Pagetitle title="등급제">
