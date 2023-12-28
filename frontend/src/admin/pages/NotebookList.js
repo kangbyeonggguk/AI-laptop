@@ -138,6 +138,7 @@ const NotebookList = () => {
             "Content-Type": "application/json",
           }
         );
+        window.location.reload();
       } catch (err) {}
     };
     patch();
