@@ -28,6 +28,7 @@
 .goodsview_img_main {
   width: 25.59375rem;
   height: 15.35625rem;
+  object-fit: contain;
 }
 
 .goodsview_rank {

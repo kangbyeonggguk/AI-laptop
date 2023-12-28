@@ -17,6 +17,7 @@
   height: 3.875rem;
   border: solid 1px #759cff;
   border-radius: 5px;
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {

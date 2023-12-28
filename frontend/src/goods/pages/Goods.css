@@ -49,6 +49,7 @@
 .goods_notebook_img {
   width: 13.9725rem;
   height: 8.38375rem;
+  object-fit: cover;
 }
 
 .goods_notebook_name {
