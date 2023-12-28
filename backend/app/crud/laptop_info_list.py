@@ -23,7 +23,7 @@ def get_laptops_desc(db: Session, page: int = 1, rating=None):
 
     data_count = query.count()
    
-    results = query.order_by(models.Laptop2.price.desc()).offset(skip).limit(page_size).all()
+    results = query.order_by(models.Laptop2.price.desc()).order_by(models.Laptop2.create_date.desc()).offset(skip).limit(page_size).all()
     for result in results:
         result.laptop_info_list.laptop_info_list_image = sorted(result.laptop_info_list.laptop_info_list_image, key=lambda x: x.laptop_info_image_id
     )
@@ -60,7 +60,7 @@ def get_laptops_info(db: Session, page: int = 1, name=str):
     if name is not None:
         query=query.filter(models.Laptop.device_name.like(f"%{name}%"))
     total_count=query.count()
-    results=query.order_by(models.Laptop.create_date.desc()).order_by(models.Laptop2.create_date.desc()).offset(skip).limit(page_size).all()
+    results=query.order_by(models.Laptop.create_date.desc()).offset(skip).limit(page_size).all()
     for result in results:
         result.laptop_info_list_image = sorted(result.laptop_info_list_image, key=lambda x: x.laptop_info_image_id)
 
