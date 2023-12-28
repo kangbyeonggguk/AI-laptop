@@ -38,7 +38,6 @@ export const refreshAccessToken = async () => {
       const newAccessToken = data.access_token;
 
       localStorage.setItem("accessToken", newAccessToken);
-      console.log("토큰 재발급 성공!", newAccessToken);
     } else {
       console.error("토큰 재발급 요청에 실패했습니다.");
       console.error("응답 상태:", responseData.status);
@@ -81,9 +80,6 @@ const Login = () => {
       const { access_token, refresh_token, platform_type, admin } =
         responseData;
 
-      // const expires_in = 9;
-      // const expirationTime = Date.now() * expires_in;
-
       const expiresIn = 3600;
       const expirationTime = new Date().getTime() + expiresIn * 1000;
 
@@ -104,35 +100,12 @@ const Login = () => {
       localStorage.setItem("refreshToken", refresh_token);
       localStorage.setItem("accessTokenExpiration", expirationTime);
 
-      console.log(responseData.admin);
-
       setError(null);
       navigate("/");
     } catch (error) {
       setError("잘못된 비밀번호입니다. 다시 확인해주세요.");
     }
   };
-
-  // // 액세스 토큰 만료 여부 확인
-  // function isAccessTokenExpired(accessToken) {
-  //   // JWT 라이브러리를 사용하여 액세스 토큰 디코딩
-  //   const decodedToken = jwt_decode(accessToken);
-  //   // 디코딩된 토큰에서 만료 시간을 추출
-  //   const expirationTime = decodedToken.exp;
-  //   // 현재 시간을 밀리초 단위로 얻은 후, 초 단위로 변환
-  //   const currentTime = Math.floor(Date.now() / 1000);
-  //   // 만료 시간이 현재 시간보다 작으면 토큰은 만료된 것으로 간주
-  //   return expirationTime < currentTime;
-  // }
-
-  // async function performTokenRefresh() {
-  //   if (isAccessTokenExpired(localStorage.getItem("accessToken"))) {
-  //     // 액세스 토큰이 만료되었을 때 리프레시 토큰으로 갱신
-  //     await refreshAccessToken();
-  //   }
-  // }
-
-  // setInterval(performTokenRefresh, 1 * 60 * 1000);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");

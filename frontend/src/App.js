@@ -39,8 +39,6 @@ const PurchaseForm = React.lazy(() =>
   import("./purchaseform/pages/PurchaseForm")
 );
 
-// const AuthPage = React.lazy(() => import("./login/pages/auth"));
-
 const MypageRoute = ({ element, path }) => {
   const isAuthenticated = localStorage.getItem("accessToken") !== null;
   const platformType = useSelector((state) => state.user.platformType);
@@ -50,7 +48,6 @@ const MypageRoute = ({ element, path }) => {
       return element;
     } else {
       return alert("접근 권한이 없습니다.");
-      // <Navigate to="/main" />;
     }
   } else {
     return <Navigate to="/login" />;
@@ -66,7 +63,6 @@ const AdminRoute = ({ element, path }) => {
       return element;
     } else {
       return alert("접근 권한이 없습니다.");
-      // <Navigate to="/main" />;
     }
   } else {
     return <Navigate to="/login" />;
@@ -85,7 +81,7 @@ const PrivateRoute = ({ element, path }) => {
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const checkTokenExpiration = async () => {
+    const checkTokenExpiration = () => {
       const accessTokenExpiration = localStorage.getItem(
         "accessTokenExpiration"
       );
@@ -94,33 +90,19 @@ function App() {
         const expirationTime = new Date(
           Number(accessTokenExpiration)
         ).getTime();
-        console.log("expirationTime:", expirationTime);
 
         const currentTime = new Date().getTime();
-        console.log("currentTime:", currentTime);
 
         const timeDifference = expirationTime - currentTime;
-        console.log("timeDifference:", timeDifference);
 
-        // 새로고침 시간과 토큰 만료 시간을 비교하여
-        // 1시간 이내이면 재발급하지 않도록 수정
-        if (timeDifference >= 0 && timeDifference > 1 * 60 * 60 * 1000) {
-          console.log("Reissue token");
-
-          // 새로운 토큰 발급 전에 기존 토큰이 만료되었는지 확인
+        if (timeDifference >= 0 && timeDifference <= 2 * 60 * 60 * 1000) {
           if (timeDifference <= 1 * 60 * 1000) {
-            // 이 부분은 refreshAccessToken 함수가 정의되어 있다고 가정하고 호출하도록 수정
-            try {
-              await refreshAccessToken();
-            } catch (error) {
-              console.error("Failed to refresh access token", error);
-            }
+            refreshAccessToken();
           }
         } else if (timeDifference <= 0) {
           dispatch(logoutUser());
           localStorage.clear();
           localStorage.setItem("isLoggedIn", "false");
-          console.log("Logout");
         }
       }
     };
@@ -130,7 +112,7 @@ function App() {
     const intervalId = setInterval(checkTokenExpiration, 60 * 60 * 1000);
 
     return () => clearInterval(intervalId);
-  }, [dispatch]); // dispatch를 의존성 배열에 추가
+  }, []);
   return (
     <Provider store={store}>
       <BrowserRouter>

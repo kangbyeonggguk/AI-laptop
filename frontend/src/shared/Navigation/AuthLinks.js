@@ -1,4 +1,3 @@
-// AuthLinks.js
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -32,8 +31,6 @@ export const AuthLinks = ({
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("accessTokenExpiration");
-
-      // console.log(typeof accessToken, typeof refreshToken);
 
       const url = new URL(
         `${process.env.REACT_APP_BACKEND_URL}/accounts/logout`

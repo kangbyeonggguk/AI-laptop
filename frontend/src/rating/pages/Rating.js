@@ -23,12 +23,6 @@ const Rating = () => {
     setSearchParams(searchParams);
   };
 
-  // const menuarray = ["recent", "soldout", "interior"]; //쿼리에 따라 menu 체크
-  // const [menuindex, setMenuIndex] = useState(
-  //   searchParams.get("situation") === null
-  //     ? 0
-  //     : parseInt(menuarray.indexOf(searchParams.get("situation")))
-  // );
   useEffect(() => {
     const getinfo = async () => {
       try {
@@ -58,9 +52,7 @@ const Rating = () => {
     };
     getinfo();
   }, [searchParams]);
-  // useEffect(() => {
-  //   console.log(loadeddata[1].laptop_sell_images);
-  // }, [loadeddata]);
+
   function formatDate(inputDate) {
     const date = new Date(inputDate);
     const year = date.getFullYear();
@@ -76,26 +68,6 @@ const Rating = () => {
             나의 노트북을 모아볼 수 있습니다.
           </Pagetitle>
           <div className="rating_sort">
-            {/* <div className="rating_sort_menucontain">
-            {[
-              ["최근 등급 측정 노트북", "recent"],
-              ["판매한 노트북", "soldout"],
-              ["내부 등급 측정 노트북", "interior"],
-            ].map((menu, index) => (
-              <div
-                key={index}
-                className={`rating_sort_menu center ${
-                  menuindex === index ? " rating_sort_menu_active" : "" //선택된 메뉴 css 변경(기본은 첫번째 메뉴 활성화)
-                }`}
-                onClick={() => {
-                  setMenuIndex(index);
-                  searchparamshandler("situation", menu[1]); //메뉴 선택시 쿼리도 생성
-                }}
-              >
-                {menu[0]}
-              </div>
-            ))}
-          </div> */}
             <div className="rating-sort_filter center">
               <Filter title="날짜순"></Filter>
               {/*클릭 시 필터 표시*/}

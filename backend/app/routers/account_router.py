@@ -95,7 +95,6 @@ async def account_sns_login(sns: str,oauthcode: str = Form(None),session: Sessio
             data = {
                 "grant_type": "authorization_code",
                 "client_id": oauth_client.get_value_based_on_parameter("client_id"), 
-                #"client_secret": oauth_client(sns).client_secret_id, 
                 "redirect_uri": oauth_client.get_value_based_on_parameter("redirect_uri"),
                 "code": oauthcode,
             } 

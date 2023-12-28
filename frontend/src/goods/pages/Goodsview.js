@@ -13,9 +13,9 @@ const Goodsview = (props) => {
   );
   const imagePaths =
     loadedGoods.length > 0
-      ? loadedGoods[0].laptop_info_list.laptop_info_list_image
-          .map((image) => image.path)
-          .reverse()
+      ? loadedGoods[0].laptop_info_list.laptop_info_list_image.map(
+          (image) => image.path
+        )
       : [];
 
   const [mainImg, setMainImg] = useState("");
@@ -26,14 +26,11 @@ const Goodsview = (props) => {
       !mainImg
     ) {
       setMainImg(
-        loadedGoods[0].laptop_info_list.laptop_info_list_image[
-          loadedGoods[0].laptop_info_list.laptop_info_list_image.length - 1
-        ].path
+        loadedGoods[0].laptop_info_list.laptop_info_list_image[0].path
       );
     }
   }, [loadedGoods]);
 
-  // console.log(imagePaths);
   const [showbasket, setShowBasket] = useState(false);
   const [showpurchase, setShowPurchase] = useState(false);
   const closebasket = () => {
