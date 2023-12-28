@@ -23,7 +23,7 @@ const Goodsroute = () => {
       try {
         const { responseData, total_count } = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}/purchase/goods/${
-            searchParams.get("date") ? searchParams.get("date") : "asc"
+            searchParams.get("price") ? searchParams.get("price") : "asc"
           }?${
             searchParams.get("page") ? `page=${searchParams.get("page")}` : ""
           }${
