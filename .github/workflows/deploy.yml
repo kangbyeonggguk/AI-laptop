@@ -3,7 +3,11 @@ name: Deploy to EC2
 on:
   push:
     branches:
+<<<<<<< HEAD
       - dev
+=======
+      - laptop-dev
+>>>>>>> 769bba39e17b7aa271991b3c9836293a98b5851d
 
 jobs:
   deploy:
@@ -18,8 +22,14 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 22
           script: |
+<<<<<<< HEAD
             cd /home/ubuntu/notebook/frontend
             git remote update
             git pull origin dev
             npm run build
             sudo service nginx restart
+=======
+            cd /home/ubuntu/notebook
+            git checkout -f origin/laptop-dev frontend/laptopfrontend/
+            sudo systemctl restart nginx
+>>>>>>> 769bba39e17b7aa271991b3c9836293a98b5851d
