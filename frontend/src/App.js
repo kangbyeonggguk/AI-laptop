@@ -81,38 +81,40 @@ const PrivateRoute = ({ element, path }) => {
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const checkTokenExpiration = () => {
+    const checkTokenExpiration = async () => {
       const accessTokenExpiration = localStorage.getItem(
         "accessTokenExpiration"
       );
 
       if (accessTokenExpiration) {
-        const expirationTime = new Date(
-          Number(accessTokenExpiration)
-        ).getTime();
-
+        const expirationTimestamp = parseInt(accessTokenExpiration, 10);
         const currentTime = new Date().getTime();
+        const timeDifference = expirationTimestamp - currentTime;
 
-        const timeDifference = expirationTime - currentTime;
-
-        if (timeDifference >= 0 && timeDifference <= 2 * 60 * 60 * 1000) {
-          if (timeDifference <= 1 * 60 * 1000) {
-            refreshAccessToken();
-          }
-        } else if (timeDifference <= 0) {
+        if (timeDifference <= 0) {
           dispatch(logoutUser());
           localStorage.clear();
           localStorage.setItem("isLoggedIn", "false");
+        } else if (timeDifference <= 10 * 60 * 1000) {
+          await refreshAccessToken();
+          const newExpirationTimestamp =
+            new Date().getTime() + 1 * 60 * 60 * 1000;
+          localStorage.setItem(
+            "accessTokenExpiration",
+            newExpirationTimestamp.toString()
+          );
+        } else if (timeDifference <= 1.5 * 60 * 60 * 1000) {
         }
       }
     };
 
     checkTokenExpiration();
 
-    const intervalId = setInterval(checkTokenExpiration, 60 * 60 * 1000);
+    const intervalId = setInterval(checkTokenExpiration, 60 * 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [dispatch]);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
