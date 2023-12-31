@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Main.css";
 
@@ -9,7 +10,9 @@ const Main = () => {
       event.preventDefault();
     }
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0); // 페이지 렌더링 시 맨 위로 스크롤
+  }, []);
   return (
     <div>
       <div className="home-content1">

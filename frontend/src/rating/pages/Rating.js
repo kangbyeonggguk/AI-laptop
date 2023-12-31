@@ -24,6 +24,7 @@ const Rating = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0); // 페이지 렌더링 시 맨 위로 스크롤
     const getinfo = async () => {
       try {
         const responseData = await sendRequest(
