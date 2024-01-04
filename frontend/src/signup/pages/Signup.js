@@ -210,6 +210,12 @@ const Signup = () => {
     setIsidAvailable(null);
   };
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      navigate("/");
+    }
+  }, [navigate]);
   return (
     <div>
       <h1 className="signup-text">회원가입</h1>
