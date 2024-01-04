@@ -39,7 +39,7 @@ const PurchaseForm = React.lazy(() =>
   import("./purchaseform/pages/PurchaseForm")
 );
 
-const MypageRoute = ({ element, path }) => {
+const MypageRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem("accessToken") !== null;
   const platformType = useSelector((state) => state.user.platformType);
 
@@ -69,7 +69,7 @@ const AdminRoute = ({ element, path }) => {
   }
 };
 
-const PrivateRoute = ({ element, path }) => {
+const PrivateRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem("accessToken") !== null;
 
   if (isAuthenticated) {
@@ -146,10 +146,19 @@ function App() {
                 path="/main/ratingsystem"
                 element={<PrivateRoute element={<Ratingsystem />} />}
               />
-              <Route path="/loading" element={<Loading />} />
-              <Route path="/result" element={<Result />} />
+              <Route
+                path="/loading"
+                element={<PrivateRoute element={<Loading />} />}
+              />
+              <Route
+                path="/result"
+                element={<PrivateRoute element={<Result />} />}
+              />
 
-              <Route path="/process" element={<Process />} />
+              <Route
+                path="/process"
+                element={<PrivateRoute element={<Process />} />}
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" exact element={<Signup />} />
               <Route
