@@ -153,8 +153,6 @@ const Signup = () => {
       } else if (response && response.status === 400) {
         setidErrorMessage("사용 가능한 아이디입니다.");
       } else {
-        console.error("사용 가능한 아이디:", response);
-
         setIsidAvailable(true);
       }
     } catch (error) {

@@ -13,7 +13,6 @@ const AuthPage = () => {
   useEffect(() => {
     const handleCodeReceived = async () => {
       const code = new URL(window.location.href).searchParams.get("code");
-      console.log(code);
 
       if (code) {
         try {
@@ -25,8 +24,6 @@ const AuthPage = () => {
             "POST",
             formData
           );
-
-          console.log("Response from backend:", responseData);
 
           const { platform_type, admin } = responseData;
 
@@ -47,9 +44,7 @@ const AuthPage = () => {
           localStorage.setItem("accessTokenExpiration", expirationTime);
 
           navigate("/");
-        } catch (error) {
-          console.error("Error sending code to backend:", error.message);
-        }
+        } catch (error) {}
       }
     };
 

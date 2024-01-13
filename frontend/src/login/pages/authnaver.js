@@ -14,8 +14,6 @@ const AuthNaverPage = () => {
   useEffect(() => {
     const handleCodeReceived = async () => {
       const code = new URL(window.location.href).searchParams.get("code");
-      console.log(code);
-
       if (code) {
         try {
           const formData = new FormData();
@@ -28,8 +26,6 @@ const AuthNaverPage = () => {
           );
 
           const { platform_type, admin } = responseData;
-
-          console.log("Response from backend:", responseData);
 
           const expiresIn = 3600;
           const expirationTime = new Date().getTime() + expiresIn * 1000;
@@ -48,9 +44,7 @@ const AuthNaverPage = () => {
           localStorage.setItem("accessTokenExpiration", expirationTime);
 
           navigate("/");
-        } catch (error) {
-          console.error("Error sending code to backend:", error.message);
-        }
+        } catch (error) {}
       }
     };
     handleCodeReceived();
