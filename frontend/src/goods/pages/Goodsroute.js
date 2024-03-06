@@ -12,14 +12,12 @@ const Goodsroute = () => {
     setSearchParams(searchParams);
   };
 
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, error, sendRequest } = useHttpClient();
   const [loadedGoods, setLoadedGoods] = useState([]);
   const [totalcount, setTotalcount] = useState(100);
-  const [error, setError] = useState();
+
   const currentPath = window.location.pathname;
   useEffect(() => {
-    setError();
-
     const fetchgoods = async (event) => {
       try {
         const { responseData, total_count } = await sendRequest(
@@ -37,7 +35,7 @@ const Goodsroute = () => {
         setTotalcount(total_count);
         setLoadedGoods(responseData);
       } catch (err) {
-        setError(err);
+        alert("정보를 수정할 수 없습니다.");
       }
     };
 

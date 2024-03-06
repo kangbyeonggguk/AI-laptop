@@ -12,11 +12,10 @@ const Userlist = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, error, sendRequest } = useHttpClient();
 
   const [itemlen, setItemLen] = useState(7);
   const [loadeddata, setLoadedData] = useState([]);
-  const [error, setError] = useState();
 
   const [inputValue, setInputValue] = useState("");
   const handleKeyDown = (event) => {
@@ -57,7 +56,6 @@ const Userlist = () => {
         setItemLen(responseData.data_count);
         setLoadedData(responseData.accounts);
       } catch (err) {
-        setError(err);
         alert("유저 정보를 찾을 수 없습니다.");
       }
     };
@@ -72,7 +70,7 @@ const Userlist = () => {
   };
   return (
     <React.Fragment>
-      {!isLoading && loadeddata && (
+      {!isLoading && loadeddata && !error && (
         <>
           <input
             type="text"

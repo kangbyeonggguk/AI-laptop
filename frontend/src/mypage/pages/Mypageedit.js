@@ -13,7 +13,7 @@ import {
 import { useHttpClient } from "../../shared/hooks/http-hook"; //api호출 훅 불러오기
 
 const Mypageedit = () => {
-  const { isLoading, sendRequest } = useHttpClient(); //api호출 훅 불러오기
+  const { isLoading, error, sendRequest } = useHttpClient(); //api호출 훅 불러오기
   const navigate = useNavigate();
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -166,7 +166,7 @@ const Mypageedit = () => {
 
   return (
     <React.Fragment>
-      {!isLoading && getData && (
+      {!isLoading && getData && !error && (
         <>
           <img
             className="mypage-edit_img"
