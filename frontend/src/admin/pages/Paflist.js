@@ -9,7 +9,7 @@ import Enlargemodal from "../components/Enlargemodal";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Paflist = () => {
-  const { isLoading, sendRequest, clearError } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const [itemlen, setItemLen] = useState(7);
   const [loadeddata, setLoadedData] = useState();
   const [error, setError] = useState();
@@ -103,7 +103,10 @@ const Paflist = () => {
           "delete"
         );
         window.location.reload();
-      } catch (err) {}
+      } catch (err) {
+        setError(err);
+        alert("신청서 정보를 삭제할 수 없습니다.");
+      }
     };
     deletelaptop();
   };

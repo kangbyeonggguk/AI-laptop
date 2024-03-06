@@ -13,8 +13,7 @@ import {
 import { useHttpClient } from "../../shared/hooks/http-hook"; //api호출 훅 불러오기
 
 const Mypageedit = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient(); //api호출 훅 불러오기
-
+  const { isLoading, sendRequest } = useHttpClient(); //api호출 훅 불러오기
   const navigate = useNavigate();
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -64,7 +63,9 @@ const Mypageedit = () => {
         );
 
         await setGetData(responseData.response);
-      } catch (err) {}
+      } catch (err) {
+        alert("사용자 정보를 찾지 못했습니다.");
+      }
     };
     loadmydata();
 
@@ -155,7 +156,9 @@ const Mypageedit = () => {
             }
           );
           await navigate("/");
-        } catch (err) {}
+        } catch (err) {
+          alert("사용자 정보를 수정할 수 없습니다.");
+        }
       };
       mypageedit();
     }

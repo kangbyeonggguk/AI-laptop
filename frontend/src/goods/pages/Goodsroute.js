@@ -12,7 +12,7 @@ const Goodsroute = () => {
     setSearchParams(searchParams);
   };
 
-  const { isLoading, sendRequest, setIsLoading } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const [loadedGoods, setLoadedGoods] = useState([]);
   const [totalcount, setTotalcount] = useState(100);
   const [error, setError] = useState();

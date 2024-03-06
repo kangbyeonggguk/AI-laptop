@@ -17,7 +17,7 @@ const Salelaptoplist = () => {
 
   const [isadd, setIsAdd] = useState(false); //추가하기인지 아닌지 확인
 
-  const { isLoading, sendRequest, clearError } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const [itemlen, setItemLen] = useState(7);
   const [loadeddata, setLoadedData] = useState();
   const [error, setError] = useState();
@@ -143,7 +143,10 @@ const Salelaptoplist = () => {
             "Content-Type": "application/json",
           }
         );
-      } catch (err) {}
+      } catch (err) {
+        setError(err);
+        alert("판매 정보를 수정할 수 없습니다.");
+      }
     };
     patch();
   };
@@ -194,7 +197,10 @@ const Salelaptoplist = () => {
           "delete"
         );
         window.location.reload();
-      } catch (err) {}
+      } catch (err) {
+        setError(err);
+        alert("판매 정보를 삭제할 수 없습니다.");
+      }
     };
     deletelaptop();
   };

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { jwtDecode as jwt_decode } from "jwt-decode";
 
 const AuthNaverPage = () => {
-  const { isLoading, sendRequest, clearError } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
 
   const dispatch = useDispatch();
   const { code } = useParams();

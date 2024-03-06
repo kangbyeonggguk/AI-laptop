@@ -69,7 +69,9 @@ const Result = () => {
           }/sell/progress?step=2&sell_id=${params.get("sell_id")}`,
           "PATCH"
         );
-      } catch (err) {}
+      } catch (err) {
+        alert("정보를 수정할 수 없습니다.");
+      }
     };
     patchstep();
   };

@@ -12,7 +12,7 @@ import {
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Mypageauth = (props) => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient(); //api호출 훅 불러오기
+  const { isLoading, sendRequest } = useHttpClient(); //api호출 훅 불러오기
 
   const [errphone, setErrPhone] = useState(true);
   const [errnumber, setErrNumber] = useState(true);

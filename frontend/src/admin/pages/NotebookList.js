@@ -14,7 +14,7 @@ const NotebookList = () => {
 
   const [isadd, setIsAdd] = useState(false); //추가하기인지 아닌지 확인
 
-  const { isLoading, sendRequest, clearError } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const [itemlen, setItemLen] = useState(7);
   const [loadeddata, setLoadedData] = useState();
   const [error, setError] = useState();
@@ -139,7 +139,10 @@ const NotebookList = () => {
           }
         );
         window.location.reload();
-      } catch (err) {}
+      } catch (err) {
+        setError(err);
+        alert("노트북 정보 수정에 실패하였습니다.");
+      }
     };
     patch();
   };
@@ -207,7 +210,10 @@ const NotebookList = () => {
         formData
       );
       window.location.reload();
-    } catch (error) {}
+    } catch (err) {
+      setError(err);
+      alert("노트북 정보를 추가할 수 없습니다.");
+    }
   };
   const deleteinfo = () => {
     const deletelaptop = async () => {
@@ -217,7 +223,10 @@ const NotebookList = () => {
           "delete"
         );
         window.location.reload();
-      } catch (err) {}
+      } catch (err) {
+        setError(err);
+        alert("노트북 정보를 삭제할 수 없습니다.");
+      }
     };
     deletelaptop();
   };

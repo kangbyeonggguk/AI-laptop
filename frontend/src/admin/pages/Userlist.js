@@ -12,7 +12,7 @@ const Userlist = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const { isLoading, sendRequest, clearError } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
 
   const [itemlen, setItemLen] = useState(7);
   const [loadeddata, setLoadedData] = useState([]);
