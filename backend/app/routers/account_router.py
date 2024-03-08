@@ -207,7 +207,7 @@ async def account_send_sms(request_data: dict,session: Session = Depends(db.sess
     
 #문자 인증 확인
 @router.post("/verify",status_code=status.HTTP_200_OK)
-async def account_sms_verify(request_data: dict,token: str = Header(None)):
+async def account_sms_verify(request_data: dict):
     phone = request_data.get("phone")
     auth_num = request_data.get("auth_num")
     rd = redis_config()
