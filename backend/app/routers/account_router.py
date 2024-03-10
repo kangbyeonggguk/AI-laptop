@@ -213,6 +213,7 @@ async def account_sms_verify(request_data: dict):
     rd = redis_config()
     check=rd.get(phone)
     if check.decode('utf-8')==auth_num:
+        rd.delete(phone)
         return {"result":True} 
     else:
         raise HTTPException(status_code=401, detail="Unauthorized")
