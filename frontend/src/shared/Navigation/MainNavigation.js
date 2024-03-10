@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser, logoutUser } from "../../redux/actions/userActions";
 import { setLoginStatus } from "../../redux/actions/userActions";
@@ -26,9 +26,9 @@ const MainNavigation = ({
   return (
     <React.Fragment>
       <header className="center header">
-        <NavLink to="/main">
+        <Link to="/main">
           <img src="/img/navbar/logo.png" className="header_logo" alt="logo" />
-        </NavLink>
+        </Link>
         <nav className="header_menu">
           <ul className="header_menu_links">
             {!isLoggedIn ? null : <MenuLinks />}

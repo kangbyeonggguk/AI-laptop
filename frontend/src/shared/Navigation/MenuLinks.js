@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./MenuLinks.css";
 
@@ -7,16 +7,16 @@ const MenuLinks = () => {
   return (
     <React.Fragment>
       <li className="header_links_menu_list">
-        <NavLink to="/main/goods">구매하기</NavLink>
+        <Link to="/main/goods">구매하기</Link>
       </li>
       <li className="header_links_menu_list">
-        <NavLink to="/PurchaseForm">매입신청서</NavLink>
+        <Link to="/PurchaseForm">매입신청서</Link>
       </li>
       <li className="header_links_menu_list">
-        <NavLink to="/main/rating">노트북 등급</NavLink>
+        <Link to="/main/rating">노트북 등급</Link>
       </li>
       <li className="header_links_menu_list">
-        <NavLink to="/main/ratingsystem">등급제</NavLink>
+        <Link to="/main/ratingsystem">등급제</Link>
       </li>
     </React.Fragment>
   );

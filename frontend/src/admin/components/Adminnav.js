@@ -1,23 +1,23 @@
 import React from "react";
 
 import "./Adminnav.css";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Adminnav = () => {
   return (
     <div className="adminnav">
-      <NavLink to="/admin/userlist" className="adminnav-list">
+      <Link to="/admin/userlist" className="adminnav-list">
         유저 리스트
-      </NavLink>
-      <NavLink to="/admin/paflist" className="adminnav-list">
+      </Link>
+      <Link to="/admin/paflist" className="adminnav-list">
         매입신청서 리스트
-      </NavLink>
-      <NavLink to="/admin/notebooklist" className="adminnav-list">
+      </Link>
+      <Link to="/admin/notebooklist" className="adminnav-list">
         노트북 리스트
-      </NavLink>
-      <NavLink to="/admin/salelist" className="adminnav-list">
+      </Link>
+      <Link to="/admin/salelist" className="adminnav-list">
         판매 노트북 리스트
-      </NavLink>
+      </Link>
     </div>
   );
 };
