@@ -9,13 +9,12 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useNavigate } from "react-router-dom";
 
 const Rating = () => {
-  const { isLoading, sendRequest, clearError } = useHttpClient();
+  const { isLoading, sendRequest, error } = useHttpClient();
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [itemlen, setItemLen] = useState(10);
   const [loadeddata, setLoadedData] = useState([]);
-  const [error, setError] = useState();
 
   const searchparamshandler = (sort, value) => {
     //쿼리 생성 및 변경
@@ -48,7 +47,7 @@ const Rating = () => {
         setItemLen(responseData.totalcount);
         setLoadedData(responseData.laptop_sell_info);
       } catch (err) {
-        setError(err);
+        alert("노트북 정보를 찾을 수 없습니다.");
       }
     };
     getinfo();
@@ -63,7 +62,7 @@ const Rating = () => {
   }
   return (
     <React.Fragment>
-      {!isLoading && loadeddata && (
+      {!isLoading && loadeddata && !error && (
         <div className="rating">
           <Pagetitle title="노트북 등급">
             나의 노트북을 모아볼 수 있습니다.
