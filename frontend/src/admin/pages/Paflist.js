@@ -89,6 +89,7 @@ const Paflist = () => {
     return `${year}. ${month}. ${day}`;
   };
   const patchinfo = async () => {
+    //수정하기
     await sendRequest(
       `${process.env.REACT_APP_BACKEND_URL}/sell/progress?step=${selectedStep}&sell_id=${sellid}`,
       "PATCH"
@@ -96,6 +97,7 @@ const Paflist = () => {
     window.location.reload();
   };
   const deleteinfo = () => {
+    //삭제하기
     const deletelaptop = async () => {
       try {
         const responseData = await sendRequest(
