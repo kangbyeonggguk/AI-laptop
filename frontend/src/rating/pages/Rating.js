@@ -107,7 +107,7 @@ const Rating = () => {
                   <div className="rating_notebook_model">
                     모델명: {notebook.serial_number}
                     <br />
-                    등록일: {formatDate(notebook.create_date)}
+                    등록일: {formatDate(notebook.update_date)}
                   </div>
                   <div className="rating_notebook_des">
                     {notebook.product_details}
