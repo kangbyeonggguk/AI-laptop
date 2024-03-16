@@ -35,7 +35,7 @@
 ## 역할 분담
 ### 강병국(FE, BE)
 - **UI**
-  - 페이지 : 구매하기, 노트북 등급 확인, 내 정보 수정, 관리자 페이지, 등급제 설명
+  - 페이지 : 구매하기, 노트북 등급 확인, 내 정보 수정, 관리자 페이지, 등급제 안내
 - **기능 및 컴포넌트**
   - 네비게이션 바, 모달창을 이용한 노트북 정렬, 페이지네이션, 검색
 - **컨트롤러 및 API** 
@@ -75,7 +75,7 @@
 - 아이디 형식이 유효하지 않거나 서버의 중복확인 요청을 통과하지 못한 경우, 그 외 입력창의 유효성 검사 결과가 통과하지 못 했을 때 경고 문구가 표시됩니다.
 - 모든 유효성 검사가 통과된 경우 회원가입하기 버튼을 클릭해 회원가입을 진행합니다.
 
-![회원가입](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/821df2a0-464b-409a-a603-35352f87fc8f)
+![signup](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/c47f9e69-8f30-4aab-b439-f6a3a1294c54)
 <br>
 ### [로그인]
 - 아이디와 비밀번호를 입력하면 유효성 검사를 진행하고 맞지 않는 경우 입력창 하단에 경고문이 표시됩니다.
@@ -88,4 +88,31 @@
 
 ![logout](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/f61573e1-8b19-4258-80c2-ef39aef9fb20)
 <br>
+### [구매하기]
+- 판매 중인 노트북들을 볼 수 있으며 정렬 기능을 사용해 가격의 오름차순, 내림차순으로 정렬하거나 특정 등급에 해당하는 노트북의 정보들만 확인할 수 있습니다.
+- 상품을 클릭하면 상품 상세 페이지로 이동합니다.
 
+![laptop sell](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/c195a8cd-6f6b-4df8-9c6c-9d4739cd40d9)
+<br>
+### [매입신청서 작성]
+- 노트북 정보와 부위별 사진을 업로드하고 AI 등급 측정하기 버튼을 클릭해 AI 등급 측정을 받습니다.
+- 측정이 완료되는 동안 로딩 화면이 나오고 완료 후 부위별 등급과 노트북 전체 등급이 표시됩니다.
+- 측정 완료 화면에서 내부 등급 측정하기 버튼을 통해 전문가 등급 측정을 신청할 수 있습니다.
+  
+![매입신청서 작성](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/0c2334bb-7383-4cd9-813d-d4b3aa5fc4ca)
+![측정 결과](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/3635fbc7-1523-4397-b8fc-96bbee1216ff)
+<br>
+### [노트북 등급]
+- 해당 계정이 측정 완료한 노트북들의 정보를 모아 볼 수 있습니다.
+- 정렬 기능을 통해 날짜순으로 오름차순, 내림차순으로 정렬하거나 특정 등급에 해당하는 노트북의 정보들만 확인할 수 있습니다.
+  
+![노트북 등급](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/ab858cfa-221d-43c6-8937-97fe817f32d2)
+<br>
+### [내 정보 수정]
+- 내 정보 수정 이전에 휴대전화 인증을 진행합니다.
+- 휴대전화를 입력 후 인증요청을 하게 되면 휴대전화로 인증번호가 전송되고, 인증번호를 입력해 서버에 확인 요청을 완료한 후에 내 정보 수정 페이지로 이동할 수 있습니다.
+- 내 정보 수정 페이지에서는 모든 입력창의 유효성 검사를 통과하였을 경우 내 정보 수정하기 버튼을 클릭해 정보 수정을 진행하고 홈 화면으로 이동합니다.
+  
+![본인 인증](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/e6105458-2ede-47c1-9374-5894ac69c68f)
+![내 정보 수정](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/48623107-4201-448a-9ccb-fa4ea65360e3)
+<br>
