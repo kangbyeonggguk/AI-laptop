@@ -94,6 +94,7 @@ const Paflist = () => {
       `${process.env.REACT_APP_BACKEND_URL}/sell/progress?step=${selectedStep}&sell_id=${sellid}`,
       "PATCH"
     );
+    setShowModal(false);
     window.location.reload();
   };
   const deleteinfo = () => {

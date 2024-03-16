@@ -17,7 +17,7 @@ const Process = (props) => {
 
   const location = useLocation();
   const { totalRank, frontImage, id } = location.state;
-  const { isLoading, sendRequest, clearError } = useHttpClient(); // useHttpClient 훅 사용
+  const { isLoading, sendRequest, Error } = useHttpClient(); // useHttpClient 훅 사용
   const [responseData, setResponseData] = useState({});
 
   useEffect(() => {
