@@ -35,7 +35,7 @@
 ## 역할 분담
 ### 강병국(FE, BE)
 - **UI**
-  - 페이지 : 구매하기, 노트북 등급 확인, 내 정보 수정, 관리자 페이지, 등급제 설명
+  - 페이지 : 구매하기, 노트북 등급 확인, 내 정보 수정, 관리자 페이지, 등급제 안내
 - **기능 및 컴포넌트**
   - 네비게이션 바, 모달창을 이용한 노트북 정렬, 페이지네이션, 검색
 - **컨트롤러 및 API** 
@@ -101,4 +101,18 @@
   
 ![매입신청서 작성](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/0c2334bb-7383-4cd9-813d-d4b3aa5fc4ca)
 ![측정 결과](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/3635fbc7-1523-4397-b8fc-96bbee1216ff)
+<br>
+### [노트북 등급]
+- 해당 계정이 측정 완료한 노트북들의 정보를 모아 볼 수 있습니다.
+- 정렬 기능을 통해 날짜순으로 오름차순, 내림차순으로 정렬하거나 특정 등급에 해당하는 노트북의 정보들만 확인할 수 있습니다.
+  
+![노트북 등급](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/ab858cfa-221d-43c6-8937-97fe817f32d2)
+<br>
+### [내 정보 수정]
+- 내 정보 수정 이전에 휴대전화 인증을 진행합니다.
+- 휴대전화를 입력 후 인증요청을 하게 되면 휴대전화로 인증번호가 전송되고, 인증번호를 입력해 서버에 확인 요청을 완료한 후에 내 정보 수정 페이지로 이동할 수 있습니다.
+- 내 정보 수정 페이지에서는 모든 입력창의 유효성 검사를 통과하였을 경우 내 정보 수정하기 버튼을 클릭해 정보 수정을 진행하고 홈 화면으로 이동합니다.
+  
+![본인 인증](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/e6105458-2ede-47c1-9374-5894ac69c68f)
+![내 정보 수정](https://github.com/kangbyeonggguk/refurlab_AI-laptop/assets/152140608/48623107-4201-448a-9ccb-fa4ea65360e3)
 <br>
