@@ -151,6 +151,7 @@
 <br>
 ### [모바일]
 - 모바일 환경에서도 불편함이 없도록 반응형 웹을 제작하여 브라우저 사이즈에 따른 UI, 그리드의 변경을 구현하였습니다.
+- 모바일 환경에서는 하단에 메뉴 탭이 표시됩니다.
   
 <img src=https://github.com/kangbyeonggguk/Refurlab_AI-laptop/assets/152140608/b336e1c0-8b17-4713-bb8f-deb4125c48c2 width=430 height=932>
 <br>
